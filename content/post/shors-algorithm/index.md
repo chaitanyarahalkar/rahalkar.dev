@@ -1,4 +1,3 @@
-
 ---
 author: admin
 comments: true
@@ -6,8 +5,7 @@ date: 2024-01-11 04:39:06+00:00
 layout: post
 link: https://rahalkar.dev/post/shors-algorithm
 slug: understanding-shors-algorithm
-title: Understanding Shor's Algorithm: The Quantum Breakthrough in Cryptography
-wordpress_id: [insert your unique wordpress id]
+title: "Understanding Shor's Algorithm: The Quantum Breakthrough in Cryptography"
 categories:
 - Quantum Computing
 - Cryptography
