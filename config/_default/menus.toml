@@ -15,7 +15,7 @@
 
 [[main]]
   name = "Blog"
-  url = "post"
+  url = "https://blog.rahalkar.dev"
   weight = 30
 
 [[main]]
