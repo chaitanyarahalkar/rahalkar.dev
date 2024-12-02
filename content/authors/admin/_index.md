@@ -42,6 +42,9 @@ social:
 - icon: envelope
   icon_pack: fas
   link: 'mailto:chaitanyarahalkar4@gmail.com'
+- icon: twitter
+  icon_pack: fab
+  link: https://x.com/chairahalkar
 - icon: github
   icon_pack: fab
   link: https://github.com/chaitanyarahalkar
