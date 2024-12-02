@@ -1,0 +1,944 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/assembly/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/binary-exploitation/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/binary-exploitation/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/buffer-overflow/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/cybersecurity/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/cybersecurity/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/memory-exploitation/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/stack-smashing/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/system-security/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/understanding-buffer-overflow-attacks/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/x86/</loc>
+    <lastmod>2024-01-14T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/access-control/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/cloud-security/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/enterprise-security/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/identity-management/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/microsegmentation/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/network-security/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/network-security/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/security-architecture/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/zero-trust/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/implementing-zero-trust-architecture/</loc>
+    <lastmod>2023-01-13T10:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/authors/</loc>
+    <lastmod>2022-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/centralized-vs-decentralized/</loc>
+    <lastmod>2022-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/authors/chaitanya-rahalkar/</loc>
+    <lastmod>2022-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/contact-tracing/</loc>
+    <lastmod>2022-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/cryptography/</loc>
+    <lastmod>2022-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/</loc>
+    <lastmod>2022-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/hacking/</loc>
+    <lastmod>2021-10-29T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/authors/nathan-lee-jaco/</loc>
+    <lastmod>2021-10-29T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/security/</loc>
+    <lastmod>2021-10-29T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/million-dollar-dissident/</loc>
+    <lastmod>2021-10-29T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/authors/admin/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication_types/2/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/authors/anushka-virgaonkar/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/arxiv/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/cryptocurrencies/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication_types/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/research/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication/sum-crypt/</loc>
+    <lastmod>2021-09-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/blockchain/</loc>
+    <lastmod>2021-04-25T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/privacy/</loc>
+    <lastmod>2021-04-25T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/privacy-blockchain/</loc>
+    <lastmod>2021-04-25T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/container-best-practices/</loc>
+    <lastmod>2021-04-24T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/secure-p2p-file-transfer/</loc>
+    <lastmod>2021-04-24T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/file-transfer/</loc>
+    <lastmod>2021-04-24T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/p2p/</loc>
+    <lastmod>2021-04-24T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/deep-learning/</loc>
+    <lastmod>2020-04-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/authors/dhaval-gujar/</loc>
+    <lastmod>2020-04-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication/e2e-dl/</loc>
+    <lastmod>2020-04-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/explainable-ai/</loc>
+    <lastmod>2020-04-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/health-care/</loc>
+    <lastmod>2020-04-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/authors/sumedh-patkar/</loc>
+    <lastmod>2020-04-16T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication_types/1/</loc>
+    <lastmod>2019-12-12T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication/ca-fs/</loc>
+    <lastmod>2019-12-12T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/file-system/</loc>
+    <lastmod>2019-12-12T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/ieee/</loc>
+    <lastmod>2019-12-12T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/acm/</loc>
+    <lastmod>2019-11-11T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/authors/rajvardhan-oak/</loc>
+    <lastmod>2019-11-11T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication/gan-ccs/</loc>
+    <lastmod>2019-11-11T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/hidden-secrets/</loc>
+    <lastmod>2019-09-28T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/python-pune-sept/</loc>
+    <lastmod>2019-09-28T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/python/</loc>
+    <lastmod>2019-09-28T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/exploit/</loc>
+    <lastmod>2019-10-17T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/vulnerability/</loc>
+    <lastmod>2019-10-17T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/zip-slip/</loc>
+    <lastmod>2019-10-17T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/project/cedit/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/ctf/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/project/cyberfort/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/demo/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/project/</loc>
+    <lastmod>2019-09-18T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/cve/</loc>
+    <lastmod>2019-09-16T04:15:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/hacking/</loc>
+    <lastmod>2019-09-16T04:15:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/kernel/</loc>
+    <lastmod>2019-09-16T04:15:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/linux/</loc>
+    <lastmod>2019-09-16T04:15:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/linux/</loc>
+    <lastmod>2019-09-16T04:15:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/understanding-dirty-cow-the-infamous-linux-kernel-exploit/</loc>
+    <lastmod>2019-09-16T04:15:02+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/publication/pwm-ijca/</loc>
+    <lastmod>2019-09-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/journal/</loc>
+    <lastmod>2019-09-09T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/project/frost-linux/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/project/password-manager/</loc>
+    <lastmod>2019-07-27T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/technology/</loc>
+    <lastmod>2019-07-14T11:00:01+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/technology/</loc>
+    <lastmod>2019-07-14T11:00:01+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/what-is-an-electronic-nose/</loc>
+    <lastmod>2019-07-14T11:00:01+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/exploits-vulnerabilities-with-introduction-to-metasploit/</loc>
+    <lastmod>2019-06-07T09:09:55+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/cli/</loc>
+    <lastmod>2019-06-05T01:15:35+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/commands/</loc>
+    <lastmod>2019-06-05T01:15:35+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/categories/computers/</loc>
+    <lastmod>2019-06-05T01:15:35+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/file-permissions-in-unix-linux/</loc>
+    <lastmod>2019-06-05T01:15:35+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/permissions/</loc>
+    <lastmod>2019-06-05T01:15:35+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/unix/</loc>
+    <lastmod>2019-06-05T01:15:35+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/filesystem/</loc>
+    <lastmod>2019-06-01T14:04:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/the-virtual-file-system/</loc>
+    <lastmod>2019-06-01T14:04:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/bootstrap/</loc>
+    <lastmod>2019-05-18T16:11:17+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/computers/</loc>
+    <lastmod>2019-05-18T16:11:17+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/how-your-computer-starts/</loc>
+    <lastmod>2019-05-18T16:11:17+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/a-guide-to-partitions-partitioning-drives-in-linux/</loc>
+    <lastmod>2019-05-16T04:39:06+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/administration/</loc>
+    <lastmod>2019-05-16T04:39:06+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/environmentvariables/</loc>
+    <lastmod>2019-05-08T16:59:15+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/path/</loc>
+    <lastmod>2019-05-08T16:59:15+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/path-environment-variable-in-linux-unix/</loc>
+    <lastmod>2019-05-08T16:59:15+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/containers/</loc>
+    <lastmod>2019-04-06T12:05:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/docker/</loc>
+    <lastmod>2019-04-06T12:05:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/hypervisor/</loc>
+    <lastmod>2019-04-06T12:05:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/virtualbox/</loc>
+    <lastmod>2019-04-06T12:05:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/post/virtualisation-in-operating-systems/</loc>
+    <lastmod>2019-04-06T12:05:37+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/project/webtty/</loc>
+    <lastmod>2019-03-27T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/slides/python_workshop_meetups/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/meetups/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/slides/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/talk/</loc>
+    <lastmod>2019-02-05T00:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/ethics/</loc>
+    <lastmod>2018-07-11T14:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/ethics-privacy/</loc>
+    <lastmod>2018-07-11T14:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/platforms/</loc>
+    <lastmod>2018-07-11T14:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/databases/</loc>
+    <lastmod>2018-04-21T14:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/mongodb/</loc>
+    <lastmod>2018-04-21T14:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/no-sql/</loc>
+    <lastmod>2018-04-21T14:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/nosql/</loc>
+    <lastmod>2018-04-21T14:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/content-addressed-filesystem/</loc>
+    <lastmod>2018-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/http/</loc>
+    <lastmod>2018-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/peer-to-peer/</loc>
+    <lastmod>2018-03-27T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/bitcoin/</loc>
+    <lastmod>2017-08-25T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/talk/crypto-blockchain/</loc>
+    <lastmod>2017-08-25T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/cryptocurrency/</loc>
+    <lastmod>2017-08-25T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/decentralised-systems/</loc>
+    <lastmod>2017-08-25T11:00:00+00:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/awesome-learning/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/certificates/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/courses/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/learning/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/resources/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://rahalkar.dev/tags/tutorials/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>

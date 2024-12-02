@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>computers | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/computers/</link>
+      <atom:link href="https://rahalkar.dev/tags/computers/index.xml" rel="self" type="application/rss+xml" />
+    <description>computers</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Sat, 18 May 2019 16:11:17 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>computers</title>
+      <link>https://rahalkar.dev/tags/computers/</link>
+    </image>
+    
+    <item>
+      <title>How Your Computer Starts</title>
+      <link>https://rahalkar.dev/post/how-your-computer-starts/</link>
+      <pubDate>Sat, 18 May 2019 16:11:17 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/how-your-computer-starts/</guid>
+      <description>
+
+&lt;p&gt;Every computer follows a standard boot sequence when it starts up.&lt;/p&gt;
+
+&lt;h4 id=&#34;bios-basic-input-output-system&#34;&gt;BIOS (Basic Input Output System)&lt;/h4&gt;
+
+&lt;p&gt;The CPU runs an instruction in memory for the BIOS. This is a Jump instruction that transfers the Instruction Pointer to the code of the BIOS start-up program.&lt;/p&gt;
+
+&lt;p&gt;The BIOS runs the Power On Self Test. It is a process performed by firmware or software routines immediately after a computer or any digital device is powered on.
+The POST performs the following checks &amp;amp; tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;verify CPU registers&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;verify the integrity of the BIOS code itself&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;verify some basic components like DMA, timer, interrupt controller&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;find, size, and verify system main memory
+initialize BIOS&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;pass control to other specialized extension BIOSes (if installed)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;identify, organize, and select which devices are available for booting&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;discover, initialize, and catalog all system buses and devices&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;provide a user interface for system&amp;rsquo;s configuration&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;construct whatever system environment is required by the target operating system&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Every hardware manufacturer has its own BIOS code hardcoded on the ROM.
+The BIOS has a boot sequence configured which searches for the boot devices sequentially.
+Booting devices can be of several types:&lt;/p&gt;
+
+&lt;p&gt;1.CD Drives&lt;/p&gt;
+
+&lt;p&gt;2.Hard Disk Drives&lt;/p&gt;
+
+&lt;p&gt;3.USB Drives&lt;/p&gt;
+
+&lt;p&gt;4.Network&lt;/p&gt;
+
+&lt;p&gt;As soon as it finds the boot device, it looks for the Master Boot Record. The MBR has number of partitions in it. If any active partition is found it is loaded into memory.&lt;/p&gt;
+
+&lt;h4 id=&#34;master-boot-record&#34;&gt;Master Boot Record&lt;/h4&gt;
+
+&lt;p&gt;It is a special type of boot sector at the beginning of data drives. It holds information about the logical partitions,organisation of the file systems and also a boot loader. The boot loader is responsible to load the kernel(A subset of the entire OS) into memory.
+It may happen that the selected memory drive has multiple operating systems. The bootloader allows selection of the OS(Along with different kernels)to be loaded. GRUB is an open source bootloader by GNU prominently seen on most Linux Distributions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/mbr.png&#34; alt=&#34;Master Boot Record&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;kernel&#34;&gt;Kernel&lt;/h4&gt;
+
+&lt;p&gt;As soon as the kernel is loaded into memory by the boot loader, the Kernel mounts Linux/Unix Virtual file system.
+The Linux Virtual File System is of the format shown below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/lfs.png&#34; alt=&#34;Linux Virtual File System&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;init-now-systemd-for-linux&#34;&gt;Init (Now Systemd For Linux)&lt;/h4&gt;
+
+&lt;p&gt;The Kernel executes the /sbin/init binary. Init is the first program executed by the Kernel in Kernel Space. It is given the process Id (PID) of 1.
+However in the recent versions init is replaced by a System Management Daemon called systemd. Systemd was designed to overcome the shortcomings of Initd. It is the parent process of all the processes.&lt;/p&gt;
+
+&lt;p&gt;You can find the source code of Systemd &lt;a href=&#34;https://github.com/systemd/systemd&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are six different run levels in Linux. (Used with Initd)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;0 – halt&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;1 – Single user mode&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;2 – Multiuser, without NFS&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;3 – Full multiuser mode&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;4 – unused&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5 – X11 (X Window System)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;6 – reboot&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Each runlevel has its own set of programs which can be seen in -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    Run level 0 – /etc/rc.d/rc0.d/
+    Run level 1 – /etc/rc.d/rc1.d/
+    Run level 2 – /etc/rc.d/rc2.d/
+    Run level 3 – /etc/rc.d/rc3.d/
+    Run level 4 – /etc/rc.d/rc4.d/
+    Run level 5 – /etc/rc.d/rc5.d/
+    Run level 6 – /etc/rc.d/rc6.d/
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each of these directories have programs starting with S (Used during startup) and K(Used during shutdown)&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

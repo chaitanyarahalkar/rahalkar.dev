@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>decentralised systems | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/decentralised-systems/</link>
+      <atom:link href="https://rahalkar.dev/tags/decentralised-systems/index.xml" rel="self" type="application/rss+xml" />
+    <description>decentralised systems</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Fri, 25 Aug 2017 11:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>decentralised systems</title>
+      <link>https://rahalkar.dev/tags/decentralised-systems/</link>
+    </image>
+    
+    <item>
+      <title>Cryptocurrencies and Blockchain</title>
+      <link>https://rahalkar.dev/talk/crypto-blockchain/</link>
+      <pubDate>Fri, 25 Aug 2017 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/crypto-blockchain/</guid>
+      <description>&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Cryptocurrencies%20and%20Blockchain.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

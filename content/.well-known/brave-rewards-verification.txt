@@ -1,0 +1,4 @@
+This is a Brave Rewards publisher verification file.
+
+Domain: rahalkar.dev
+Token: 3b37b57fe71f20bbf6b92e676d6141b419b8db1df4e8349e4a1306849ea6efcf

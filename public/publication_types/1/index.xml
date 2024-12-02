@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>1 | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/publication_types/1/</link>
+      <atom:link href="https://rahalkar.dev/publication_types/1/index.xml" rel="self" type="application/rss+xml" />
+    <description>1</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Thu, 12 Dec 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>1</title>
+      <link>https://rahalkar.dev/publication_types/1/</link>
+    </image>
+    
+    <item>
+      <title>Content Addressed Peer-to-Peer File System for the Web with Blockchain-based Metadata Integrity</title>
+      <link>https://rahalkar.dev/publication/ca-fs/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/ca-fs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Using Generative Adversarial Networks for Secure Pseudorandom Number Generation</title>
+      <link>https://rahalkar.dev/publication/gan-ccs/</link>
+      <pubDate>Mon, 11 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/gan-ccs/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

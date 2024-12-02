@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/authors/admin/</link>
+      <atom:link href="https://rahalkar.dev/authors/admin/index.xml" rel="self" type="application/rss+xml" />
+    <description>Chaitanya Rahalkar</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Thu, 16 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>Chaitanya Rahalkar</title>
+      <link>https://rahalkar.dev/authors/admin/</link>
+    </image>
+    
+    <item>
+      <title>Summarizing and Analyzing the Privacy-Preserving Techniques in Bitcoin and other Cryptocurrencies</title>
+      <link>https://rahalkar.dev/publication/sum-crypt/</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/sum-crypt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>End-to-End Lung Cancer Diagnosis on Computed Tomography Scans using 3D CNN and Explainable AI</title>
+      <link>https://rahalkar.dev/publication/e2e-dl/</link>
+      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/e2e-dl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Content Addressed Peer-to-Peer File System for the Web with Blockchain-based Metadata Integrity</title>
+      <link>https://rahalkar.dev/publication/ca-fs/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/ca-fs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Using Generative Adversarial Networks for Secure Pseudorandom Number Generation</title>
+      <link>https://rahalkar.dev/publication/gan-ccs/</link>
+      <pubDate>Mon, 11 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/gan-ccs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>What is Zip Slip?</title>
+      <link>https://rahalkar.dev/post/zip-slip/</link>
+      <pubDate>Fri, 20 Sep 2019 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/zip-slip/</guid>
+      <description>&lt;p&gt;Zip Slip was a vulnerability found in the file extraction mechanism employed in programming languages. It was discovered and responsibly disclosed by the Snyk Security team ahead of a public disclosure on 5th June 2018, and affected thousands of projects, including ones from HP, Amazon, Apache, Pivotal. The vulnerability is prevalent in Java, where there is no central library offering high level processing of archives. It was also observed in Go &amp;amp; Python. Zip slip caused havoc on its public disclosure. Zip Slip allowed for remote code execution, thereby granting shell privileges to an adversary. The vulnerability can affect other formats like &lt;code&gt;tar&lt;/code&gt;, &lt;code&gt;jar&lt;/code&gt;, &lt;code&gt;war&lt;/code&gt;,&lt;code&gt;cpio&lt;/code&gt;,&lt;code&gt;apk&lt;/code&gt;,&lt;code&gt;rar&lt;/code&gt; etc.&lt;/p&gt;
+
+&lt;p&gt;Consider a zip file (&lt;code&gt;foo.zip&lt;/code&gt;) with two files bundled in it - &lt;code&gt;foo.text&lt;/code&gt; and &lt;code&gt;bar.text&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chaitanya@zipslip$ zip -sf foo.zip
+Archive contains:
+  foo.text
+  bar.text
+Total 2 entries (100 bytes)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The -sf flag scans for files and lists the contents of the archive. However, if a maliciously crafted file is bundled in the zip, and if it is improperly handled during extraction then it may lead to severe problem like remote code execution.&lt;/p&gt;
+
+&lt;p&gt;Consider a zip file (&lt;code&gt;malicious.zip&lt;/code&gt;) with two files (one is the RCE shell script and the other is an ordinary text file)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chaitanya@zipslip$ zip -sf malicious.zip 
+Archive contains:
+  foo.text
+  ../../../../../../../../../tmp/rce.sh
+Total 2 entries (560 bytes)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As soon as this zip is extracted, foo.text would be extracted within the same folder as of the zip file. However, &lt;code&gt;rce.sh&lt;/code&gt; would be extracted to the tmp folder. The &lt;code&gt;../../&lt;/code&gt; part before the file name ensures that the file path eventually hits / if it is within a subdirectory of high depth, and then stores the rce.sh file to the tmp folder. Now, a simple mechanism to execute this shell script would lead to remote code execution. This can overwrite configuration files on the system as well. Usually web applications that deal with zip file uploads rely on the file handling APIs native to a programming language.&lt;/p&gt;
+
+&lt;p&gt;Consider this Java code snippet,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1   Enumeration&amp;lt;ZipEntry&amp;gt; entries = zip.getEntries();
+2   while (entries.hasMoreElements()) {
+3      ZipEntry e = entries.nextElement();
+4      File f = new File(destinationDir, e.getName());
+5      InputStream input = zip.getInputStream(e);
+6      IOUtils.copy(input, write(f));
+7   }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On line 4, &lt;code&gt;e.getName()&lt;/code&gt; is concatenated with the target directory, &lt;code&gt;dir&lt;/code&gt;, without being validated. At this point, when the zip archive gets to &lt;code&gt;rce.sh&lt;/code&gt;, it will append the full path (including every &lt;code&gt;../&lt;/code&gt;) of the zip entry to the target directory resulting in &lt;code&gt;rce.sh&lt;/code&gt; being written outside of the target directory.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Secure Password Manager</title>
+      <link>https://rahalkar.dev/publication/pwm-ijca/</link>
+      <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/pwm-ijca/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ethics | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/ethics/</link>
+      <atom:link href="https://rahalkar.dev/tags/ethics/index.xml" rel="self" type="application/rss+xml" />
+    <description>ethics</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Wed, 11 Jul 2018 14:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>ethics</title>
+      <link>https://rahalkar.dev/tags/ethics/</link>
+    </image>
+    
+    <item>
+      <title>Ethics for Platforms</title>
+      <link>https://rahalkar.dev/talk/ethics-privacy/</link>
+      <pubDate>Wed, 11 Jul 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/ethics-privacy/</guid>
+      <description>&lt;p&gt;How much does the Internet know about you? It is a question that most of us will struggle to answer today. This illiteracy and nescience about the internal working of products and services that we use daily can prove to be exceedingly dangerous. The blind trust and complete faith of consumers in dot-com companies is being exploited at unprecedented levels, without the knowledge of the said beneficiaries. The lack of transparency in how our messages and other private data moves through the Internet, and how these tech giants make use of it has forced leaders like Tim Berners-Lee, founder of the WWW to radically overhaul his own creation! Migrating to a “Decentralized Internet” may seem like a longshot at best, but it is a necessary transition that all of us will have to make when an eventual tipping point is reached and the people realize that the “Data belongs to me”.&lt;/p&gt;
+
+&lt;p&gt;Ask a 10-year-old Jack what Facebook is for, and he’ll tell you it is “to help me make friends”
+But, Facebook’s board is not working to help Jack make more friends. It is looking to make a hefty profit out of Jack’s social graph. The discernment that we are not the customers of Facebook, we are the product, Facebook is selling us to advertisers, is yet to kick-in.
+Looking back at the last year, there’s evidence that Internet has become more of a purveyor of lies than of truth because of the way the targeted advertising model encourages people to put things online which are likely to be clicked upon (Clickbait)
+With the Indian SC declaring privacy as a “fundamental” right, it is clear that the companies who treat data ethics as a social responsibility as important as environmental awareness are tomorrow’s winners. Digital trust is paramount for digital growth and welfare.&lt;/p&gt;
+
+&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Ethics-Privacy.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

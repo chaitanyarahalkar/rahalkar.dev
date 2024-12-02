@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CTF | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/ctf/</link>
+      <atom:link href="https://rahalkar.dev/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <description>CTF</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Wed, 18 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>CTF</title>
+      <link>https://rahalkar.dev/tags/ctf/</link>
+    </image>
+    
+    <item>
+      <title>Cyberfort CTF</title>
+      <link>https://rahalkar.dev/project/cyberfort/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/project/cyberfort/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

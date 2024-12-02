@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>permissions | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/permissions/</link>
+      <atom:link href="https://rahalkar.dev/tags/permissions/index.xml" rel="self" type="application/rss+xml" />
+    <description>permissions</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Wed, 05 Jun 2019 01:15:35 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>permissions</title>
+      <link>https://rahalkar.dev/tags/permissions/</link>
+    </image>
+    
+    <item>
+      <title>File Permissions in Unix/Linux</title>
+      <link>https://rahalkar.dev/post/file-permissions-in-unix-linux/</link>
+      <pubDate>Wed, 05 Jun 2019 01:15:35 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/file-permissions-in-unix-linux/</guid>
+      <description>
+
+&lt;h3 id=&#34;file-permissions&#34;&gt;File Permissions&lt;/h3&gt;
+
+&lt;p&gt;Unix &amp;amp; Linux provides Read(r),Write(w) and Execute(x) permissions to any file on the system.
+If you &lt;code&gt;ls -l&lt;/code&gt; every file with its permissions will be shown.&lt;/p&gt;
+
+&lt;p&gt;The system is divided into three types - User,Group and others. The r,w,x permissions are assigned to each type. This is well explained by the diagram shown below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/permissions.jpg&#34; alt=&#34;Permissions&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Owner permissions − The owner&amp;rsquo;s permissions determine what actions the owner of the file can perform on the file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Group permissions − The group&amp;rsquo;s permissions determine what actions a user, who is a member of the group that a file belongs to, can perform on the file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Other (world) permissions − The permissions for others indicate what action all other users can perform on the file.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The chmod command helps to assign permissions or remove existing permissions. Permissions can be assigned in two ways -&lt;/p&gt;
+
+&lt;p&gt;1.By using the letters r,w,x &amp;amp; a,o,u with the symbols +, - &amp;amp; =.
+2. Using octal numbers.
+Let us create a sample file and apply some root privileges to it.&lt;/p&gt;
+
+&lt;p&gt;Enter into root by typing &lt;code&gt;su&lt;/code&gt; and entering the root password.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;echo &amp;quot;Test File &amp;quot; &amp;gt;&amp;gt; only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Check the default permissions for the file by typing &lt;code&gt;ls -l only_root.txt&lt;/code&gt;. This produced:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    -rw-r--r--  1 linus staff 0 Jan 1 08:28 only_root.txt
+   
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We will be adding readonly permissions to this file.
+&lt;code&gt;chmod a-w only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us split the command.
+* chmod - Used to assign permissions.
+* a-w - a indicates &amp;lsquo;all&amp;rsquo; minus is remove and w is write. So it is the shorthand notation for remove write permissions from all. Similarly to add a permission we can use the plus symbol.&lt;/p&gt;
+
+&lt;p&gt;only_root.txt - Is the file
+Some examples of this shorthand notation:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;a+rwx - Add read,write and execute permissions to all&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;u=x - Assign execute permission to the current user.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;o-wx - Remove write-execute permissions from other users.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;g+rw - Add read-write permissions to the group that the user belongs to.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The other mentioned way was is the octal number system. Check out the table given below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal.png&#34; alt=&#34;Octal System&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The chmod command also accepts this method to assign permissions.
+Some examples are illustrated below:&lt;/p&gt;
+
+&lt;p&gt;The very popluar permission set that is seen is&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chmod 755 only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us break it into parts&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;7 - Read,write &amp;amp; Execute permissions to the user&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5 - Read &amp;amp; Execute permission to the group of the user&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The way to remember this number system is referring to the binary equivalent of the octal number.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal-permission.png&#34; alt=&#34;Octal permissions&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A set bit indicates that the permission exists and a clear bit indicates that it is removed.
+Similar permissions can be assigned to directories as well.&lt;/p&gt;
+
+&lt;h5 id=&#34;suid-sgid-permissions&#34;&gt;SUID &amp;amp; SGID Permissions&lt;/h5&gt;
+
+&lt;p&gt;setuid and setgid are Unix and Linux access right flags that allow users to run an executable having the permissions of executing the binary,restricted to some other user or group.&lt;/p&gt;
+
+&lt;p&gt;setuid allows execution access to a specific user
+and setgid does the same for a group.&lt;/p&gt;
+
+&lt;p&gt;Usually it is used to allow local users to execute some privileged binaries belonging to the root user.
+For example, the root user may have some privileged executables like curl,wget etc. and the root user may set the access right flags to allow any other trusted local user to use these executables.&lt;/p&gt;
+
+&lt;p&gt;These permissions are usually set with the chmod command.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chmod ug+s /usr/bin/wget&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Running this command in root will allow local users and groups to execute the binary. In short we have lowered the privileges for this binary executable by setting the SUID &amp;amp; SGID bit.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  
+  
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.5.0">
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon-32.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://rahalkar.dev/slides/python_workshop_meetups/">
+
+  <title>Hidden Secrets of Python | Chaitanya Rahalkar</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/reveal.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/css/theme/black.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.10/styles/dracula.min.css" crossorigin="anonymous">
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/reveal_custom.min.css">
+
+  
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/reveal.js\/3.8.0/css/print/pdf.css' : 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/reveal.js\/3.8.0/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+
+</head>
+<body>
+
+  
+<div class="reveal">
+  <div class="slides">
+    
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    <section>
+    
+      
+
+<h2 id="get-a-copy-of-this-notebook-here-https-bit-ly-python-meetups-sept">Get a copy of this notebook <a href="https://bit.ly/python-meetups-sept" target="_blank">here</a></h2>
+
+<h2 id="f-strings">F-Strings</h2>
+
+<p>PEP 498 introduced a new string formatting mechanism known as Literal String Interpolation or more commonly as F-strings</p>
+
+<p>Why F-Strings?
+- They are fast.
+- They can evaluate expressions.</p>
+
+<pre><code>a = 10 
+b = 20
+
+print(f&quot;{a + b}&quot;)
+</code></pre>
+
+<h2 id="yield">Yield</h2>
+
+<p>The yield statement suspends function’s execution and sends a value back to caller, but retains enough state to enable function to resume where it is left off. It is used in Python generator functions.</p>
+
+<pre><code>def foo(bar):
+  yield bar
+  print(f&quot;Resuming execution after returning {bar}&quot;)
+  yield bar + 1
+  print(f&quot;Resuming execution after returning {bar + 1}&quot;)
+  yield bar + 2
+  print(f&quot;Resuming execution after returning {bar + 2}&quot;)
+
+values_returned = foo(10)
+
+for value in values_returned:
+  print(value)
+</code></pre>
+
+<h2 id="context-managers">Context Managers</h2>
+
+<p>Context Managers are used to manage resources which includes file pointers, variables etc. The scope of the variables is retained within the context.</p>
+
+<pre><code> ''' 
+ with open(&quot;file.txt&quot;,&quot;r&quot;) as f:
+  data = f.read()
+'''
+class ContextManager(): 
+    def __init__(self): 
+        print('init method called') 
+          
+    def __enter__(self): 
+        print('enter method called') 
+        return self
+      
+    def __exit__(self, exc_type, exc_value, exc_traceback): 
+        print('exit method called') 
+
+
+with ContextManager() as manager: 
+    print('with statement block') 
+
+</code></pre>
+
+<h2 id="else-clauses-on-loops">Else Clauses on Loops</h2>
+
+<p>Python allows us to add else conditions to for/while loops as well.  If the for/while loop condition fails, then the else statement is executed.</p>
+
+<pre><code>
+def find_index(to_search,target):
+  flag = False
+  index = int()
+  for i,value in enumerate(to_search):
+    if value == target:
+      flag = True
+      index = i
+      break
+
+  if flag:
+    return index
+  else:
+     return -1 
+
+
+my_list = ['Corey', 'Rick', 'John']
+index_location = find_index(my_list, 'Steve')
+
+print('Location of target is index: {}'.format(index_location))
+</code></pre>
+
+<pre><code>def find_index(to_search, target):
+  for i, value in enumerate(to_search):
+    if value == target:
+      break
+  else:
+    return -1
+  return i
+
+
+my_list = ['Corey', 'Rick', 'John']
+index_location = find_index(my_list, 'Steve')
+
+print('Location of target is index: {}'.format(index_location))
+</code></pre>
+
+<h2 id="named-tuples">Named Tuples</h2>
+
+<p>Named tuples are easy-to-create, lightweight object types. Named tuple instances can be referenced using object-like variable dereferencing or the standard tuple syntax. They can be used similarly to struct or other common record types, except that they are immutable.</p>
+
+<pre><code>from collections import namedtuple
+
+Color = namedtuple('Color', ['red', 'green', 'blue'])
+
+color = Color(red = 55,green = 155,blue = 255)
+white = Color(255,255,255)
+
+print(color.blue)
+</code></pre>
+
+<h2 id="itertools-to-manage-looping-efficiently">Itertools - To Manage Looping Efficiently</h2>
+
+<p>Python has an extensive suite of iterators in its itertools module, which allow for memory efficient and faster looping. It is recommended that programmers should rely on these pre-defined iterators instead of hard-coding the logic by themselves.</p>
+
+<pre><code>from itertools import count, cycle, compress, groupby, permutations, combinations
+
+
+## 1. Count 
+print(&quot;Demonstration of count&quot;)
+for i in count(10,2):
+  print(i)
+  if i == 30:
+    break
+
+# 2. Cycle
+print(&quot;Demonstration of cycle&quot;)
+iteration = 0 
+for i in cycle(&quot;ABC&quot;):
+  print(i)
+  iteration += 1
+  if iteration == 5:
+    break
+
+# 3. Group By
+print(&quot;Demonstration of Group by&quot;)
+def get_state(person):
+    return person['state']
+
+people = [
+    {
+        'name': 'John Doe',
+        'city': 'Gotham',
+        'state': 'NY'
+    },
+    {
+        'name': 'Jane Doe',
+        'city': 'Kings Landing',
+        'state': 'NY'
+    },
+    {
+        'name': 'Corey Schafer',
+        'city': 'Boulder',
+        'state': 'CO'
+    },
+    {
+        'name': 'Al Einstein',
+        'city': 'Denver',
+        'state': 'CO'
+    },
+    {
+        'name': 'John Henry',
+        'city': 'Hinton',
+        'state': 'WV'
+    },
+    {
+        'name': 'Randy Moss',
+        'city': 'Rand',
+        'state': 'WV'
+    },
+    {
+        'name': 'Nicole K',
+        'city': 'Asheville',
+        'state': 'NC'
+    },
+    {
+        'name': 'Jim Doe',
+        'city': 'Charlotte',
+        'state': 'NC'
+    },
+    {
+        'name': 'Jane Taylor',
+        'city': 'Faketown',
+        'state': 'NC'
+    }
+]
+
+person_group = groupby(people, get_state)
+
+for group,values in person_group:
+  print(group,[value['name'] for value in values])
+
+# 4. Compress
+print(&quot;Demonstration of compress&quot;)
+values = compress(&quot;Meetups&quot;,[1,1,1,1,0,0,0])
+print(list(values))
+
+# 5. Permutations
+print(&quot;Demonstration of permutations&quot;)
+
+lst = [1,2,3]
+for perm in permutations(lst,2):
+  print(perm)
+
+
+# 6. Combinations 
+print(&quot;Demonstration of combinations&quot;)
+name = &quot;ABCD&quot;
+
+for comb in combinations(name,2):
+  print(comb)
+
+</code></pre>
+
+<h2 id="one-liner-if-else-if-else-condition">One liner if else if else condition</h2>
+
+<p>Python allows a cleaner and shorthand syntax for defining if-else statements.</p>
+
+<pre><code>a = 10
+print('Even') if a % 2 == 0 else print('False')
+
+</code></pre>
+
+<h2 id="swapping-variables">Swapping variables</h2>
+
+<p>Variable swapping can be done without the need of a third temporary variable.</p>
+
+<pre><code>a,b = 1,2
+print(a,b)
+
+a,b = b,a
+print(a,b)
+</code></pre>
+
+<h2 id="chained-function-call">Chained function call</h2>
+
+<p>Python allows a cleaner and shorthand syntax for defining chained else-if statements.</p>
+
+<pre><code>
+def add(x,y):
+  return x + y
+
+def sub(x,y):
+  return x - y
+
+def mul(x,y):
+  return x * y
+
+x = 1
+
+# Lengthy approach
+if x == 1:
+  print(add(10,20))
+elif x == 2:
+  print(sub(10,20))
+elif x == 3:
+  print(mul(10,20))
+  
+# Quick approach 
+print((add if x == 1 else sub if x == 2 else mul)(10,20))
+
+</code></pre>
+
+<h2 id="print-an-array-with-strings-as-one-comma-separated-string">Print an array with strings as one comma-separated string</h2>
+
+<p>The power of Python allows you to print a list to the standard I/O, with the choice of your own delimiter like a comma.</p>
+
+<pre><code>row = [&quot;1&quot;, &quot;bob&quot;, &quot;developer&quot;, &quot;python&quot;]
+print(*row, sep=',')
+
+</code></pre>
+
+<h2 id="enumerate">Enumerate</h2>
+
+<p>List enumeration can be done without the need of maintaining manual counter with the enumerate function.</p>
+
+<pre><code>cities = [&quot;London&quot;, &quot;Paris&quot;, &quot;New York&quot;]
+
+# Lengthy approach
+count=0
+for city in cities:
+  print(count,city)
+  count+=1
+
+# Recommended approach
+for count,city in enumerate(cities):
+  print(count,city)
+  
+</code></pre>
+
+<pre><code>0 London
+1 Paris
+2 New York
+0 London
+1 Paris
+2 New York
+</code></pre>
+
+<h2 id="zip">Zip</h2>
+
+<p>Two or more iterables can be iterated in parallel with the zip function.</p>
+
+<pre><code>roll_no = [101,102,103,104,105,106,107,108,109,110]
+marks = [45,32,23,15,44]
+
+# Lengthy approach
+'''for i in range(len(roll_no)):
+    r = roll_no[i]
+    m = marks[i]
+    #print(r,m)
+   ''' 
+# Recommended approach
+for r,m in zip(roll_no,marks):
+    print(r,m)
+</code></pre>
+
+<pre><code>101 45
+102 32
+103 23
+104 15
+105 44
+</code></pre>
+
+<h2 id="hiding-your-source-code">Hiding Your Source Code</h2>
+
+<p>Since Python is built on C, the Python interpreter has the benefits that a C compiler has. Python code can be translated to a runnable binary with the .pyc file. The Python interpreter converts the .py file to a runnable binary in order to prevent recompilation of the code and save time in future. If the same python script is called again, the interpreter simply exectutes the precompiled .pyc file to save time.</p>
+
+<pre><code class="language-bash">
+chaitanya@meetups$ python3 -m py_compile foo.py
+
+</code></pre>
+
+<h2 id="getpass-function">GetPass Function</h2>
+
+<p>Ever created a Python script that accepts passwords as input? The normal input() function in Python shows on the screen what you are typing. The GetPass function allows you to get passwords as input the UNIX style.</p>
+
+<pre><code>from getpass import getpass 
+
+username = input(&quot;Enter your username: &quot;)
+password  = getpass(&quot;Enter your password: &quot;)
+
+print(username,password,sep = '\n')
+</code></pre>
+
+<h2 id="http-server">HTTP Server</h2>
+
+<p>Want to host your files or a static website? Python has a built in minimalistic HTTP Server useful for serving static content. It is fast and easy to use.</p>
+
+<pre><code class="language-bash">
+anushka@meetups$ python3 -m http.server 8001 
+
+</code></pre>
+
+<h2 id="hiding-secrets-keys-with-enviroment-variables">Hiding Secrets &amp; Keys with Enviroment variables</h2>
+
+<p>Exposing your private keys or passwords in Python scripts is not a good idea, especially if you are uploading the code on some online repository. Secrets and keys should be stored in environment variables, which then Python can access through the <i> os </i> module.</p>
+
+<p>On a Linux/Mac machine -</p>
+
+<pre><code class="language-bash">
+chaitanya@meetups$ nano .bash_profile 
+
+</code></pre>
+
+<p>Add a line to the .bash_profile file -</p>
+
+<pre><code class="language-bash">
+export password=&quot;mypassword&quot; 
+
+</code></pre>
+
+<pre><code>import os 
+
+
+print(os.environ.get(&quot;password&quot;))
+</code></pre>
+
+<h2 id="underscore-placeholders">Underscore placeholders</h2>
+
+<h4 id="there-are-five-underscore-variable-naming-conventions-used-in-python">There are five underscore variable naming conventions used in Python</h4>
+
+<ul>
+<li>Single Leading Underscore: _var</li>
+<li>Single Trailing Underscore: var_</li>
+<li>Double Leading Underscore: __var</li>
+<li>Double Leading and Trailing Underscore: _<em>var_</em></li>
+
+<li><p>Single Underscore: _</p>
+
+<pre><code>_x = 10 # 1. Variable is for internal use
+class_ = 14 # 2. To use keywords as variable names
+for_ = &quot;Meetups&quot; 
+
+# 3. Acts as a sort-of private variable (Name-mangling)
+
+class Base(object):
+def __init__(self): # Constructor 
+self.__foo = 7 
+
+class Derived(Base):
+def __init__(self):
+super().__init__() # Calling the base class constructor
+self.__foo = 10 
+
+
+s = Derived()
+print(&quot;Value from derived class: &quot;,s._Derived__foo)
+print(&quot;Value from base class: &quot;,s._Base__foo)
+
+# 4. __var__ is reserved for internal Python magic methods and variables. Not recommended to be used by programmer.
+
+# 5. Single underscore acts as useless variables by convention. It is also used as a temporary variable in Python REPL 
+
+for _ in range(2):
+# Code 
+None 
+
+
+
+</code></pre></li>
+</ul>
+
+<h2 id="secrets-module">Secrets Module</h2>
+
+<p>Python has a module to generate secure random numbers. It uses the operating system&rsquo;s random number generator.</p>
+
+<pre><code>import secrets 
+  
+token = secrets.token_hex(16) 
+  
+print(token)
+
+
+
+</code></pre>
+
+<pre><code>  # Why the random module in Python is insecure 
+  r1 = random.Random(31337)
+  outputs = [r1.getrandbits(32) for _ in range(625)]
+  
+  mtr = MT19937Recover() # Mersenne Twister Breaker 
+  r2 = mtr.go(outputs)
+  
+  print(r1.getrandbits(32) == r2.getrandbits(32))
+</code></pre>
+
+<h2 id="shallow-and-deep-copy">Shallow and Deep Copy</h2>
+
+<p>In Python, assignment statements do not copy objects, they create bindings between a target and an object. When we use = operator user thinks that this creates a new object; well, it doesn’t. It only creates a new variable that shares the reference of the original object.</p>
+
+<pre><code># Shallow copy 
+l = [1,2,3,4,5]
+
+p = l 
+
+l[0] = 100 
+
+print(p[0])
+</code></pre>
+
+<pre><code>100
+</code></pre>
+
+<pre><code># Deep copy 
+import copy 
+
+l = [1,2,3,4,5]
+
+p = copy.deepcopy(l) # Creates a deep copy
+q = list(l) # Creates a deep copy 
+
+l[0] = 100 
+print(p[0])
+print(q[0])
+</code></pre>
+
+<pre><code>1
+1
+</code></pre>
+
+<pre><code>a = [0 for i in range(5)]
+
+mat = list()
+
+for _ in range(5):
+  mat.append(a) # Creates a shallow copy 
+
+mat[1][1] = 10 
+
+print(mat)
+
+</code></pre>
+
+<h2 id="default-dictionary">Default Dictionary</h2>
+
+<p>Python allows us to preset dictionary values even if a given key does not exist in the dictionary. This can be done with defaultdict from collections module.</p>
+
+<pre><code>import collections
+
+data = {
+    'Tom':33,
+    'Jack':45,
+    'Jill':32,
+    'Mark':45,
+    'Sam':38
+}
+
+# Lengthy way
+
+if 'John' in data:
+  print(data['John'])
+else:
+  print('Absent')
+  
+# Recommended way
+
+print(data.get('John','Absent'))
+
+# Recommended way
+
+marks_data = collections.defaultdict(int)
+print(marks_data['Tom'])
+
+pass_data = collections.defaultdict(str)
+print(pass_data['Tom'])
+
+students_data = collections.defaultdict(lambda:'Absent')
+students_data.update(data)
+
+print(students_data['Jim'])
+</code></pre>
+
+<h2 id="type-hinting">Type Hinting</h2>
+
+<p>Type hinting is a Python programming convention that allows us to specify the return type &amp; parameters of the function. This is a good coding practice that improves code readability.</p>
+
+<pre><code>def headline_without_type(text, align=True):
+    if align:
+        return f&quot;{text.title()}\n{'-' * len(text)}&quot;
+    else:
+        return f&quot; {text.title()} &quot;.center(50, &quot;o&quot;)
+
+
+def headline_with_type(text: str, align: bool = True) -&gt; str:
+    if align:
+        return f&quot;{text.title()}\n{'-' * len(text)}&quot;
+    else:
+        return f&quot; {text.title()} &quot;.center(50, &quot;o&quot;)
+
+      
+print(headline_without_type(&quot;python type checking&quot;))
+print(headline_with_type(&quot;python type checking&quot;, False))
+
+</code></pre>
+
+<h2 id="vs-is">== vs is</h2>
+
+<p>There are two ways in Python to check the equivalence of two variables. However there is a big difference between their compiler level implementation.</p>
+
+<pre><code>list1 = [1,2,3]
+list2 = list1
+list3 = list(list1)
+
+print(list1 == list2)
+print(list1 == list3)
+
+print(list1 is list2)
+print(list1 is list3)
+</code></pre>
+
+<pre><code>True
+True
+True
+False
+</code></pre>
+
+<h2 id="extended-iterable-unpacking">Extended Iterable Unpacking</h2>
+
+<p>Extended iterable unpacking allows us to use star operator to gather items from an iterable as a list.</p>
+
+<pre><code>a,b,c = [1,2,3]
+print(a,b,c)
+
+cities = ['London','Paris','New York','Boston','Jerusalem','California']
+start,*route,end = cities
+
+print(start)
+print(route)
+print(end)
+</code></pre>
+
+<pre><code>1 2 3
+London
+['Paris', 'New York', 'Boston', 'Jerusalem']
+California
+</code></pre>
+
+<h2 id="antigravity">Antigravity</h2>
+
+<p>Python is not that boring! It is full of strange and interesting things that never stop surprising us. This is really one of them!</p>
+
+<pre><code>import antigravity
+</code></pre>
+
+    </section>
+    
+
+    
+    
+  </div>
+</div>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/lib/js/head.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.8.0/js/reveal.min.js"></script>
+
+  <script>
+    window.revealPlugins = { dependencies: [
+      { src: 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/reveal.js\/3.8.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/reveal.js\/3.8.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/reveal.js\/3.8.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/reveal.js\/3.8.0/plugin/zoom-js/zoom.js', async: true },
+      { src: 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/reveal.js\/3.8.0/plugin/math/math.js', async: true },
+      { src: 'https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/reveal.js\/3.8.0/plugin/print-pdf/print-pdf.js', async: true },
+      
+      { src: '\/js\/vendor\/reveal.js\/plugin\/notes\/notes.js', async: true }
+    ]};
+
+    let revealDefaults = { center: true, controls: true, history: true, progress: true, transition: 'slide', mouseWheel: true };
+    let revealOptions = Object.assign({}, revealDefaults, revealPlugins);
+    Reveal.initialize(revealOptions);
+  </script>
+
+</body>
+</html>
