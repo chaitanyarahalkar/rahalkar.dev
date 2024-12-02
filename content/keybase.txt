@@ -1,0 +1,84 @@
+==================================================================
+https://keybase.io/chairahalkar
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://rahalkar.dev
+  * I am chairahalkar (https://keybase.io/chairahalkar) on keybase.
+  * I have a public key with fingerprint CF83 5C8E 5B49 2547 C8D8  33C3 A9C2 670A 7606 9ED1
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0101a5b6e4ecdc75ce636ba6ae599bda8e3ed6c8bffbd36b1d3aa25c0852f1747cd00a",
+      "fingerprint": "cf835c8e5b492547c8d833c3a9c2670a76069ed1",
+      "host": "keybase.io",
+      "key_id": "a9c2670a76069ed1",
+      "kid": "0101a5b6e4ecdc75ce636ba6ae599bda8e3ed6c8bffbd36b1d3aa25c0852f1747cd00a",
+      "uid": "38a8211f7c2daaebc328a87624f38319",
+      "username": "chairahalkar"
+    },
+    "merkle_root": {
+      "ctime": 1627454306,
+      "hash_meta": "abaa2cad18c4c3c0d9444a3013cb25f530c692da04cdb8fc6d3f9ab29b4af3d3",
+      "seqno": 20458694
+    },
+    "revoke": {
+      "sig_ids": [
+        "fc0396f928e5a46312c75378d25977466cb30533761623d319a4d03b267a37e70f"
+      ]
+    },
+    "service": {
+      "hostname": "rahalkar.dev",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 1
+  },
+  "ctime": 1627454325,
+  "expire_in": 157680000,
+  "prev": "e2e24bf2eacd56461ebc38770ce19cc0f129e538e458331c46c2f7cc408dbb7a",
+  "seqno": 48,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+Version: Keybase OpenPGP v2.1.13
+Comment: https://keybase.io/crypto
+
+yMNMAnicrZNtbBRFGMevb9geKZKUlzRYJRsFU9re7M7s7O5hxWoVIgGxIVFp9Jyd
+me0td7297t5di21T1EKpJFITQpRoK1RsQVIaFIiaRqwnKii2jREbNZKoSEXwhQ80
+asTZBmJi/Oh+2ezMf/7P//k9O9nivEAwZ/9oQzAzq3c859RoazpAAn+kWyXTYZuk
+cKsU4zMvHmfcS0ViNpPCEpCBTFQTc8Qpo5pKOYbYJJhw1TBMRnQOOcNUNy3LZGJH
+ZpAQRaVAVxVL1pBGGQBEqpAsO9HA3aRrJ1LCllo6VKnOVRMZiipUOtMhpJAYVMEa
+IBoG2OBMFgejjuefEOFM4vEq2xFr4iMyE+8/9P9z7vSMHdSJrsiypVGFEcJNChWx
+omEFWVCHsuELPe4mSCP3u4sS2yVREo8RV2qvkBq5G4vziOs4KR8wTdm+TMaKhlQE
+ARZNEi8aaeQp4vdkiiSUMFmniEIKmIEQIhDIkJqKaqkQUGyIGABRZuoWxQxaBjEV
+w0TEggyKLB5vSjhSWAFI1bGBRASXZ5wY96t7doNg50nhesmiABrYMhQxCIIwlBVB
+Cmo6U1RD0xDG1IRAhVDDIqtwlg2CGICmQE6gxjVgSY+2+9XcjE1nzP1hXYNwHUAV
+4xkRKek6KYc6cbETTaWSXtgHk9qU9KXN3IxcM4mYdoKJX0WcyHDXs52EACWU/2Km
+qBUSb0naLo/YvkLVsA7E49cR5cISV7iCTEvhhDIVIyz7M9M1DVAuG5QCS1YMrkKd
+C0IQyhRhqojpUgR0Zpoa+Qci0kVO0iA8BbkESaVdLrWPHv8qP5ATDMwqyPXvUCBY
+NPf6zTpdMPvqfQNPT3e/9XZm4WltuG3tA3t6c1ae9JwdN1z6oLg/v7uozX1+8M8l
+1iS4rf9reWz+nhZw2J3dseFw7dC5+p+mskcXbXv3zvkNS+6iZ+fCs82vhI5Of7x2
+TdfmgzsmRs73lPaPHmvjPeXklsFveuxl6y90PFhd6xVefXJ7YTR7smZosmnfwOel
+ocSr6dr+0PC+9PHCxz95bDK+YNW37cZE99YXf3lnt9FcMTVxZKK6cAUKtWzw5qyr
+XnplvLNurLgkN/vC4r+S68K7n3r/3vLShzt/VrqWlVS+5DX9ttMZyS/64e6JA89s
+SZRoCw+9rratDn4xMA/nHbk8NRbZtapY3n8m99ITGxeXuZvprt71g2XG+HOPwPu/
+fHavlHc+/5hXWrLgx62f3RTsu1i3MXZPW2xvPQguVd986OKtJ7ad6RutfG3nh4vo
+nDWll/mJ4Irl35/Lro4vj5YNdUa3vye/nHPquwtvfFQ5nPtrn1G85cDK30NXVhy8
+3Zr+9MZDHU7NzQXZeSN11eWhyZqqirI7uv4GUh+52A==
+=WDpP
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/chairahalkar
+
+==================================================================

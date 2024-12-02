@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Computers | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/categories/computers/</link>
+      <atom:link href="https://rahalkar.dev/categories/computers/index.xml" rel="self" type="application/rss+xml" />
+    <description>Computers</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Wed, 05 Jun 2019 01:15:35 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>Computers</title>
+      <link>https://rahalkar.dev/categories/computers/</link>
+    </image>
+    
+    <item>
+      <title>File Permissions in Unix/Linux</title>
+      <link>https://rahalkar.dev/post/file-permissions-in-unix-linux/</link>
+      <pubDate>Wed, 05 Jun 2019 01:15:35 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/file-permissions-in-unix-linux/</guid>
+      <description>
+
+&lt;h3 id=&#34;file-permissions&#34;&gt;File Permissions&lt;/h3&gt;
+
+&lt;p&gt;Unix &amp;amp; Linux provides Read(r),Write(w) and Execute(x) permissions to any file on the system.
+If you &lt;code&gt;ls -l&lt;/code&gt; every file with its permissions will be shown.&lt;/p&gt;
+
+&lt;p&gt;The system is divided into three types - User,Group and others. The r,w,x permissions are assigned to each type. This is well explained by the diagram shown below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/permissions.jpg&#34; alt=&#34;Permissions&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Owner permissions − The owner&amp;rsquo;s permissions determine what actions the owner of the file can perform on the file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Group permissions − The group&amp;rsquo;s permissions determine what actions a user, who is a member of the group that a file belongs to, can perform on the file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Other (world) permissions − The permissions for others indicate what action all other users can perform on the file.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The chmod command helps to assign permissions or remove existing permissions. Permissions can be assigned in two ways -&lt;/p&gt;
+
+&lt;p&gt;1.By using the letters r,w,x &amp;amp; a,o,u with the symbols +, - &amp;amp; =.
+2. Using octal numbers.
+Let us create a sample file and apply some root privileges to it.&lt;/p&gt;
+
+&lt;p&gt;Enter into root by typing &lt;code&gt;su&lt;/code&gt; and entering the root password.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;echo &amp;quot;Test File &amp;quot; &amp;gt;&amp;gt; only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Check the default permissions for the file by typing &lt;code&gt;ls -l only_root.txt&lt;/code&gt;. This produced:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    -rw-r--r--  1 linus staff 0 Jan 1 08:28 only_root.txt
+   
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We will be adding readonly permissions to this file.
+&lt;code&gt;chmod a-w only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us split the command.
+* chmod - Used to assign permissions.
+* a-w - a indicates &amp;lsquo;all&amp;rsquo; minus is remove and w is write. So it is the shorthand notation for remove write permissions from all. Similarly to add a permission we can use the plus symbol.&lt;/p&gt;
+
+&lt;p&gt;only_root.txt - Is the file
+Some examples of this shorthand notation:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;a+rwx - Add read,write and execute permissions to all&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;u=x - Assign execute permission to the current user.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;o-wx - Remove write-execute permissions from other users.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;g+rw - Add read-write permissions to the group that the user belongs to.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The other mentioned way was is the octal number system. Check out the table given below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal.png&#34; alt=&#34;Octal System&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The chmod command also accepts this method to assign permissions.
+Some examples are illustrated below:&lt;/p&gt;
+
+&lt;p&gt;The very popluar permission set that is seen is&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chmod 755 only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us break it into parts&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;7 - Read,write &amp;amp; Execute permissions to the user&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5 - Read &amp;amp; Execute permission to the group of the user&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The way to remember this number system is referring to the binary equivalent of the octal number.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal-permission.png&#34; alt=&#34;Octal permissions&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A set bit indicates that the permission exists and a clear bit indicates that it is removed.
+Similar permissions can be assigned to directories as well.&lt;/p&gt;
+
+&lt;h5 id=&#34;suid-sgid-permissions&#34;&gt;SUID &amp;amp; SGID Permissions&lt;/h5&gt;
+
+&lt;p&gt;setuid and setgid are Unix and Linux access right flags that allow users to run an executable having the permissions of executing the binary,restricted to some other user or group.&lt;/p&gt;
+
+&lt;p&gt;setuid allows execution access to a specific user
+and setgid does the same for a group.&lt;/p&gt;
+
+&lt;p&gt;Usually it is used to allow local users to execute some privileged binaries belonging to the root user.
+For example, the root user may have some privileged executables like curl,wget etc. and the root user may set the access right flags to allow any other trusted local user to use these executables.&lt;/p&gt;
+
+&lt;p&gt;These permissions are usually set with the chmod command.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chmod ug+s /usr/bin/wget&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Running this command in root will allow local users and groups to execute the binary. In short we have lowered the privileges for this binary executable by setting the SUID &amp;amp; SGID bit.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How Your Computer Starts</title>
+      <link>https://rahalkar.dev/post/how-your-computer-starts/</link>
+      <pubDate>Sat, 18 May 2019 16:11:17 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/how-your-computer-starts/</guid>
+      <description>
+
+&lt;p&gt;Every computer follows a standard boot sequence when it starts up.&lt;/p&gt;
+
+&lt;h4 id=&#34;bios-basic-input-output-system&#34;&gt;BIOS (Basic Input Output System)&lt;/h4&gt;
+
+&lt;p&gt;The CPU runs an instruction in memory for the BIOS. This is a Jump instruction that transfers the Instruction Pointer to the code of the BIOS start-up program.&lt;/p&gt;
+
+&lt;p&gt;The BIOS runs the Power On Self Test. It is a process performed by firmware or software routines immediately after a computer or any digital device is powered on.
+The POST performs the following checks &amp;amp; tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;verify CPU registers&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;verify the integrity of the BIOS code itself&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;verify some basic components like DMA, timer, interrupt controller&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;find, size, and verify system main memory
+initialize BIOS&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;pass control to other specialized extension BIOSes (if installed)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;identify, organize, and select which devices are available for booting&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;discover, initialize, and catalog all system buses and devices&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;provide a user interface for system&amp;rsquo;s configuration&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;construct whatever system environment is required by the target operating system&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Every hardware manufacturer has its own BIOS code hardcoded on the ROM.
+The BIOS has a boot sequence configured which searches for the boot devices sequentially.
+Booting devices can be of several types:&lt;/p&gt;
+
+&lt;p&gt;1.CD Drives&lt;/p&gt;
+
+&lt;p&gt;2.Hard Disk Drives&lt;/p&gt;
+
+&lt;p&gt;3.USB Drives&lt;/p&gt;
+
+&lt;p&gt;4.Network&lt;/p&gt;
+
+&lt;p&gt;As soon as it finds the boot device, it looks for the Master Boot Record. The MBR has number of partitions in it. If any active partition is found it is loaded into memory.&lt;/p&gt;
+
+&lt;h4 id=&#34;master-boot-record&#34;&gt;Master Boot Record&lt;/h4&gt;
+
+&lt;p&gt;It is a special type of boot sector at the beginning of data drives. It holds information about the logical partitions,organisation of the file systems and also a boot loader. The boot loader is responsible to load the kernel(A subset of the entire OS) into memory.
+It may happen that the selected memory drive has multiple operating systems. The bootloader allows selection of the OS(Along with different kernels)to be loaded. GRUB is an open source bootloader by GNU prominently seen on most Linux Distributions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/mbr.png&#34; alt=&#34;Master Boot Record&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;kernel&#34;&gt;Kernel&lt;/h4&gt;
+
+&lt;p&gt;As soon as the kernel is loaded into memory by the boot loader, the Kernel mounts Linux/Unix Virtual file system.
+The Linux Virtual File System is of the format shown below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/lfs.png&#34; alt=&#34;Linux Virtual File System&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;init-now-systemd-for-linux&#34;&gt;Init (Now Systemd For Linux)&lt;/h4&gt;
+
+&lt;p&gt;The Kernel executes the /sbin/init binary. Init is the first program executed by the Kernel in Kernel Space. It is given the process Id (PID) of 1.
+However in the recent versions init is replaced by a System Management Daemon called systemd. Systemd was designed to overcome the shortcomings of Initd. It is the parent process of all the processes.&lt;/p&gt;
+
+&lt;p&gt;You can find the source code of Systemd &lt;a href=&#34;https://github.com/systemd/systemd&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are six different run levels in Linux. (Used with Initd)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;0 – halt&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;1 – Single user mode&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;2 – Multiuser, without NFS&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;3 – Full multiuser mode&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;4 – unused&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5 – X11 (X Window System)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;6 – reboot&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Each runlevel has its own set of programs which can be seen in -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    Run level 0 – /etc/rc.d/rc0.d/
+    Run level 1 – /etc/rc.d/rc1.d/
+    Run level 2 – /etc/rc.d/rc2.d/
+    Run level 3 – /etc/rc.d/rc3.d/
+    Run level 4 – /etc/rc.d/rc4.d/
+    Run level 5 – /etc/rc.d/rc5.d/
+    Run level 6 – /etc/rc.d/rc6.d/
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each of these directories have programs starting with S (Used during startup) and K(Used during shutdown)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Virtualisation in Operating Systems</title>
+      <link>https://rahalkar.dev/post/virtualisation-in-operating-systems/</link>
+      <pubDate>Sat, 06 Apr 2019 12:05:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/virtualisation-in-operating-systems/</guid>
+      <description>
+
+&lt;p&gt;Virtualisation is the process of creating a virtual version of a physical object.&lt;/p&gt;
+
+&lt;p&gt;Virtualisation is of three types primarily:
+1. Hardware Virtualisation - Based on simulating real hardware. This can be used to run a complete operating system. This can be further subdivided into full and paravirtualisation.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Desktop Virtualisation - It is the concept of separating the logical desktop from the physical machine.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Operating system level virtualisation (also called as containerisation) - It is the operating system feature in which the kernel allows the existence of multiple isolated user-space instances. Such instances are called containers. Containerisation was introduced as a Linux Kernel feature in 2010. It started gaining momentum with the introduction of Docker.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;hardware-virtualisation&#34;&gt;Hardware Virtualisation&lt;/h4&gt;
+
+&lt;p&gt;Some terminologies associated with Virtualisation:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Virtual Machine: It is a virtual representation of a physical machine.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Hypervisor: It is a software that manages and monitors running virtual machines.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Host machine: The physical machine that a virtual machine is running on.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Guest machine: The virtual machine running on the host machine.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The following block diagram shows the position of each component mentioned above:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/virtualisation.png&#34; alt=&#34;Virtual Machine Diagram&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;hypervisors&#34;&gt;Hypervisors&lt;/h4&gt;
+
+&lt;p&gt;There are two main types of hypervisors:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Native: They run directly on the host machine and share out resources between guest machines.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Hosted: They run as an application inside the operating system and support virtual machines running as individual processes.
+Eg. VirutalBox,Parallel Desktop&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/hypervisor.png&#34; alt=&#34;Hypervisor Types&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

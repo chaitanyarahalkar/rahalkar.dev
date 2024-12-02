@@ -1,0 +1,17 @@
+<!-- GoatCounter analytics -->
+<script data-goatcounter="https://chaitanyarahalkar.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<!-- Add view counter display to posts -->
+{{ if and (eq .Type "post") (not .IsHome) }}
+<style>
+.view-count {
+    display: inline-flex;
+    align-items: center;
+    color: rgba(0,0,0,0.54);
+    font-size: 0.9rem;
+}
+.view-count i {
+    margin-right: 0.25rem;
+}
+</style>
+{{ end }} 

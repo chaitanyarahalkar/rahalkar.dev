@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>privacy | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/privacy/</link>
+      <atom:link href="https://rahalkar.dev/tags/privacy/index.xml" rel="self" type="application/rss+xml" />
+    <description>privacy</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Sun, 25 Apr 2021 11:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>privacy</title>
+      <link>https://rahalkar.dev/tags/privacy/</link>
+    </image>
+    
+    <item>
+      <title>Summarizing and Analyzing the Privacy-Preserving Techniques in Bitcoin and other Cryptocurrencies</title>
+      <link>https://rahalkar.dev/talk/privacy-blockchain/</link>
+      <pubDate>Sun, 25 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/privacy-blockchain/</guid>
+      <description>&lt;p&gt;Bitcoin and many other similar Cryptocurrencies have been in existence for over a decade, prominently focusing on decentralized, pseudo-anonymous ledger-based transactions. Many protocol improvements and changes have resulted in new variants of Cryptocurrencies that are known for their peculiar characteristics. For instance, Storjcoin is a Proof-of-Storage-based Cryptocurrency that incentivizes its peers based on the amount of storage owned by them. Cryptocurrencies like Monero strive for user privacy by using privacy-centric cryptographic algorithms.  While Cryptocurrencies strive to maintain peer transparency by making the transactions and the entire ledger public, user privacy is compromised at times. Monero and many other privacy-centric Cryptocurrencies have significantly improved from the original Bitcoin protocol after several problems were found in the protocol. Most of these deficiencies were related to the privacy of users. Even though Bitcoin claims to have pseudo-anonymous user identities, many attacks have managed to successfully de-anonymize users. In this paper, we present some well-known attacks and analysis techniques that have compromised the privacy of Bitcoin and many other similar Cryptocurrencies. We also analyze and study different privacy-preserving algorithms and the problems these algorithms manage to solve. Lastly, we touch upon the ethics, impact, legality, and acceptance of imposing these privacy algorithms. Get a copy of the slides &lt;a href=&#34;https://git.io/cs8803&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ethics for Platforms</title>
+      <link>https://rahalkar.dev/talk/ethics-privacy/</link>
+      <pubDate>Wed, 11 Jul 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/ethics-privacy/</guid>
+      <description>&lt;p&gt;How much does the Internet know about you? It is a question that most of us will struggle to answer today. This illiteracy and nescience about the internal working of products and services that we use daily can prove to be exceedingly dangerous. The blind trust and complete faith of consumers in dot-com companies is being exploited at unprecedented levels, without the knowledge of the said beneficiaries. The lack of transparency in how our messages and other private data moves through the Internet, and how these tech giants make use of it has forced leaders like Tim Berners-Lee, founder of the WWW to radically overhaul his own creation! Migrating to a “Decentralized Internet” may seem like a longshot at best, but it is a necessary transition that all of us will have to make when an eventual tipping point is reached and the people realize that the “Data belongs to me”.&lt;/p&gt;
+
+&lt;p&gt;Ask a 10-year-old Jack what Facebook is for, and he’ll tell you it is “to help me make friends”
+But, Facebook’s board is not working to help Jack make more friends. It is looking to make a hefty profit out of Jack’s social graph. The discernment that we are not the customers of Facebook, we are the product, Facebook is selling us to advertisers, is yet to kick-in.
+Looking back at the last year, there’s evidence that Internet has become more of a purveyor of lies than of truth because of the way the targeted advertising model encourages people to put things online which are likely to be clicked upon (Clickbait)
+With the Indian SC declaring privacy as a “fundamental” right, it is clear that the companies who treat data ethics as a social responsibility as important as environmental awareness are tomorrow’s winners. Digital trust is paramount for digital growth and welfare.&lt;/p&gt;
+
+&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Ethics-Privacy.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

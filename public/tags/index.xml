@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/</link>
+      <atom:link href="https://rahalkar.dev/tags/index.xml" rel="self" type="application/rss+xml" />
+    <description>Tags</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Sun, 14 Jan 2024 10:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>Tags</title>
+      <link>https://rahalkar.dev/tags/</link>
+    </image>
+    
+    <item>
+      <title>Assembly</title>
+      <link>https://rahalkar.dev/tags/assembly/</link>
+      <pubDate>Sun, 14 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/assembly/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Binary Exploitation</title>
+      <link>https://rahalkar.dev/tags/binary-exploitation/</link>
+      <pubDate>Sun, 14 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/binary-exploitation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Buffer Overflow</title>
+      <link>https://rahalkar.dev/tags/buffer-overflow/</link>
+      <pubDate>Sun, 14 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/buffer-overflow/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cybersecurity</title>
+      <link>https://rahalkar.dev/tags/cybersecurity/</link>
+      <pubDate>Sun, 14 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/cybersecurity/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Memory Exploitation</title>
+      <link>https://rahalkar.dev/tags/memory-exploitation/</link>
+      <pubDate>Sun, 14 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/memory-exploitation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Stack Smashing</title>
+      <link>https://rahalkar.dev/tags/stack-smashing/</link>
+      <pubDate>Sun, 14 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/stack-smashing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>x86</title>
+      <link>https://rahalkar.dev/tags/x86/</link>
+      <pubDate>Sun, 14 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/x86/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Access Control</title>
+      <link>https://rahalkar.dev/tags/access-control/</link>
+      <pubDate>Fri, 13 Jan 2023 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/access-control/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cloud Security</title>
+      <link>https://rahalkar.dev/tags/cloud-security/</link>
+      <pubDate>Fri, 13 Jan 2023 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/cloud-security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Identity Management</title>
+      <link>https://rahalkar.dev/tags/identity-management/</link>
+      <pubDate>Fri, 13 Jan 2023 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/identity-management/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Microsegmentation</title>
+      <link>https://rahalkar.dev/tags/microsegmentation/</link>
+      <pubDate>Fri, 13 Jan 2023 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/microsegmentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Network Security</title>
+      <link>https://rahalkar.dev/tags/network-security/</link>
+      <pubDate>Fri, 13 Jan 2023 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/network-security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Security Architecture</title>
+      <link>https://rahalkar.dev/tags/security-architecture/</link>
+      <pubDate>Fri, 13 Jan 2023 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/security-architecture/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zero Trust</title>
+      <link>https://rahalkar.dev/tags/zero-trust/</link>
+      <pubDate>Fri, 13 Jan 2023 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/zero-trust/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>contact-tracing</title>
+      <link>https://rahalkar.dev/tags/contact-tracing/</link>
+      <pubDate>Sun, 27 Mar 2022 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/contact-tracing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cryptography</title>
+      <link>https://rahalkar.dev/tags/cryptography/</link>
+      <pubDate>Sun, 27 Mar 2022 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/cryptography/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hacking</title>
+      <link>https://rahalkar.dev/tags/hacking/</link>
+      <pubDate>Fri, 29 Oct 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/hacking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>security</title>
+      <link>https://rahalkar.dev/tags/security/</link>
+      <pubDate>Fri, 29 Oct 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/security/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>arxiv</title>
+      <link>https://rahalkar.dev/tags/arxiv/</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/arxiv/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cryptocurrencies</title>
+      <link>https://rahalkar.dev/tags/cryptocurrencies/</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/cryptocurrencies/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>research</title>
+      <link>https://rahalkar.dev/tags/research/</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/research/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>blockchain</title>
+      <link>https://rahalkar.dev/tags/blockchain/</link>
+      <pubDate>Sun, 25 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/blockchain/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>privacy</title>
+      <link>https://rahalkar.dev/tags/privacy/</link>
+      <pubDate>Sun, 25 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/privacy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>file-transfer</title>
+      <link>https://rahalkar.dev/tags/file-transfer/</link>
+      <pubDate>Sat, 24 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/file-transfer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>p2p</title>
+      <link>https://rahalkar.dev/tags/p2p/</link>
+      <pubDate>Sat, 24 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/p2p/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Deep Learning</title>
+      <link>https://rahalkar.dev/tags/deep-learning/</link>
+      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Explainable AI</title>
+      <link>https://rahalkar.dev/tags/explainable-ai/</link>
+      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/explainable-ai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Health Care</title>
+      <link>https://rahalkar.dev/tags/health-care/</link>
+      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/health-care/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>file system</title>
+      <link>https://rahalkar.dev/tags/file-system/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/file-system/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>IEEE</title>
+      <link>https://rahalkar.dev/tags/ieee/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/ieee/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ACM</title>
+      <link>https://rahalkar.dev/tags/acm/</link>
+      <pubDate>Mon, 11 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/acm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hidden secrets</title>
+      <link>https://rahalkar.dev/tags/hidden-secrets/</link>
+      <pubDate>Sat, 28 Sep 2019 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/hidden-secrets/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://rahalkar.dev/tags/python/</link>
+      <pubDate>Sat, 28 Sep 2019 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>exploit</title>
+      <link>https://rahalkar.dev/tags/exploit/</link>
+      <pubDate>Fri, 20 Sep 2019 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/exploit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>vulnerability</title>
+      <link>https://rahalkar.dev/tags/vulnerability/</link>
+      <pubDate>Fri, 20 Sep 2019 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/vulnerability/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CTF</title>
+      <link>https://rahalkar.dev/tags/ctf/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/ctf/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Demo</title>
+      <link>https://rahalkar.dev/tags/demo/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/demo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CVE</title>
+      <link>https://rahalkar.dev/tags/cve/</link>
+      <pubDate>Mon, 16 Sep 2019 04:15:02 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/cve/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>kernel</title>
+      <link>https://rahalkar.dev/tags/kernel/</link>
+      <pubDate>Mon, 16 Sep 2019 04:15:02 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/kernel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://rahalkar.dev/tags/linux/</link>
+      <pubDate>Mon, 16 Sep 2019 04:15:02 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>journal</title>
+      <link>https://rahalkar.dev/tags/journal/</link>
+      <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/journal/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>technology</title>
+      <link>https://rahalkar.dev/tags/technology/</link>
+      <pubDate>Sun, 14 Jul 2019 11:00:01 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/technology/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cli</title>
+      <link>https://rahalkar.dev/tags/cli/</link>
+      <pubDate>Wed, 05 Jun 2019 01:15:35 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/cli/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>commands</title>
+      <link>https://rahalkar.dev/tags/commands/</link>
+      <pubDate>Wed, 05 Jun 2019 01:15:35 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/commands/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>permissions</title>
+      <link>https://rahalkar.dev/tags/permissions/</link>
+      <pubDate>Wed, 05 Jun 2019 01:15:35 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/permissions/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>unix</title>
+      <link>https://rahalkar.dev/tags/unix/</link>
+      <pubDate>Wed, 05 Jun 2019 01:15:35 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/unix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>filesystem</title>
+      <link>https://rahalkar.dev/tags/filesystem/</link>
+      <pubDate>Sat, 01 Jun 2019 14:04:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/filesystem/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bootstrap</title>
+      <link>https://rahalkar.dev/tags/bootstrap/</link>
+      <pubDate>Sat, 18 May 2019 16:11:17 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/bootstrap/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>computers</title>
+      <link>https://rahalkar.dev/tags/computers/</link>
+      <pubDate>Sat, 18 May 2019 16:11:17 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/computers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>administration</title>
+      <link>https://rahalkar.dev/tags/administration/</link>
+      <pubDate>Thu, 16 May 2019 04:39:06 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/administration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>environmentvariables</title>
+      <link>https://rahalkar.dev/tags/environmentvariables/</link>
+      <pubDate>Wed, 08 May 2019 16:59:15 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/environmentvariables/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>path</title>
+      <link>https://rahalkar.dev/tags/path/</link>
+      <pubDate>Wed, 08 May 2019 16:59:15 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/path/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>containers</title>
+      <link>https://rahalkar.dev/tags/containers/</link>
+      <pubDate>Sat, 06 Apr 2019 12:05:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/containers/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>docker</title>
+      <link>https://rahalkar.dev/tags/docker/</link>
+      <pubDate>Sat, 06 Apr 2019 12:05:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hypervisor</title>
+      <link>https://rahalkar.dev/tags/hypervisor/</link>
+      <pubDate>Sat, 06 Apr 2019 12:05:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/hypervisor/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>virtualbox</title>
+      <link>https://rahalkar.dev/tags/virtualbox/</link>
+      <pubDate>Sat, 06 Apr 2019 12:05:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/virtualbox/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>meetups</title>
+      <link>https://rahalkar.dev/tags/meetups/</link>
+      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/meetups/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>talk</title>
+      <link>https://rahalkar.dev/tags/talk/</link>
+      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/talk/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>ethics</title>
+      <link>https://rahalkar.dev/tags/ethics/</link>
+      <pubDate>Wed, 11 Jul 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/ethics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>platforms</title>
+      <link>https://rahalkar.dev/tags/platforms/</link>
+      <pubDate>Wed, 11 Jul 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/platforms/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>databases</title>
+      <link>https://rahalkar.dev/tags/databases/</link>
+      <pubDate>Sat, 21 Apr 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/databases/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mongodb</title>
+      <link>https://rahalkar.dev/tags/mongodb/</link>
+      <pubDate>Sat, 21 Apr 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/mongodb/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>nosql</title>
+      <link>https://rahalkar.dev/tags/nosql/</link>
+      <pubDate>Sat, 21 Apr 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/nosql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>http</title>
+      <link>https://rahalkar.dev/tags/http/</link>
+      <pubDate>Tue, 27 Mar 2018 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>peer-to-peer</title>
+      <link>https://rahalkar.dev/tags/peer-to-peer/</link>
+      <pubDate>Tue, 27 Mar 2018 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/peer-to-peer/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>bitcoin</title>
+      <link>https://rahalkar.dev/tags/bitcoin/</link>
+      <pubDate>Fri, 25 Aug 2017 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/bitcoin/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>cryptocurrency</title>
+      <link>https://rahalkar.dev/tags/cryptocurrency/</link>
+      <pubDate>Fri, 25 Aug 2017 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/cryptocurrency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>decentralised systems</title>
+      <link>https://rahalkar.dev/tags/decentralised-systems/</link>
+      <pubDate>Fri, 25 Aug 2017 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/decentralised-systems/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>certificates</title>
+      <link>https://rahalkar.dev/tags/certificates/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/certificates/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>courses</title>
+      <link>https://rahalkar.dev/tags/courses/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/courses/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>learning</title>
+      <link>https://rahalkar.dev/tags/learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>resources</title>
+      <link>https://rahalkar.dev/tags/resources/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/resources/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tutorials</title>
+      <link>https://rahalkar.dev/tags/tutorials/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/tags/tutorials/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

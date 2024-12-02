@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hacking | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/hacking/</link>
+      <atom:link href="https://rahalkar.dev/tags/hacking/index.xml" rel="self" type="application/rss+xml" />
+    <description>hacking</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Fri, 29 Oct 2021 11:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>hacking</title>
+      <link>https://rahalkar.dev/tags/hacking/</link>
+    </image>
+    
+    <item>
+      <title>The Million Dollar Dissident</title>
+      <link>https://rahalkar.dev/talk/million-dollar-dissident/</link>
+      <pubDate>Fri, 29 Oct 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/million-dollar-dissident/</guid>
+      <description>&lt;p&gt;A talk about the Zero-Day exploit used by the NSO group on Ahmed Mansoor, its backstory, exploit and network
+infrastructure.  Get a copy of the slides &lt;a href=&#34;https://git.io/ems8803&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

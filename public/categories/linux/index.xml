@@ -1,0 +1,482 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/categories/linux/</link>
+      <atom:link href="https://rahalkar.dev/categories/linux/index.xml" rel="self" type="application/rss+xml" />
+    <description>Linux</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Mon, 16 Sep 2019 04:15:02 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>Linux</title>
+      <link>https://rahalkar.dev/categories/linux/</link>
+    </image>
+    
+    <item>
+      <title>Understanding Dirty COW - The Linux Kernel Exploit</title>
+      <link>https://rahalkar.dev/post/understanding-dirty-cow-the-infamous-linux-kernel-exploit/</link>
+      <pubDate>Mon, 16 Sep 2019 04:15:02 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/understanding-dirty-cow-the-infamous-linux-kernel-exploit/</guid>
+      <description>
+
+&lt;p&gt;Dirty COW is a computer security vulnerability that was discovered in the Linux Kernel in 2016. The exploit was registered under CVE with the designation: CVE-2016-5195. Dirty COW is a root privilege escalation exploit that attacks the Copy-On-Write mechanism in the Linux Kernel. Hence the &amp;ldquo;COW&amp;rdquo; in Dirty COW. The proof of concept can be found &lt;a href=&#34;http://dirtycow.ninja&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The vulnerability existed in the Linux Kernel since 2007, but was discovered later in 2016, by Phil Oester. It has been patched in Linux kernel versions 4.8.3, 4.7.9, 4.4.26 and newer. The exploit also attacked Android devices. It allows a user to write to a read-only root file and escalate privileges.&lt;/p&gt;
+
+&lt;h4 id=&#34;what-is-copy-on-write-mechanism&#34;&gt;What is Copy-On-Write Mechanism?&lt;/h4&gt;
+
+&lt;p&gt;Linux kernel has a mechanism that when a process requests a copy of some file, the kernel does not create a copy of the file until the file is requested to be written to. Copy-On-Write Mechanism works in two steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Locate/generate a physical address in the memory.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write to the copy only when the file is requested to be written to.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;COW is basically an optimization strategy used by the Linux kernel. The COW concept is also used in maintenance of instant snapshot on database servers like Microsoft SQL Server 2005. Instant snapshots preserve a static view of a database by storing a pre-modification copy of data when underlaying data are updated. Instant snapshots are used for testing uses or moment-dependent reports and should not be used to replace backups.&lt;/p&gt;
+
+&lt;h4 id=&#34;how-dirty-cow-exploits-the-copy-on-write-mechanism&#34;&gt;How Dirty COW exploits the Copy-On-Write Mechanism?&lt;/h4&gt;
+
+&lt;p&gt;The exploit creates a private copy(mapping) of a read-only file(which is the file owned by root). Now it tries to write to the private copy. Now the COW mechanism comes into picture. Since the file is never requested to be written to, and now it is - COW does it job.&lt;/p&gt;
+
+&lt;p&gt;The write action in COW has the two operations as explained above. These operations are non-atomic in nature. We say that an operation is atomic when it has only two states- Either the operation is complete or it is not. The atomic operation completes in a single step and no other process/thread can access the data owned by that operation. Non-atomic operations can have intermediate stages as well, which includes partial execution of the instruction &amp;amp; they can have shared memory accessible by multiple threads or processes at the same time. Since these operations are non-atomic, another thread can get right in the middle of the two operations (locate physical address &amp;amp; write to physical address)&lt;/p&gt;
+
+&lt;p&gt;In the Dirty COW exploit, initially a private mmap (memory map of the read-only file in the main memory) is created. As per the Linux man page: Mmap is a system call used to allocate memory, or map files or devices into memory). The reason to create a private mmap is that, the system makes all the write changes to the private mapping without affecting the original file.&lt;/p&gt;
+
+&lt;p&gt;Dirty COW uses two threads- The first thread does not directly write to the actual memory allocated by the mmap, but it writes to &lt;em&gt;/proc/self/mem&lt;/em&gt;. This path is the virtual representation of the exploit executable that is running. The reason to write to this location is because the vulnerability resides in the process-to-process virtual memory access. In short, the thread requests the kernel to write to the private mapping that was initially created with mmap. Thus COW is coming into picture now. The other thread executes the madvise system call. As per the Linux man page:  the &lt;em&gt;madvise()&lt;/em&gt; system call allows a process that has knowledge of its memory behavior to describe it to the system. The advice passed in may be used by the system to alter its virtual memory paging strategy. This thread says to the kernel (&amp;rdquo;&lt;em&gt;advices&lt;/em&gt;&amp;rdquo;) that the private mapping that was created initially, is not required anymore and thus should be thrown away.&lt;/p&gt;
+
+&lt;p&gt;The two threads are running concurrently, and thus in the context switching mechanism, a scenario will occur as shown below :&lt;/p&gt;
+
+&lt;table &gt;
+
+&lt;tr &gt;
+Thread 1
+Thread 2
+&lt;/tr&gt;
+
+&lt;tbody &gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Locate physical address
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Throw away private copy
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Write to physical address
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Thus the second thread has successfully managed to get in between the two non atomic operations. Thus before writing to the physical address, the mmap is discarded. Now since it does not have any address to write to, it writes to the original read-only file. Thus, the kernel is tricked into thinking that the write was to the original read-only file. This is a race condition exhibited due to write attempts at a location that never exists. And this is how the actual exploit works.&lt;/p&gt;
+
+&lt;p&gt;The following diagram taken from &lt;a href=&#34;https://www.cs.toronto.edu/~arnold/427/18s/427_18S/indepth/dirty-cow/demo.html&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; gives an apt visual representation of the exploit. &lt;img src=&#34;006.png&#34; alt=&#34;dirtycow&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;how-does-dirty-cow-gets-root-privileges&#34;&gt;How does Dirty COW gets root privileges?&lt;/h4&gt;
+
+&lt;p&gt;Since the exploit is now able to write to read-only files, the &lt;em&gt;/etc/sudoers&lt;/em&gt; file can be   written to. This will add the current user to the sudoers list, thereby escalating privileges. Even the &lt;em&gt;/etc/shadow&lt;/em&gt; file can be manipulated to change the root password.  Several versions of the exploit were implemented attacking SUID binaries, writing to read-only files. Another version of the exploit existed, which used an alternative method to exploit the process-to-process virtual memory access (with ptrace).&lt;/p&gt;
+
+&lt;h4 id=&#34;implementation-details&#34;&gt;Implementation Details&lt;/h4&gt;
+
+&lt;p&gt;The below code snippet gives a general idea of how the exploit was implemented in C. Most of the functions used here are a part of the Linux Kernel API and hence the necessary headers are required to be included. This snippet just gives a brief overview of the programming part of the exploit.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    pthread_t pth1,pth2; // The two threads are created
+    f = open(&amp;quot;read-only-file&amp;quot;,O_RDONLY); // Open the read-only file
+    void* map = mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset); // Memory map is created
+    
+    pthread_create(pth1,NULL,madviseThread); // Calling thread 1
+    pthread_create(pth2,NULL,writeToProcSelfMem,&amp;quot;read-only-file&amp;quot;); // Calling thread 2
+    
+    void *madviseThread()
+    {
+      int i,c=0;
+      for(i=0;i&amp;lt;100000000;i++)
+      {
+        c += madvise(map,100,MADV_DONTNEED); // Using madvise and telling the kernel that the allocated space is no longer needed
+      }
+    }
+    
+    void *writeToProcSelfMem(void *arg)
+    {
+      char *str;
+      str = (char*)arg;
+      int f = open(&amp;quot;/proc/self/mem&amp;quot;,O_RDWR); // Opening /proc/self/mem in read-write mode
+      int i,c = 0;
+      for(i=0;i&amp;lt;100000000;i++) {
+        lseek(f,(uintptr_t) map,SEEK_SET);
+        c += write(f,str,strlen(str)); // Write to /proc/self/mem the contents of str
+      }
+    }
+    
+    &amp;lt;/code&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>File Permissions in Unix/Linux</title>
+      <link>https://rahalkar.dev/post/file-permissions-in-unix-linux/</link>
+      <pubDate>Wed, 05 Jun 2019 01:15:35 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/file-permissions-in-unix-linux/</guid>
+      <description>
+
+&lt;h3 id=&#34;file-permissions&#34;&gt;File Permissions&lt;/h3&gt;
+
+&lt;p&gt;Unix &amp;amp; Linux provides Read(r),Write(w) and Execute(x) permissions to any file on the system.
+If you &lt;code&gt;ls -l&lt;/code&gt; every file with its permissions will be shown.&lt;/p&gt;
+
+&lt;p&gt;The system is divided into three types - User,Group and others. The r,w,x permissions are assigned to each type. This is well explained by the diagram shown below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/permissions.jpg&#34; alt=&#34;Permissions&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Owner permissions − The owner&amp;rsquo;s permissions determine what actions the owner of the file can perform on the file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Group permissions − The group&amp;rsquo;s permissions determine what actions a user, who is a member of the group that a file belongs to, can perform on the file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Other (world) permissions − The permissions for others indicate what action all other users can perform on the file.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The chmod command helps to assign permissions or remove existing permissions. Permissions can be assigned in two ways -&lt;/p&gt;
+
+&lt;p&gt;1.By using the letters r,w,x &amp;amp; a,o,u with the symbols +, - &amp;amp; =.
+2. Using octal numbers.
+Let us create a sample file and apply some root privileges to it.&lt;/p&gt;
+
+&lt;p&gt;Enter into root by typing &lt;code&gt;su&lt;/code&gt; and entering the root password.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;echo &amp;quot;Test File &amp;quot; &amp;gt;&amp;gt; only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Check the default permissions for the file by typing &lt;code&gt;ls -l only_root.txt&lt;/code&gt;. This produced:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    -rw-r--r--  1 linus staff 0 Jan 1 08:28 only_root.txt
+   
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We will be adding readonly permissions to this file.
+&lt;code&gt;chmod a-w only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us split the command.
+* chmod - Used to assign permissions.
+* a-w - a indicates &amp;lsquo;all&amp;rsquo; minus is remove and w is write. So it is the shorthand notation for remove write permissions from all. Similarly to add a permission we can use the plus symbol.&lt;/p&gt;
+
+&lt;p&gt;only_root.txt - Is the file
+Some examples of this shorthand notation:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;a+rwx - Add read,write and execute permissions to all&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;u=x - Assign execute permission to the current user.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;o-wx - Remove write-execute permissions from other users.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;g+rw - Add read-write permissions to the group that the user belongs to.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The other mentioned way was is the octal number system. Check out the table given below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal.png&#34; alt=&#34;Octal System&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The chmod command also accepts this method to assign permissions.
+Some examples are illustrated below:&lt;/p&gt;
+
+&lt;p&gt;The very popluar permission set that is seen is&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chmod 755 only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us break it into parts&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;7 - Read,write &amp;amp; Execute permissions to the user&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5 - Read &amp;amp; Execute permission to the group of the user&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The way to remember this number system is referring to the binary equivalent of the octal number.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal-permission.png&#34; alt=&#34;Octal permissions&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A set bit indicates that the permission exists and a clear bit indicates that it is removed.
+Similar permissions can be assigned to directories as well.&lt;/p&gt;
+
+&lt;h5 id=&#34;suid-sgid-permissions&#34;&gt;SUID &amp;amp; SGID Permissions&lt;/h5&gt;
+
+&lt;p&gt;setuid and setgid are Unix and Linux access right flags that allow users to run an executable having the permissions of executing the binary,restricted to some other user or group.&lt;/p&gt;
+
+&lt;p&gt;setuid allows execution access to a specific user
+and setgid does the same for a group.&lt;/p&gt;
+
+&lt;p&gt;Usually it is used to allow local users to execute some privileged binaries belonging to the root user.
+For example, the root user may have some privileged executables like curl,wget etc. and the root user may set the access right flags to allow any other trusted local user to use these executables.&lt;/p&gt;
+
+&lt;p&gt;These permissions are usually set with the chmod command.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chmod ug+s /usr/bin/wget&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Running this command in root will allow local users and groups to execute the binary. In short we have lowered the privileges for this binary executable by setting the SUID &amp;amp; SGID bit.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Virtual File System</title>
+      <link>https://rahalkar.dev/post/the-virtual-file-system/</link>
+      <pubDate>Sat, 01 Jun 2019 14:04:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/the-virtual-file-system/</guid>
+      <description>
+
+&lt;h3 id=&#34;file-systems-in-linux&#34;&gt;File Systems In Linux&lt;/h3&gt;
+
+&lt;p&gt;Linux works on the concept of virtual file systems. Everything on a Linux/Unix system is a file.
+Here is a brief look at the file system structure -&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/lfs.png&#34; alt=&#34;Linux File System&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This directory structure is followed in all Linux distributions which is similar to a Unix file system. Whenever a Linux system boots,this virtual file system is mounted. Each directory in this tree has its own significance.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;/bin - The bin directory stores all the Linux command binaries. The default commands like ls,cd,mkdir etc have their binaries located in this folder.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/boot - This directory stores all the boot related information. The Linux kernel can be found here with usually the name &lt;code&gt;vmlinuz&lt;/code&gt;. A separate subdirectory for GRUB can also be found here if it is installed.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/dev - Here all the external devices are mounted. It also contains ttys,null,urandom,random devices which are internal devices used in several situations.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/etc - Here all the configuration files are stored for different programs. A well known file - hosts can be found here. FTP,SSH and several applications store their configuration files here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/home - Here all the documents and personal files of different users on the system are stored. /home may have sub directories for each user.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/lib - This directory has all the library files used by the Kernel or the system while booting. It has shared library images (Shared Object files &amp;amp; dependencies)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/media - This directory is now no longer used. It is kept for backward compatibility to older systems having floppy or CD drivers. The CDs and floppies inserted into the drives were mounted here. Instead they can now be mounted in the /mnt directory.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/mnt - This directory is used to mount external drives or even ISO mounts. Other Linux Virtual File systems can also be mounted here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/opt - Add on software package files are installed in this folder. Some softwares use this folder to place its libraries and dependencies here. It also has /bin, /doc , /include directories reserved for the system administrator.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/root - A separate directory is provied for the root user. All the documents and root files are stored here. Other non-privileged users are not allowed access to this directory as well as all the other directories mentioned.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/sbin - This directory contains all the system binaries. Binaries for programs like systemctl,service etc. can be found here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/tmp - This is a directory used to store temporary files. The system creates several temporary files which are deleted once the system is powered off. Ususally incomplete download files can be found here. Sometimes temporary mounts are also created here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/srv - This directory has site-specific data served by the system. Usually files related to services are stored here. Eg. ftp,rsync related files are stored here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/usr - It is one of the major directories in Linux. It has various sub-directories like bin(User binaries),include(All the C headers are stored here),share(Architecture independent data),local(Local system files) etc.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/var - This directory has variable data files. It has several sub directories like cache(Applications&amp;rsquo; cache data),lib,opt(Variable /opt data),tmp(Temporary system files),log(System logs),lock(Lock files),cron(Crontab configuration file),backups etc.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;File systems are also used on numerous storage devices that use different kinds of media. NTFS,HFS+,APFS,ExFAT etc. are some of the well known file systems designed by proprietary companies. Linux uses Extended File Systems. ext4 is the latest file system used on Linux based distributions. It is backward compatible with its older generations ext3,ext2 &amp;amp; ext. ext4 allows volumes upto size 1EiB (Exbibyte) and files with sizes upto 16 TiB (Tebibytes).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Guide to Partitions &amp; Partitioning Drives in Linux</title>
+      <link>https://rahalkar.dev/post/a-guide-to-partitions-partitioning-drives-in-linux/</link>
+      <pubDate>Thu, 16 May 2019 04:39:06 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/a-guide-to-partitions-partitioning-drives-in-linux/</guid>
+      <description>
+
+&lt;p&gt;Linux has completely different naming conventions while mounting drives as compared to Windows. /dev/sda,/dev/sdb,/dev/sdc etc. are the conventions in Linux.&lt;/p&gt;
+
+&lt;p&gt;Each drive has its own partition table that describes the layout of partitions of the drive. MBR,GPT etc. are the different partition table standards used.
+The MBR partition scheme is quite old and is rarely used due to limitations like-&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;It does not allow the configuration of more than four main partitions. Those partitions are called primary partitions.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Disk partitions are limited to 2TB&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Every disk can have three kinds of partitions as per the MBR scheme -&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Primary Partitions - Usually for storing OSes&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Logical Partitions - Every primary partition may have multiple logical partitions&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extended Partitions - A primary partition can be extended with this to overcome the limitation of maximum four primary partitions.
+These partitions can be found named with the conventions /dev/sda1,/dev/sda2 etc.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(Enter all the commands mentioned below in root or with a sudoers&amp;rsquo; user)&lt;/p&gt;
+
+&lt;h4 id=&#34;mounting-drives-in-linux&#34;&gt;Mounting drives in Linux&lt;/h4&gt;
+
+&lt;p&gt;Running &lt;code&gt;fdisk -l&lt;/code&gt; in root lists out the number of drives that are mounted on the system. &lt;code&gt;/dev/sda&lt;/code&gt; is usually the hard drive or SSD on which the OS is running. Other external drives can be found ususally at &lt;code&gt;/dev/sdb&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;df -h&lt;/code&gt; may also help locating external drives.&lt;/p&gt;
+
+&lt;p&gt;Whenever an external drive is inserted it is usually automatically mounted. To format a drive it must be unmounted first.&lt;/p&gt;
+
+&lt;p&gt;Drives can also be mounted with &lt;code&gt;mount /dev/sda /mnt&lt;/code&gt; if the drive to be mounted is &lt;code&gt;/dev/sda&lt;/code&gt; and the mount location is &lt;code&gt;/mnt&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;formatting-drives-in-linux&#34;&gt;Formatting drives in Linux&lt;/h4&gt;
+
+&lt;p&gt;There are two ways to format drives. One is with a graphical interface utility (GParted) or via the terminal.&lt;/p&gt;
+
+&lt;p&gt;GParted may be installed with the aptitude package manager supporting OSes by
+&lt;code&gt;apt-get install gparted&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Entering &lt;code&gt;umount /dev/sdc1&lt;/code&gt; in root if sdc1 is the drive mount point, will unmount the external drive.
+Format the drive with the mkfs utility provided with Linux&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    mkfs.ext4 /dev/sdc1 For ext4 file system
+    mkfs.vfat /dev/sdc1 For vFat file system
+    mkfs.ntfs /dev/sdc1 For NTFS file system
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;creating-a-bootable-drive-in-linux&#34;&gt;Creating a bootable drive in Linux&lt;/h4&gt;
+
+&lt;p&gt;The USB drive must be completely formatted before installing. Format the drive to any supported file system. Several GUI based utilities like etcher can be used to format and create bootable drives.
+Linux and Unix based systems provide the data duplicator(dd) utility to copy binary data to drives.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    dd if=/home/linus/file.iso of=/dev/sdc 
+    if - The location of the input file
+    of - Location of the mounted drive
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Status of dd can be monitored by&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    grep -l &#39;^dd$ - Returns the process Id of dd
+    kill -USR1 process_id - Shows the status 
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After dd has completed transferring the iso to the drive type &lt;code&gt;sync&lt;/code&gt;.
+This is a good practice, since it forces completition of pending disk writes. It flushes the cache.&lt;/p&gt;
+
+&lt;h4 id=&#34;partitioning-drives-in-linux&#34;&gt;Partitioning Drives In Linux&lt;/h4&gt;
+
+&lt;h5 id=&#34;creating-a-partition&#34;&gt;Creating a partition&lt;/h5&gt;
+
+&lt;p&gt;GParted is an excellent utility to partition drives. It can also be done with its command-line version invoked by &lt;code&gt;parted&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;1.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; (within the parted console invoked after typing &lt;code&gt;parted&lt;/code&gt;)if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.Label the disk with &lt;code&gt;mklabel name&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;3.Create the partition&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    mkpart logical - Creates a logical partition
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Enter the start and end location in megabytes. This will indicate the size of the partition. Eg. Start can be 1 and End can be 1000 indicating a partition of 1 Gb&lt;/p&gt;
+
+&lt;p&gt;4.The partition can be formatted with any file system with the &lt;code&gt;mkfs&lt;/code&gt; command as explained above.&lt;/p&gt;
+
+&lt;h5 id=&#34;removing-a-partition&#34;&gt;Removing a partition&lt;/h5&gt;
+
+&lt;p&gt;1.Invoke the parted utility with &lt;code&gt;parted&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;2.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;code&gt;rm 1&lt;/code&gt; will remove the first partition from sdc if it has been selected&lt;/p&gt;
+
+&lt;h5 id=&#34;resizing-a-partition&#34;&gt;Resizing a partition&lt;/h5&gt;
+
+&lt;p&gt;1.Invoke the parted utility with &lt;code&gt;parted&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;2.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;resizepart&lt;/code&gt; will ask for the new start and end to resize the partition.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;recovering-a-partition&#34;&gt;Recovering a partition&lt;/h5&gt;
+
+&lt;p&gt;Lost partitions can be recovered by &lt;code&gt;rescue&lt;/code&gt;. It asks for the start and end point in Mbs. If any lost partition is found,parted will recover the lost partition.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PATH Environment Variable in Linux/Unix</title>
+      <link>https://rahalkar.dev/post/path-environment-variable-in-linux-unix/</link>
+      <pubDate>Wed, 08 May 2019 16:59:15 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/path-environment-variable-in-linux-unix/</guid>
+      <description>
+
+&lt;h5 id=&#34;what-is-the-path-environment-variable&#34;&gt;What is the $PATH environment variable?&lt;/h5&gt;
+
+&lt;p&gt;Every Linux &amp;amp; Unix System has several environment variables which are dynamic variables essential for running several processes in the system.
+$HOME,$env being some of the well known environment variables.&lt;/p&gt;
+
+&lt;p&gt;The $PATH environment variable stores all the paths where one can find the binary executables for all the commands that we use.&lt;/p&gt;
+
+&lt;p&gt;Whenever a command is invoked from the terminal,all the paths in the $PATH environment variable are looked up and if the binary is found, the command is executed.&lt;/p&gt;
+
+&lt;p&gt;Trying this out on the terminal produces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    echo $PATH
+    
+    /home/linus/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The path variable can be usually edited or updated from the .bash_profile hidden file(On Unix like OS) or directly by exporting the variable with the export command.&lt;/p&gt;
+
+&lt;p&gt;Creating your own command recipies&lt;/p&gt;
+
+&lt;p&gt;Linux or Unix commands can be usually built by shell scripts, Python or Perl scripts.
+Let us create a simple Bash script that calculates the factorial of the number sent to it as an argument in the command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    #!/bin/bash
+    count=$1 
+    fact=1
+    while [ $count -gt 0 ] 
+    do
+       fact=$(( $fact * $count ))
+       count=$(( $count - 1 ))
+    done
+    echo $fact
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create a sample file with a  .sh extension and copy the factorial code as given above.
+Add the directory which contains the given file to your $PATH variable. Edit the variable from your .bash_profile or .profile located in your root directory with your preferred text editor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    nano ~/.bash_profle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The file may contain several other aliases and variables but look out for the lines and update
+as shown below
+(Make sure there are no spacings between PATH and =)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    export PATH=/home/linus/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/directory_of_bash_script
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Do not forget to source the .bash_profile or .profile file with the source command or .&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    
+    source .bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Calling the script file name from the terminal with any number as the argument to the command will print the factorial to stdout.
+The same thing can also be done by creating a symbolic link which will be discussed later.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

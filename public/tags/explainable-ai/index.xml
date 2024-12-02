@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Explainable AI | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/explainable-ai/</link>
+      <atom:link href="https://rahalkar.dev/tags/explainable-ai/index.xml" rel="self" type="application/rss+xml" />
+    <description>Explainable AI</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Thu, 16 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>Explainable AI</title>
+      <link>https://rahalkar.dev/tags/explainable-ai/</link>
+    </image>
+    
+    <item>
+      <title>End-to-End Lung Cancer Diagnosis on Computed Tomography Scans using 3D CNN and Explainable AI</title>
+      <link>https://rahalkar.dev/publication/e2e-dl/</link>
+      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/e2e-dl/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>tutorials | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/tutorials/</link>
+      <atom:link href="https://rahalkar.dev/tags/tutorials/index.xml" rel="self" type="application/rss+xml" />
+    <description>tutorials</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>tutorials</title>
+      <link>https://rahalkar.dev/tags/tutorials/</link>
+    </image>
+    
+    <item>
+      <title>Awesome Learning</title>
+      <link>https://rahalkar.dev/awesome-learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/awesome-learning/</guid>
+      <description>
+
+&lt;p&gt;I love to explore the vast field of Computer Science. I&amp;rsquo;ve dabbled with a variety of stuff over the past few years. While doing so, I&amp;rsquo;ve had to invest considerable amount of time in digging up resources from the corners of the Web. Also, people often ask me for suggestions regarding tutorials and courses about something they wish to learn.&lt;/p&gt;
+
+&lt;p&gt;Thus, I decided to compile this list with the hope that it would be useful to people and to also help me keep track of some great stuff I&amp;rsquo;ve found on the Web.&lt;/p&gt;
+
+&lt;p&gt;Please keep in mind that I&amp;rsquo;ve not consumed all the material mentioned on this list. If I&amp;rsquo;ve mentioned 4 different resources for a topic, it means that I&amp;rsquo;ve skimmed over all of them, but may have decided to go with one of those, personally. However, I&amp;rsquo;ve added all of them since everyone has a different taste. The lists are mostly in my order of preference.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;: Some of the links to books on Amazon are affiliate links. If you use them while purchasing, they grant me a small percentage of the cost of the book. Please note that the cost remains the same for you; Amazon simply gives me a small cut out of it. If you decide to buy a book, please use my link as it helps support the blog. Thanks!&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;similar-lists&#34;&gt;Similar Lists&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/danistefanovic/build-your-own-x&#34; target=&#34;_blank&#34;&gt;Daniel Stefanovic on GitHub: Build Your Own X&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/news/370-online-courses-with-real-college-credit-that-you-can-access-for-free-4fec5a28646/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp: 400+ Online Courses With Real College Credit That You Can Access For Free&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#c&#34;&gt;C&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#c-1&#34;&gt;C++&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#compilers&#34;&gt;Compilers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#data-science&#34;&gt;Data Science&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#docker&#34;&gt;Docker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#game-development&#34;&gt;Game Development&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#go&#34;&gt;Go&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#git-and-github&#34;&gt;Git and GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#interpreters--bytecode-virtual-machines&#34;&gt;Interpreters &amp;amp; Bytecode Virtual Machines&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#java&#34;&gt;Java&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#javascript&#34;&gt;JavaScript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#machine-learning&#34;&gt;Machine Learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#mongodb&#34;&gt;MongoDB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#nodejs&#34;&gt;Node.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#oauth-20-authorization-framework&#34;&gt;OAuth 2.0 Authorization Framework&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#opengl&#34;&gt;OpenGL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#operating-systems&#34;&gt;Operating Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#python&#34;&gt;Python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#react&#34;&gt;React&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#redis&#34;&gt;Redis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#rest&#34;&gt;REST&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#web-development&#34;&gt;Web Development&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;c&#34;&gt;C&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner&#34;&gt;Beginner&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=8Ib7nwc33uA&amp;amp;list=PLGLfVvz_LVvSaXCpKS395wbCcmsmgRea7&#34; target=&#34;_blank&#34;&gt;Derek Banas&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=KJgsSFOSQv0&#34; target=&#34;_blank&#34;&gt;Giraffe Academy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=CPjZKsUYSXg&amp;amp;list=PL_c9BZzLwBRKKqOc9TJz1pP0ASrxLMtp2&#34; target=&#34;_blank&#34;&gt;Caleb Curry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced&#34;&gt;Advanced&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=LtXEMwSG5-8&#34; target=&#34;_blank&#34;&gt;Socket Programming with C by Eduonix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.craftinginterpreters.com/a-bytecode-virtual-machine.html&#34; target=&#34;_blank&#34;&gt;Crafting Interpreters by Robert Nystrom&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLSiFUSQSRYAOFwfP-aMzXJlWKVyIuWfPU&#34; target=&#34;_blank&#34;&gt;Stack-based Virtual Machine by Philip Bohun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLSiFUSQSRYAND5ETcWAkiD5tBxM-kZGLD&#34; target=&#34;_blank&#34;&gt;Corgi64: Register-based Virtual Machine by Philip Bohun&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/2Ymyfnx&#34; target=&#34;_blank&#34;&gt;The C Programming Language by Brian Kernighan and Dennis Ritchie&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;documentation&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://devdocs.io/c/&#34; target=&#34;_blank&#34;&gt;C Documentation at DevDocs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;c-1&#34;&gt;C++&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner-1&#34;&gt;Beginner&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=vLnPwxZdW4Y&#34; target=&#34;_blank&#34;&gt;C++ by Giraffe Academy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced-modern&#34;&gt;Advanced/Modern&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL5jc9xFGsL8FWtnZBeTqZBbniyw0uHyaH&#34; target=&#34;_blank&#34;&gt;C++ 11 by Bo Qian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=DamuE8TM3xo&amp;amp;list=PLGLfVvz_LVvQ9S8YSV0iDsuEU8v11yP9M&#34; target=&#34;_blank&#34;&gt;Advanced C++ by Derek Banas&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/TheChernoProject&#34; target=&#34;_blank&#34;&gt;Modern C++ by TheChernoProject&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL5jc9xFGsL8E12so1wlMS0r0hTQoJL74M&#34; target=&#34;_blank&#34;&gt;Concurrency in C++ by Bo Qian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=_Sk9JT_gTV4&amp;amp;list=PL_dsdStdDXbrz9Ngrc1ErBwJIXLdClj1T&#34; target=&#34;_blank&#34;&gt;C++ 11 Smart Pointers by CodesBay&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books-1&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/30WHah3&#34; target=&#34;_blank&#34;&gt;The C++ Programming Language by Bjarne Stroustrup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/30WTv4T&#34; target=&#34;_blank&#34;&gt;C++: The Complete Reference by Herbert Schildt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;documentation-1&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.cppreference.com/w/&#34; target=&#34;_blank&#34;&gt;cppreference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/cpp/cpp/cpp-language-reference?view=vs-2019&#34; target=&#34;_blank&#34;&gt;C++ Language Reference by Microsoft&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;compilers&#34;&gt;Compilers&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udacity.com/course/compilers-theory-and-practice--ud168&#34; target=&#34;_blank&#34;&gt;Georgia Tech&amp;rsquo;s Compilers: Theory and Practice&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://lagunita.stanford.edu/courses/Engineering/Compilers/Fall2014/about&#34; target=&#34;_blank&#34;&gt;Stanford&amp;rsquo;s Compilers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLzLzYGEbdY5n9ITKUqOuRjXkRU5tMW2Sd&#34; target=&#34;_blank&#34;&gt;Bisqwit&amp;rsquo;s Create a Compiler Series&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://compilerbook.com/&#34; target=&#34;_blank&#34;&gt;Write an Compiler in Go by Thorsten Ball&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;data-science&#34;&gt;Data Science&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/specializations/ibm-data-science-professional-certificate&#34; target=&#34;_blank&#34;&gt;IBM Data Science Professional Certificate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.edx.org/professional-certificate/harvardx-data-science&#34; target=&#34;_blank&#34;&gt;HarvardX&amp;rsquo;s Data Science Professional Certificate&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;docker&#34;&gt;Docker&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/news/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b/&#34; target=&#34;_blank&#34;&gt;A Beginner-Friendly Introduction to Containers, VMs and Docker by Preethi Kasireddy on freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=YFl2mCHdv24&#34; target=&#34;_blank&#34;&gt;Learn Docker in 12 Minutes by Jake Wright&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Kyx2PsuwomE&#34; target=&#34;_blank&#34;&gt;Exploring Docker by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/&#34; target=&#34;_blank&#34;&gt;Docker Official Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Utf-A4rODH8&#34; target=&#34;_blank&#34;&gt;Building a container from scratch by Liz Rice&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;game-development&#34;&gt;Game Development&lt;/h1&gt;
+
+&lt;h2 id=&#34;c-2&#34;&gt;C++&lt;/h2&gt;
+
+&lt;h4 id=&#34;opengl-directx&#34;&gt;OpenGL/DirectX&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCsyHonfwHi4fLb2lkq0DEAA&#34; target=&#34;_blank&#34;&gt;ChilliTomatoNoodle&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCQ-W1KE9EYfdxhL6S4twUNw&#34; target=&#34;_blank&#34;&gt;TheChernoProject&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/handmadeheroarchive&#34; target=&#34;_blank&#34;&gt;Handmade Hero&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;sfml-sdl&#34;&gt;SFML/SDL&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/creaper/&#34; target=&#34;_blank&#34;&gt;Let&amp;rsquo;s Make Games&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL21OsoBLPpMOO6zyVlxZ4S4hwkY_SLRW9&#34; target=&#34;_blank&#34;&gt;Hilze Vonck&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLRtjMdoYXLf776y4K432eL_qPw4na_py3&#34; target=&#34;_blank&#34;&gt;Sonar Systems&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;unity-3d&#34;&gt;Unity 3D&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLPV2KyIb3jR5QFsefuO2RlAgWEz6EvVi6&#34; target=&#34;_blank&#34;&gt;Brackeys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/the-complete-unity-indie-game-developer-course/&#34; target=&#34;_blank&#34;&gt;The Complete Unity Indie Game Developer Course&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/unity-master-video-game-development-the-complete-course/&#34; target=&#34;_blank&#34;&gt;Unity: Beginner to Advanced - Complete Course&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;java-lwjgl&#34;&gt;Java (LWJGL)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCUkRj4qoT1bsWpE_C8lZYoQ&#34; target=&#34;_blank&#34;&gt;ThinMatrix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLlrATfBNZ98eOOCk2fOFg7Qg5yoQfFAdf&#34; target=&#34;_blank&#34;&gt;TheChernoProject&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;miscellaneous&#34;&gt;Miscellaneous&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.edx.org/course/cs50s-introduction-to-game-development&#34; target=&#34;_blank&#34;&gt;CS50&amp;rsquo;s Introduction to Game Development by Harvard University&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCeQhZOvNKSBRU0Mdg7V44wA&#34; target=&#34;_blank&#34;&gt;Matthew Hopson&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UC-yuWVUplUJZvieEligKBkA&#34; target=&#34;_blank&#34;&gt;OneLoneCoder/javidx9&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.haroldserrano.com/&#34; target=&#34;_blank&#34;&gt;Harold Serrano&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;go&#34;&gt;Go&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner-2&#34;&gt;Beginner&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://tour.golang.org/welcome/1&#34; target=&#34;_blank&#34;&gt;A Tour of Go&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=YS4e4q9oBaU&#34; target=&#34;_blank&#34;&gt;Introduction to Go by Michael Van Sickle&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=SqrbIlUwR0U&#34; target=&#34;_blank&#34;&gt;Go Crash Course by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=oppb7qE3Uao&amp;amp;list=PLmxT2pVYo5LDMV0epL4z4CUbxvIw6umg_&#34; target=&#34;_blank&#34;&gt;Write a Web App in Go by Davy Wybiral&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced-1&#34;&gt;Advanced&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gophercises.com/&#34; target=&#34;_blank&#34;&gt;Gophercises by Jon Calhoun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://interpreterbook.com/&#34; target=&#34;_blank&#34;&gt;Write an Interpreter in Go by Thorsten Ball&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://compilerbook.com/&#34; target=&#34;_blank&#34;&gt;Write an Compiler in Go by Thorsten Ball&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLOXvU5Ov-cqpjd1_OnczdizY0I64OfH-T&#34; target=&#34;_blank&#34;&gt;Gaming in Go by Velovix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=9D4yH7e_ea8&amp;amp;list=PLDZujg-VgQlZUy1iCqBbe5faZLMkA3g2x&#34; target=&#34;_blank&#34;&gt;Games with Go by Jack Mott&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=aYkxFbd6luY&#34; target=&#34;_blank&#34;&gt;Flappy Bird in Go by JustForFunc&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books-2&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.golang-book.com/books/intro&#34; target=&#34;_blank&#34;&gt;An Introduction to Programming in Go by Caleb Doxsey&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/2Gxpa50&#34; target=&#34;_blank&#34;&gt;The Go Programming Language by Alan A. A. Donovan and Brian Kernighan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;documentation-2&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://golang.org/pkg/&#34; target=&#34;_blank&#34;&gt;Official Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;git-and-github&#34;&gt;Git and GitHub&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx&#34; target=&#34;_blank&#34;&gt;Git Tutorial by Corey Schafer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=SWYqp7iY_Tc&#34; target=&#34;_blank&#34;&gt;Git and GitHub Crash Course by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.katacoda.com/courses/git&#34; target=&#34;_blank&#34;&gt;Interactive Git Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://learngitbranching.js.org/&#34; target=&#34;_blank&#34;&gt;Interactive Tutorial on Git Branching&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;interpreters-bytecode-virtual-machines&#34;&gt;Interpreters &amp;amp; Bytecode Virtual Machines&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.craftinginterpreters.com/&#34; target=&#34;_blank&#34;&gt;Crafting Interpreters by Robert Nystrom&lt;/a&gt; &lt;em&gt;(cannot recommend this gem enough)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://interpreterbook.com/&#34; target=&#34;_blank&#34;&gt;Write an Interpreter in Go by Thorsten Ball&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.subnetzero.io/post/building-language-vm-part-00/&#34; target=&#34;_blank&#34;&gt;So You Want to Build a Language VM by Fletcher Haynes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ruslanspivak.com/lsbasi-part1/&#34; target=&#34;_blank&#34;&gt;Simple Interpreter by Ruslan Spivak&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLSiFUSQSRYAOFwfP-aMzXJlWKVyIuWfPU&#34; target=&#34;_blank&#34;&gt;Stack-based Virtual Machine by Philip Bohun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLSiFUSQSRYAND5ETcWAkiD5tBxM-kZGLD&#34; target=&#34;_blank&#34;&gt;Corgi64: Register-based Virtual Machine by Philip Bohun&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;java&#34;&gt;Java&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner-3&#34;&gt;Beginner&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=eIrMbAQSU34&#34; target=&#34;_blank&#34;&gt;Programming with Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=2dZiMBwX_5Q&amp;amp;list=PL_c9BZzLwBRKIMP_xNTJxi9lIgQhE51rF&#34; target=&#34;_blank&#34;&gt;Caleb Curry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLE7E8B7F4856C9B19&#34; target=&#34;_blank&#34;&gt;Derek Banas&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced-2&#34;&gt;Advanced&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=FLkOX4Eez6o&amp;amp;list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG&#34; target=&#34;_blank&#34;&gt;JavaFX by thenewboston&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCCXbhmjID-T2I0KfuDPbi6A&#34; target=&#34;_blank&#34;&gt;JavaFX by Genuine Coder&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLqq-6Pq4lTTZh5U8RbdXq0WaYvZBz2rbn&#34; target=&#34;_blank&#34;&gt;Building REST APIs with JAX-RS by Java Brains&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books-3&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/2Y532Kl&#34; target=&#34;_blank&#34;&gt;Java: The Complete Reference by Herbert Schildt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;javascript&#34;&gt;JavaScript&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner-tutorials-crash-courses&#34;&gt;Beginner Tutorials &amp;amp; Crash Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLqq-6Pq4lTTYFJxC9NLJ7dSTI5Z1WWB6K&#34; target=&#34;_blank&#34;&gt;Introduction to JavaScript for Developers by Java Brains&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=hdI2bqOjy3c&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=W6NZfCO5SIk&#34; target=&#34;_blank&#34;&gt;Programming with Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=PkZNo7MFNFg&#34; target=&#34;_blank&#34;&gt;freeCodeCamp on YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scrimba.com/g/gintrotojavascript&#34; target=&#34;_blank&#34;&gt;Introduction to JavaScript at Scrimba&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scrimba.com/g/ges6&#34; target=&#34;_blank&#34;&gt;ES6 Tutorial at Scrimba&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced-and-full-courses&#34;&gt;Advanced and Full Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/modern-javascript-from-the-beginning/?couponCode=TRAVERSYMEDIA&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9i9Ae2D9Ee1RvylH38dKuET&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=PFmuCDHHpwk&#34; target=&#34;_blank&#34;&gt;Object-Oriented JavaScript by Mosh Hamedani&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;machine-learning&#34;&gt;Machine Learning&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/learn/machine-learning&#34; target=&#34;_blank&#34;&gt;Stanford&amp;rsquo;s Machine Learning by Andrew Ng&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/specializations/machine-learning&#34; target=&#34;_blank&#34;&gt;University of Washington&amp;rsquo;s Machine Learning Specialization&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://courses.edx.org/courses/course-v1:MITx+6.86x+1T2019/course/&#34; target=&#34;_blank&#34;&gt;MITx&amp;rsquo;s Machine Learning with Python: From Linear Models to Deep Learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF&#34; target=&#34;_blank&#34;&gt;StatQuest&amp;rsquo;s Machine Learning Series&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;mongodb&#34;&gt;MongoDB&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9jpvoYriLI0bY8DOgWZfi6u&#34; target=&#34;_blank&#34;&gt;MongoDB Tutorial by The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=-56x56UppqQ&#34; target=&#34;_blank&#34;&gt;MongoDB Crash Course by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;node-js&#34;&gt;Node.js&lt;/h1&gt;
+
+&lt;h2 id=&#34;tutorials-crash-courses&#34;&gt;Tutorials &amp;amp; Crash Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9gcy9lrvMJ75z9maRw4byYp&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=RLtyhwFtXQA&#34; target=&#34;_blank&#34;&gt;freeCodeCamp on YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=fBNz5xF-Kx4&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=C7TFgfY7JdE&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=TlB_eWDSMt4&#34; target=&#34;_blank&#34;&gt;Programming with Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;full-courses&#34;&gt;Full Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codewithmosh.com/p/the-complete-node-js-course&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/course/nodejs-the-complete-guide/?couponCode=ACAD_Y&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://codewithmosh.com/p/the-complete-node-js-course&#34; target=&#34;_blank&#34;&gt;Programming with Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;project-tutorials&#34;&gt;Project Tutorials&lt;/h2&gt;
+
+&lt;p&gt;Check out the following channels on YouTube which build a lot of stuff with Node.js:
+- &lt;a href=&#34;https://www.youtube.com/user/TechGuyWeb&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;
+- &lt;a href=&#34;https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;
+- &lt;a href=&#34;https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;
+- &lt;a href=&#34;https://www.youtube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;oauth-2-0-authorization-framework&#34;&gt;OAuth 2.0 Authorization Framework&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=CPbvxxslDTU&#34; target=&#34;_blank&#34;&gt;OAuth 2.0: An Overview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=996OiexHze0&#34; target=&#34;_blank&#34;&gt;OAuth 2.0 by Nate Barbettini&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2&#34; target=&#34;_blank&#34;&gt;An Introduction to OAuth 2 by the DigitalOcean Community&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;opengl&#34;&gt;OpenGL&lt;/h1&gt;
+
+&lt;h2 id=&#34;video-tutorials-with-c&#34;&gt;Video Tutorials with C++&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&#34; target=&#34;_blank&#34;&gt;TheChernoProject&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=0jML5fMBDGg&amp;amp;list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh&#34; target=&#34;_blank&#34;&gt;thebennybox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLRtjMdoYXLf6zUMDJVRZYV-6g6n62vet8&#34; target=&#34;_blank&#34;&gt;Sonar Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL6xSOsbVA1eYSZTKBxnoXYboy7wc4yg-Z&#34; target=&#34;_blank&#34;&gt;Suraj Sharma&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;video-tutorials-with-java&#34;&gt;Video Tutorials with Java&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&#34; target=&#34;_blank&#34;&gt;ThinMatrix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=ss3AnSxJ2X8&amp;amp;list=PLEETnX-uPtBXP_B2yupUKlflXBznWIlL5&#34; target=&#34;_blank&#34;&gt;thebennybox&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books-4&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://learnopengl.com/&#34; target=&#34;_blank&#34;&gt;Learn OpenGL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;documentation-3&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.gl/&#34; target=&#34;_blank&#34;&gt;docs.gl&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;operating-systems&#34;&gt;Operating Systems&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://littleosbook.github.io/&#34; target=&#34;_blank&#34;&gt;The Little Book About OS Development&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udacity.com/course/introduction-to-operating-systems--ud923&#34; target=&#34;_blank&#34;&gt;Georgia Tech&amp;rsquo;s Introduction to Operating Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udacity.com/course/advanced-operating-systems--ud189&#34; target=&#34;_blank&#34;&gt;Georgia Tech&amp;rsquo;s Advanced Operating Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/cfenollosa/os-tutorial&#34; target=&#34;_blank&#34;&gt;Write an OS from scratch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLHh55M_Kq4OApWScZyPl5HhgsTJS9MZ6M&#34; target=&#34;_blank&#34;&gt;Write your own Operating System&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLmlvkUN3-1MNKwINqdCDtTdNDjfBmWcZA&#34; target=&#34;_blank&#34;&gt;Writing an Operating System&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;python&#34;&gt;Python&lt;/h1&gt;
+
+&lt;h2 id=&#34;all-things-python&#34;&gt;All Things Python&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/sentdex&#34; target=&#34;_blank&#34;&gt;sentdex&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/schafer5&#34; target=&#34;_blank&#34;&gt;Corey Schafer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=_uQrJ0TkZlc&#34; target=&#34;_blank&#34;&gt;Python for Beginners by Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=f79MRyMsjrQ&#34; target=&#34;_blank&#34;&gt;Python for Programmers by Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLGLfVvz_LVvTn3cK5e6LjhgGiSeVlIRwt&#34; target=&#34;_blank&#34;&gt;Derek Banas&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=rfscVS0vtbw&#34; target=&#34;_blank&#34;&gt;Giraffe Academy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;web-development&#34;&gt;Web Development&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9ib4HsrXEYpQnTOTZE1x0uc&#34; target=&#34;_blank&#34;&gt;Django Tutorial by The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tangowithdjango.com/&#34; target=&#34;_blank&#34;&gt;Tango with Django&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Fc2O3_2kax8&amp;amp;list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj&#34; target=&#34;_blank&#34;&gt;Django Tutorial by Max Goodridge&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=zRwy8gtgJ1A&amp;amp;list=PLillGF-RfqbbbPz6GSEM9hLQObuQjNoj_&#34; target=&#34;_blank&#34;&gt;Flask Tutorial by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;react&#34;&gt;React&lt;/h1&gt;
+
+&lt;h2 id=&#34;tutorials-and-crash-courses&#34;&gt;Tutorials and Crash Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL478wQWRhpfaQbaET2DvDzG60EFGThtd1&#34; target=&#34;_blank&#34;&gt;Kirupa Chinnathambi&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=pgAvVxowaYU&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=sBws8MSXN7A&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Ke90Tje7VS0&amp;amp;&#34; target=&#34;_blank&#34;&gt;Programming With Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;full-courses-1&#34;&gt;Full Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/react-the-complete-guide-incl-redux/&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://codewithmosh.com/p/mastering-react&#34; target=&#34;_blank&#34;&gt;Programming With Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scrimba.com/g/glearnreact&#34; target=&#34;_blank&#34;&gt;Scrimba&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;redis&#34;&gt;Redis&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Hbt56gFj998&#34; target=&#34;_blank&#34;&gt;Crash Course by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://try.redis.io/&#34; target=&#34;_blank&#34;&gt;Try Redis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://redis.io/documentation&#34; target=&#34;_blank&#34;&gt;Official Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLrEMgOSrS_3fghr8ez63xKFNF-BA6Pz13&#34; target=&#34;_blank&#34;&gt;Writing System Software: A series about Redis internals by its creator, Salvatore Sanfilippo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/antirez/redis&#34; target=&#34;_blank&#34;&gt;Redis Source Code on GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;rest&#34;&gt;REST&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLqq-6Pq4lTTZh5U8RbdXq0WaYvZBz2rbn&#34; target=&#34;_blank&#34;&gt;Building REST APIs with JAX-RS by Java Brains&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL55RiY5tL51q4D-B63KBnygU6opNPFk_q&#34; target=&#34;_blank&#34;&gt;Building a RESTful API with Node.js by Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=qVTAB8Z2VmA&#34; target=&#34;_blank&#34;&gt;What is a REST API? by Telusko&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Q-BpqyOT3a8&#34; target=&#34;_blank&#34;&gt;REST and HTTP Explained by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;web-development-1&#34;&gt;Web Development&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.w3schools.com/&#34; target=&#34;_blank&#34;&gt;W3Schools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/TechGuyWeb&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scrimba.com/&#34; target=&#34;_blank&#34;&gt;Scrimba&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
