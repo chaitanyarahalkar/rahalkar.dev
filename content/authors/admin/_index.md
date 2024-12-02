@@ -10,80 +10,65 @@ authors:
 superuser: true
 
 # Role/position
-role: Graduate Student
+role: Software Security Engineer
 
 # Organizations/Affiliations
 organizations:
-- name: Georgia Institute of Technology
-  url: "https://gatech.edu"
+- name: Block Inc. (f.k.a. Square Inc.)
+  url: "https://block.xyz"
 
 # Short bio (displayed in user profile at end of posts)
-bio: Masters in Cybersecurity student at Georgia Tech.
+bio: Software Security Engineer at Block Inc., specializing in cloud-native security and application security.
 
 interests:
+- Cloud-Native Security
 - Application Security
+- Security Engineering
 - Reverse Engineering
-- System Programming & Operating Systems
-- Penetration Testing
+- System Programming
+- Threat Modeling
 
 education:
   courses:
-  - course: Master of Science - Cybersecurity
+  - course: Master of Science in Cybersecurity
     institution: Georgia Institute of Technology
-    year: 2022 (Expected)
-  - course: Bachelor of Engineering - Computer Engineering
+    year: 2022
+  - course: Bachelor of Engineering in Computer Engineering
     institution: Savitribai Phule Pune University
     year: 2020
-  - course: Higher Secondary School
-    institution: M.E.S Abasaheb Garware College
-    year: 2016
 
 # Social/Academic Networking
-# For available icons, see: https://sourcethemes.com/academic/docs/widgets/#icons
-#   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
-#   form "mailto:your-email@example.com" or "#contact" for contact widget.
 social:
 - icon: envelope
   icon_pack: fas
-  link: '#contact'  # For a direct email link, use "mailto:chaitanyarahalkar4@gmail.com".
-- icon: twitter
-  icon_pack: fab
-  link: https://twitter.com/chairahalkar
-- icon: google-scholar
-  icon_pack: ai
-  link: https://scholar.google.com/citations?hl=en&user=jecjKgEAAAAJ
+  link: 'mailto:chaitanyarahalkar4@gmail.com'
 - icon: github
   icon_pack: fab
   link: https://github.com/chaitanyarahalkar
-# Link to a PDF of your resume/CV from the About widget.
-# To enable, copy your resume/CV to `static/files/cv.pdf` and uncomment the lines below.  
+- icon: google-scholar
+  icon_pack: ai
+  link: https://scholar.google.com/citations?hl=en&user=jecjKgEAAAAJ
 - icon: cv
   icon_pack: ai
   link: files/cv.pdf
 - icon: orcid
   icon_pack: ai 
   link: https://orcid.org/0000-0003-2350-9793
-- icon: gitlab
-  icon_pack: fab
-  link: https://gitlab.com/chaitanyarahalkar
-- icon: mastodon
-  icon_pack: fab
-  link: https://mastodon.technology/@chaitanyarahalkar
-- icon: dev
-  icon_pack: fab
-  link: https://dev.to/chaitanyarahalkar
 - icon: key
   icon_pack: fas
   link: https://rahalkar.dev/key.asc
 
 # Enter email to display Gravatar (if Gravatar enabled in Config)
-email: ""
+email: "chaitanyarahalkar4@gmail.com"
   
 # Organizational groups that you belong to (for People widget)
-#   Set this to `[]` or comment out if you are not using People widget.  
 user_groups:
 - Researchers
 - Visitors
 ---
 
-I'm a Cybersecurity Engineer in the making and a Tech enthusiast at heart. I love exploring and talking about Computer internals. My passion lies in building things with my power of programming. Check out my noteworthy projects and Open Source contributions on [GitHub](https://github.com/chaitanyarahalkar).
+I'm a Software Security Engineer at Block Inc. (formerly Square Inc.), where I focus on developing enterprise-scale cloud-native security pipelines and detection systems. With a Master's degree in Cybersecurity from Georgia Institute of Technology, I specialize in application security, cloud security, and security engineering.
+
+My expertise spans across AWS cloud services, security tooling, and system administration. I have extensive experience in security auditing, vulnerability assessments, and developing security solutions. Previously, I've worked at Meta (Facebook) and Praetorian, where I contributed to various security initiatives including fuzzing infrastructure, security audits, and threat modeling.
+
+I'm passionate about building secure systems and contributing to the security community. My research work spans across various domains including privacy-preserving techniques in cryptocurrencies, content moderation in encrypted systems, and secure system design.
