@@ -1,0 +1,14 @@
+name: Run shell command every 15 minutes
+
+on:
+  schedule:
+    # This cron expression runs the workflow every 15 minutes.
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  run-command:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Execute command
+        run: npm install -i pwm-cli
