@@ -18,7 +18,6 @@ on:
 
 jobs:
   claude-response:
-    if: ${{ !endsWith(github.actor, '[bot]') }}   # skip runs triggered by bots
     runs-on: ubuntu-latest
     env:
       AWS_REGION: us-east-1
