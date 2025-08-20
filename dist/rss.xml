@@ -1,0 +1,1402 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet href="/rss.xsl" type="text/xsl"?><rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Chaitanya Rahalkar</title><description>Software Security Engineer at Block Inc., specializing in cloud-native security and application security</description><link>https://www.rahalkar.dev</link><item><title>Virtualisation in Operating Systems</title><link>https://www.rahalkar.dev/posts/2019-04-06-virtualisation-in-operating-systems</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-04-06-virtualisation-in-operating-systems</guid><pubDate>Sat, 06 Apr 2019 12:05:37 GMT</pubDate><content:encoded>&lt;p&gt;Virtualisation is the process of creating a virtual version of a physical object.&lt;/p&gt;
+&lt;p&gt;Virtualisation is of three types primarily:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Hardware Virtualisation - Based on simulating real hardware. This can be used to run a complete operating system. This can be further subdivided into full and paravirtualisation.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Desktop Virtualisation - It is the concept of separating the logical desktop from the physical machine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Operating system level virtualisation (also called as containerisation) - It is the operating system feature in which the kernel allows the existence of multiple isolated user-space instances. Such instances are called containers. Containerisation was introduced as a Linux Kernel feature in 2010. It started gaining momentum with the introduction of Docker.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Hardware Virtualisation&lt;/h4&gt;
+&lt;p&gt;Some terminologies associated with Virtualisation:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Virtual Machine: It is a virtual representation of a physical machine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Hypervisor: It is a software that manages and monitors running virtual machines.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Host machine: The physical machine that a virtual machine is running on.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Guest machine: The virtual machine running on the host machine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;The following block diagram shows the position of each component mentioned above:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/virtualisation.png&quot; alt=&quot;Virtual Machine Diagram&quot; /&gt;&lt;/p&gt;
+&lt;h4&gt;Hypervisors&lt;/h4&gt;
+&lt;p&gt;There are two main types of hypervisors:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Native: They run directly on the host machine and share out resources between guest machines.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Hosted: They run as an application inside the operating system and support virtual machines running as individual processes.
+Eg. VirutalBox,Parallel Desktop&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/hypervisor.png&quot; alt=&quot;Hypervisor Types&quot; /&gt;&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>PATH Environment Variable in Linux/Unix</title><link>https://www.rahalkar.dev/posts/2019-05-08-path-environment-variable-in-linux-unix</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-05-08-path-environment-variable-in-linux-unix</guid><pubDate>Wed, 08 May 2019 16:59:15 GMT</pubDate><content:encoded>&lt;h5&gt;What is the $PATH environment variable?&lt;/h5&gt;
+&lt;p&gt;Every Linux &amp;amp; Unix System has several environment variables which are dynamic variables essential for running several processes in the system.
+$HOME,$env being some of the well known environment variables.&lt;/p&gt;
+&lt;p&gt;The $PATH environment variable stores all the paths where one can find the binary executables for all the commands that we use.&lt;/p&gt;
+&lt;p&gt;Whenever a command is invoked from the terminal,all the paths in the $PATH environment variable are looked up and if the binary is found, the command is executed.&lt;/p&gt;
+&lt;p&gt;Trying this out on the terminal produces:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    echo $PATH
+    
+    /home/linus/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The path variable can be usually edited or updated from the .bash_profile hidden file(On Unix like OS) or directly by exporting the variable with the export command.&lt;/p&gt;
+&lt;p&gt;Creating your own command recipies&lt;/p&gt;
+&lt;p&gt;Linux or Unix commands can be usually built by shell scripts, Python or Perl scripts.
+Let us create a simple Bash script that calculates the factorial of the number sent to it as an argument in the command.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+    #!/bin/bash
+    count=$1 
+    fact=1
+    while [ $count -gt 0 ] 
+    do
+       fact=$(( $fact * $count ))
+       count=$(( $count - 1 ))
+    done
+    echo $fact
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Create a sample file with a  .sh extension and copy the factorial code as given above.
+Add the directory which contains the given file to your $PATH variable. Edit the variable from your .bash_profile or .profile located in your root directory with your preferred text editor.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+    nano ~/.bash_profle
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The file may contain several other aliases and variables but look out for the lines and update
+as shown below
+(Make sure there are no spacings between PATH and =)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+    export PATH=/home/linus/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/directory_of_bash_script
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Do not forget to source the .bash_profile or .profile file with the source command or .&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    
+    source .bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Calling the script file name from the terminal with any number as the argument to the command will print the factorial to stdout.
+The same thing can also be done by creating a symbolic link which will be discussed later.&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>A Guide to Partitions &amp; Partitioning Drives in Linux</title><link>https://www.rahalkar.dev/posts/2019-05-15-a-guide-to-partitions-partitioning-drives-in-linux</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-05-15-a-guide-to-partitions-partitioning-drives-in-linux</guid><pubDate>Thu, 16 May 2019 04:39:06 GMT</pubDate><content:encoded>&lt;p&gt;Linux has completely different naming conventions while mounting drives as compared to Windows. /dev/sda,/dev/sdb,/dev/sdc etc. are the conventions in Linux.&lt;/p&gt;
+&lt;p&gt;Each drive has its own partition table that describes the layout of partitions of the drive. MBR,GPT etc. are the different partition table standards used.
+The MBR partition scheme is quite old and is rarely used due to limitations like-&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;It does not allow the configuration of more than four main partitions. Those partitions are called primary partitions.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Disk partitions are limited to 2TB&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Every disk can have three kinds of partitions as per the MBR scheme -&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Primary Partitions - Usually for storing OSes&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Logical Partitions - Every primary partition may have multiple logical partitions&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Extended Partitions - A primary partition can be extended with this to overcome the limitation of maximum four primary partitions.
+These partitions can be found named with the conventions /dev/sda1,/dev/sda2 etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;(Enter all the commands mentioned below in root or with a sudoers&apos; user)&lt;/p&gt;
+&lt;h4&gt;Mounting drives in Linux&lt;/h4&gt;
+&lt;p&gt;Running &lt;code&gt;fdisk -l&lt;/code&gt; in root lists out the number of drives that are mounted on the system. &lt;code&gt;/dev/sda&lt;/code&gt; is usually the hard drive or SSD on which the OS is running. Other external drives can be found ususally at &lt;code&gt;/dev/sdb&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;df -h&lt;/code&gt; may also help locating external drives.&lt;/p&gt;
+&lt;p&gt;Whenever an external drive is inserted it is usually automatically mounted. To format a drive it must be unmounted first.&lt;/p&gt;
+&lt;p&gt;Drives can also be mounted with &lt;code&gt;mount /dev/sda /mnt&lt;/code&gt; if the drive to be mounted is &lt;code&gt;/dev/sda&lt;/code&gt; and the mount location is &lt;code&gt;/mnt&lt;/code&gt;.&lt;/p&gt;
+&lt;h4&gt;Formatting drives in Linux&lt;/h4&gt;
+&lt;p&gt;There are two ways to format drives. One is with a graphical interface utility (GParted) or via the terminal.&lt;/p&gt;
+&lt;p&gt;GParted may be installed with the aptitude package manager supporting OSes by
+&lt;code&gt;apt-get install gparted&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Entering &lt;code&gt;umount /dev/sdc1&lt;/code&gt; in root if sdc1 is the drive mount point, will unmount the external drive.
+Format the drive with the mkfs utility provided with Linux&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    mkfs.ext4 /dev/sdc1 For ext4 file system
+    mkfs.vfat /dev/sdc1 For vFat file system
+    mkfs.ntfs /dev/sdc1 For NTFS file system
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;Creating a bootable drive in Linux&lt;/h4&gt;
+&lt;p&gt;The USB drive must be completely formatted before installing. Format the drive to any supported file system. Several GUI based utilities like etcher can be used to format and create bootable drives.
+Linux and Unix based systems provide the data duplicator(dd) utility to copy binary data to drives.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    dd if=/home/linus/file.iso of=/dev/sdc 
+    if - The location of the input file
+    of - Location of the mounted drive
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Status of dd can be monitored by&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    grep -l &apos;^dd$ - Returns the process Id of dd
+    kill -USR1 process_id - Shows the status 
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After dd has completed transferring the iso to the drive type &lt;code&gt;sync&lt;/code&gt;.
+This is a good practice, since it forces completition of pending disk writes. It flushes the cache.&lt;/p&gt;
+&lt;h4&gt;Partitioning Drives In Linux&lt;/h4&gt;
+&lt;h5&gt;Creating a partition&lt;/h5&gt;
+&lt;p&gt;GParted is an excellent utility to partition drives. It can also be done with its command-line version invoked by &lt;code&gt;parted&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;1.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; (within the parted console invoked after typing &lt;code&gt;parted&lt;/code&gt;)if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;2.Label the disk with &lt;code&gt;mklabel name&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;3.Create the partition&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    mkpart logical - Creates a logical partition
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Enter the start and end location in megabytes. This will indicate the size of the partition. Eg. Start can be 1 and End can be 1000 indicating a partition of 1 Gb&lt;/p&gt;
+&lt;p&gt;4.The partition can be formatted with any file system with the &lt;code&gt;mkfs&lt;/code&gt; command as explained above.&lt;/p&gt;
+&lt;h5&gt;Removing a partition&lt;/h5&gt;
+&lt;p&gt;1.Invoke the parted utility with &lt;code&gt;parted&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;2.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;3.&lt;code&gt;rm 1&lt;/code&gt; will remove the first partition from sdc if it has been selected&lt;/p&gt;
+&lt;h5&gt;Resizing a partition&lt;/h5&gt;
+&lt;p&gt;1.Invoke the parted utility with &lt;code&gt;parted&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;2.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;resizepart&lt;/code&gt; will ask for the new start and end to resize the partition.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h5&gt;Recovering a partition&lt;/h5&gt;
+&lt;p&gt;Lost partitions can be recovered by &lt;code&gt;rescue&lt;/code&gt;. It asks for the start and end point in Mbs. If any lost partition is found,parted will recover the lost partition.&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>How Your Computer Starts</title><link>https://www.rahalkar.dev/posts/2019-05-18-how-your-computer-starts</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-05-18-how-your-computer-starts</guid><pubDate>Sat, 18 May 2019 16:11:17 GMT</pubDate><content:encoded>&lt;p&gt;Every computer follows a standard boot sequence when it starts up.&lt;/p&gt;
+&lt;h4&gt;BIOS (Basic Input Output System)&lt;/h4&gt;
+&lt;p&gt;The CPU runs an instruction in memory for the BIOS. This is a Jump instruction that transfers the Instruction Pointer to the code of the BIOS start-up program.&lt;/p&gt;
+&lt;p&gt;The BIOS runs the Power On Self Test. It is a process performed by firmware or software routines immediately after a computer or any digital device is powered on.
+The POST performs the following checks &amp;amp; tasks:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;verify CPU registers&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;verify the integrity of the BIOS code itself&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;verify some basic components like DMA, timer, interrupt controller&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;find, size, and verify system main memory
+initialize BIOS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;pass control to other specialized extension BIOSes (if installed)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;identify, organize, and select which devices are available for booting&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;discover, initialize, and catalog all system buses and devices&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;provide a user interface for system&apos;s configuration&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;construct whatever system environment is required by the target operating system&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Every hardware manufacturer has its own BIOS code hardcoded on the ROM.
+The BIOS has a boot sequence configured which searches for the boot devices sequentially.
+Booting devices can be of several types:&lt;/p&gt;
+&lt;p&gt;1.CD Drives&lt;/p&gt;
+&lt;p&gt;2.Hard Disk Drives&lt;/p&gt;
+&lt;p&gt;3.USB Drives&lt;/p&gt;
+&lt;p&gt;4.Network&lt;/p&gt;
+&lt;p&gt;As soon as it finds the boot device, it looks for the Master Boot Record. The MBR has number of partitions in it. If any active partition is found it is loaded into memory.&lt;/p&gt;
+&lt;h4&gt;Master Boot Record&lt;/h4&gt;
+&lt;p&gt;It is a special type of boot sector at the beginning of data drives. It holds information about the logical partitions,organisation of the file systems and also a boot loader. The boot loader is responsible to load the kernel(A subset of the entire OS) into memory.
+It may happen that the selected memory drive has multiple operating systems. The bootloader allows selection of the OS(Along with different kernels)to be loaded. GRUB is an open source bootloader by GNU prominently seen on most Linux Distributions.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/mbr.png&quot; alt=&quot;Master Boot Record&quot; /&gt;&lt;/p&gt;
+&lt;h4&gt;Kernel&lt;/h4&gt;
+&lt;p&gt;As soon as the kernel is loaded into memory by the boot loader, the Kernel mounts Linux/Unix Virtual file system.
+The Linux Virtual File System is of the format shown below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/lfs.png&quot; alt=&quot;Linux Virtual File System&quot; /&gt;&lt;/p&gt;
+&lt;h4&gt;Init (Now Systemd For Linux)&lt;/h4&gt;
+&lt;p&gt;The Kernel executes the /sbin/init binary. Init is the first program executed by the Kernel in Kernel Space. It is given the process Id (PID) of 1.
+However in the recent versions init is replaced by a System Management Daemon called systemd. Systemd was designed to overcome the shortcomings of Initd. It is the parent process of all the processes.&lt;/p&gt;
+&lt;p&gt;You can find the source code of Systemd &lt;a href=&quot;https://github.com/systemd/systemd&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;There are six different run levels in Linux. (Used with Initd)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;0 – halt&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1 – Single user mode&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2 – Multiuser, without NFS&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;3 – Full multiuser mode&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;4 – unused&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;5 – X11 (X Window System)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;6 – reboot&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Each runlevel has its own set of programs which can be seen in -&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+    Run level 0 – /etc/rc.d/rc0.d/
+    Run level 1 – /etc/rc.d/rc1.d/
+    Run level 2 – /etc/rc.d/rc2.d/
+    Run level 3 – /etc/rc.d/rc3.d/
+    Run level 4 – /etc/rc.d/rc4.d/
+    Run level 5 – /etc/rc.d/rc5.d/
+    Run level 6 – /etc/rc.d/rc6.d/
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Each of these directories have programs starting with S (Used during startup) and K(Used during shutdown)&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>The Virtual File System</title><link>https://www.rahalkar.dev/posts/2019-06-01-the-virtual-file-system</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-06-01-the-virtual-file-system</guid><pubDate>Sat, 01 Jun 2019 14:04:37 GMT</pubDate><content:encoded>&lt;h3&gt;File Systems In Linux&lt;/h3&gt;
+&lt;p&gt;Linux works on the concept of virtual file systems. Everything on a Linux/Unix system is a file.
+Here is a brief look at the file system structure -&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/lfs.png&quot; alt=&quot;Linux File System&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;This directory structure is followed in all Linux distributions which is similar to a Unix file system. Whenever a Linux system boots,this virtual file system is mounted. Each directory in this tree has its own significance.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;/bin - The bin directory stores all the Linux command binaries. The default commands like ls,cd,mkdir etc have their binaries located in this folder.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/boot - This directory stores all the boot related information. The Linux kernel can be found here with usually the name &lt;code&gt;vmlinuz&lt;/code&gt;. A separate subdirectory for GRUB can also be found here if it is installed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/dev - Here all the external devices are mounted. It also contains ttys,null,urandom,random devices which are internal devices used in several situations.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/etc - Here all the configuration files are stored for different programs. A well known file - hosts can be found here. FTP,SSH and several applications store their configuration files here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/home - Here all the documents and personal files of different users on the system are stored. /home may have sub directories for each user.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/lib - This directory has all the library files used by the Kernel or the system while booting. It has shared library images (Shared Object files &amp;amp; dependencies)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/media - This directory is now no longer used. It is kept for backward compatibility to older systems having floppy or CD drivers. The CDs and floppies inserted into the drives were mounted here. Instead they can now be mounted in the /mnt directory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/mnt - This directory is used to mount external drives or even ISO mounts. Other Linux Virtual File systems can also be mounted here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/opt - Add on software package files are installed in this folder. Some softwares use this folder to place its libraries and dependencies here. It also has /bin, /doc , /include directories reserved for the system administrator.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/root - A separate directory is provied for the root user. All the documents and root files are stored here. Other non-privileged users are not allowed access to this directory as well as all the other directories mentioned.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/sbin - This directory contains all the system binaries. Binaries for programs like systemctl,service etc. can be found here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/tmp - This is a directory used to store temporary files. The system creates several temporary files which are deleted once the system is powered off. Ususally incomplete download files can be found here. Sometimes temporary mounts are also created here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/srv - This directory has site-specific data served by the system. Usually files related to services are stored here. Eg. ftp,rsync related files are stored here.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/usr - It is one of the major directories in Linux. It has various sub-directories like bin(User binaries),include(All the C headers are stored here),share(Architecture independent data),local(Local system files) etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;/var - This directory has variable data files. It has several sub directories like cache(Applications&apos; cache data),lib,opt(Variable /opt data),tmp(Temporary system files),log(System logs),lock(Lock files),cron(Crontab configuration file),backups etc.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;File systems are also used on numerous storage devices that use different kinds of media. NTFS,HFS+,APFS,ExFAT etc. are some of the well known file systems designed by proprietary companies. Linux uses Extended File Systems. ext4 is the latest file system used on Linux based distributions. It is backward compatible with its older generations ext3,ext2 &amp;amp; ext. ext4 allows volumes upto size 1EiB (Exbibyte) and files with sizes upto 16 TiB (Tebibytes).&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>File Permissions in Unix/Linux</title><link>https://www.rahalkar.dev/posts/2019-06-04-file-permissions-in-unix-linux</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-06-04-file-permissions-in-unix-linux</guid><pubDate>Wed, 05 Jun 2019 01:15:35 GMT</pubDate><content:encoded>&lt;h3&gt;File Permissions&lt;/h3&gt;
+&lt;p&gt;Unix &amp;amp; Linux provides Read(r),Write(w) and Execute(x) permissions to any file on the system.
+If you &lt;code&gt;ls -l&lt;/code&gt; every file with its permissions will be shown.&lt;/p&gt;
+&lt;p&gt;The system is divided into three types - User,Group and others. The r,w,x permissions are assigned to each type. This is well explained by the diagram shown below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/permissions.jpg&quot; alt=&quot;Permissions&quot; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Owner permissions − The owner&apos;s permissions determine what actions the owner of the file can perform on the file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Group permissions − The group&apos;s permissions determine what actions a user, who is a member of the group that a file belongs to, can perform on the file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Other (world) permissions − The permissions for others indicate what action all other users can perform on the file.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The chmod command helps to assign permissions or remove existing permissions. Permissions can be assigned in two ways -&lt;/p&gt;
+&lt;p&gt;1.By using the letters r,w,x &amp;amp; a,o,u with the symbols +, - &amp;amp; =.
+2. Using octal numbers.
+Let us create a sample file and apply some root privileges to it.&lt;/p&gt;
+&lt;p&gt;Enter into root by typing &lt;code&gt;su&lt;/code&gt; and entering the root password.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;echo &quot;Test File &quot; &amp;gt;&amp;gt; only_root.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Check the default permissions for the file by typing &lt;code&gt;ls -l only_root.txt&lt;/code&gt;. This produced:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    -rw-r--r--  1 linus staff 0 Jan 1 08:28 only_root.txt
+   
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;We will be adding readonly permissions to this file.
+&lt;code&gt;chmod a-w only_root.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Let us split the command.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;chmod - Used to assign permissions.&lt;/li&gt;
+&lt;li&gt;a-w - a indicates &apos;all&apos; minus is remove and w is write. So it is the shorthand notation for remove write permissions from all. Similarly to add a permission we can use the plus symbol.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;only_root.txt - Is the file
+Some examples of this shorthand notation:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;a+rwx - Add read,write and execute permissions to all&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;u=x - Assign execute permission to the current user.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;o-wx - Remove write-execute permissions from other users.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;g+rw - Add read-write permissions to the group that the user belongs to.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The other mentioned way was is the octal number system. Check out the table given below:&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal.png&quot; alt=&quot;Octal System&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;The chmod command also accepts this method to assign permissions.
+Some examples are illustrated below:&lt;/p&gt;
+&lt;p&gt;The very popluar permission set that is seen is&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;chmod 755 only_root.txt&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Let us break it into parts&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;7 - Read,write &amp;amp; Execute permissions to the user&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;5 - Read &amp;amp; Execute permission to the group of the user&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The way to remember this number system is referring to the binary equivalent of the octal number.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal-permission.png&quot; alt=&quot;Octal permissions&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;A set bit indicates that the permission exists and a clear bit indicates that it is removed.
+Similar permissions can be assigned to directories as well.&lt;/p&gt;
+&lt;h5&gt;SUID &amp;amp; SGID Permissions&lt;/h5&gt;
+&lt;p&gt;setuid and setgid are Unix and Linux access right flags that allow users to run an executable having the permissions of executing the binary,restricted to some other user or group.&lt;/p&gt;
+&lt;p&gt;setuid allows execution access to a specific user
+and setgid does the same for a group.&lt;/p&gt;
+&lt;p&gt;Usually it is used to allow local users to execute some privileged binaries belonging to the root user.
+For example, the root user may have some privileged executables like curl,wget etc. and the root user may set the access right flags to allow any other trusted local user to use these executables.&lt;/p&gt;
+&lt;p&gt;These permissions are usually set with the chmod command.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;chmod ug+s /usr/bin/wget&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Running this command in root will allow local users and groups to execute the binary. In short we have lowered the privileges for this binary executable by setting the SUID &amp;amp; SGID bit.&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>Exploits &amp; Vulnerabilities with Introduction to Metasploit</title><link>https://www.rahalkar.dev/posts/2019-06-07-exploits-vulnerabilities-with-introduction-to-metasploit</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-06-07-exploits-vulnerabilities-with-introduction-to-metasploit</guid><pubDate>Fri, 07 Jun 2019 09:09:55 GMT</pubDate><content:encoded>&lt;h3&gt;Exploits and Vulnerabilities&lt;/h3&gt;
+&lt;p&gt;In computer security, a vulnerability is a weakness which can be exploited by a Threat Actor like an attacker, to perform unauthorized actions within a computer system.
+These vulnerabilities have to be managed to inform the developers to patch it. Vulnerability management involves identifying,classifying,remediation and mitigating vulnerabilites in computer systems.
+The well known CVE (Common Vulnerabilities and Exposures) system is used to record and maintain the system. It is a database of vulnerabilities found in software packages. CVEs come with their own identifier of the format&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;CVE Prefix + Year of Discovery + Arbitrary Digits&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h5&gt;Metasploit&lt;/h5&gt;
+&lt;p&gt;Metasploit is a popular penetration testing tool maintained by Rapid7. It has a collection of all the well known vulnerabilities and exploits in software packages with their PoCs(Proof Of Concepts). These PoC scripts can be directly used by Penetration Testers.
+Metasploit also has a graphical version called Armitage.
+Exploiting any system involves the following steps:&lt;/p&gt;
+&lt;p&gt;1.Reconnaissance of the system. (With tools like Nmap)&lt;/p&gt;
+&lt;p&gt;2.Choosing the appropriate exploit.&lt;/p&gt;
+&lt;p&gt;3.Choosing and configuring the payload. (Code that will be executed on the system after successful entry)&lt;/p&gt;
+&lt;p&gt;4.Encoding the payload to avoid detection by the system firewalls or antivirus softwares and to remove the bad characters that may cause the exploit to fail.&lt;/p&gt;
+&lt;p&gt;5.Executing the exploit.&lt;/p&gt;
+&lt;p&gt;You can get Metasploit&apos;s Open Source version &lt;a href=&quot;https://github.com/rapid7/metasploit-framework/wiki/Nightly-Installers&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Follow the instructions to install Metasploit. If you are on a Penetration Testing based OS like Kali Linux or Parrot OS, Metasploit comes pre-installed.&lt;/p&gt;
+&lt;p&gt;Start the Metasploit console with &lt;code&gt;msfconsole&lt;/code&gt;.
+Metasploit downloads the exploits and vulnerabilites database from its servers and stores it offine. Make sure your offline Metasploit database is kept updated.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;help&lt;/code&gt; will give you more information about using msfconsole.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;show exploits&lt;/code&gt; will list out all the available exploits in the database. To search for a selected exploit use &lt;code&gt;search software_package_name&lt;/code&gt; to get the list of available vulnerabilites and exploits.&lt;/p&gt;
+&lt;p&gt;Using the exploit is simple. (Ensure that you mention the exact path of the exploit while using it. )&lt;/p&gt;
+&lt;p&gt;For example:
+&lt;code&gt;use exploit/linux/ssh/symantec_smg_ssh&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;show info&lt;/code&gt; will give information about what the exploit does,the author of the exploit,parameters required etc.&lt;/p&gt;
+&lt;p&gt;Type &lt;code&gt;show options&lt;/code&gt; to know the parameters that are required for the exploit.&lt;/p&gt;
+&lt;p&gt;Using this for the above exploit produces:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;      
+      Module options (exploit/linux/ssh/symantec_smg_ssh):
+    
+       Name   Current Setting  Required  Description
+       ----   ---------------  --------  -----------
+       RHOST                   yes       The target address
+       RPORT  22               yes       The target port
+    
+    
+    Exploit target:
+    
+       Id  Name
+       --  ----
+       0   Symantec Messaging Gateway 9.5
+    
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;(RHOST indicates the host on which the exploit will be executed)&lt;/p&gt;
+&lt;p&gt;We set the RHOST IP address by &lt;code&gt;set RHOST 192.168.1.2 (The IP address)&lt;/code&gt;
+For any exploit make sure that you necessarily fill in all the required parameters.
+To run the exploit enter &lt;code&gt;run&lt;/code&gt; or &lt;code&gt;exploit&lt;/code&gt;
+Metasploit will then give the status of the exploit.
+Here are some of the important commands in Metasploit&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;host website -&amp;gt; Gives the IP info&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;use exploit name -&amp;gt; Use the given exploit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;search something -&amp;gt; Get exploit related information&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;show exploits-&amp;gt; Shows all the exploit related information&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;show options-&amp;gt;Gives the exploit options&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;set SETTINGS -&amp;gt; Set the given exploit options&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;run-&amp;gt;Runs the exploit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;back-&amp;gt;Go back&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;exploit-&amp;gt; Start the exploit&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;?-&amp;gt;help&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;show payloads -&amp;gt; Lists all the playloads&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;set payload name -&amp;gt; Sets the payload&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;mfsupdate-&amp;gt; Update metasploit&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>What is an Electronic Nose?</title><link>https://www.rahalkar.dev/posts/2019-07-14-what-is-an-electronic-nose</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-07-14-what-is-an-electronic-nose</guid><pubDate>Sun, 14 Jul 2019 11:00:01 GMT</pubDate><content:encoded>&lt;p&gt;Alexander Graham Bell once said- “Did you ever measure a smell? Can you tell whether one smell is just twice strong as another? Can you measure the difference between two kinds of smell and another? It is very obvious that we have very many different kinds of smells, all the way from the odour of violets and roses up to asafetida. But until you can measure their likeness and differences, you can have no science of odour. If you are ambitious to find a new science, measure a smell.” An electric nose is a device which has the capability of detecting, identifying and discriminating the presence of molecules in a sample of air. It was termed by Gardner and Barlett in 1994. The improvements over the past 20 years have led to the creation of the artificial olfaction technology.&lt;/p&gt;
+&lt;p&gt;Electronic noses are based on the mammalian olfactory model. The olfactory receptors that are responsible for detection of odorants in the human body are analogous to the array of electronic sensors in the electronic nose. Biomimetics is a field in which the principles of biology, chemistry and engineering are applied to develop an artificial system that is based on a natural phenomenon. Electronic nose is one example of it.&lt;/p&gt;
+&lt;p&gt;The electronic nose comprises of three components- a detecting system, computing system and sample delivery system. The delivery system collects the required sample, which is then sent to the detection system. The detection system is a group of sensors, which change their electrical characteristics on coming in contact with the volatile compounds. Scientists were successful in creating a global fingerprint for every unique smell and flavor. The computing system has an Artificial Neural Network. This ANN is trained with qualified samples taken from a reference database. The instrument then recognizes new samples by comparing them with the existing fingerprints from the database. With the help of this architecture, the electronic nose simulates the mammalian olfactory system.This has however proven to be inaccurate in some cases of odors, where it may be made up of multiple different molecules. The electronic nose interprets these different molecules as different compounds, thereby posing inaccurate results.&lt;br /&gt;
+Current research aims to increase the accuracy, reliability and efficiency of the electric nose. With the emergence of this out-of-the-world technology, applications are endless. Detecting contamination, spoilage or adulteration of materials is a major use case. Electronic noses have been used for quality control applications in food, beverage, cosmetic and perfumery industries. They are used to identify volatile organic compounds in air,water and soil samples for conducting agricultural analysis. Currently, they are being developed for conducting medical diagnosis, where the patient’s breath is analysed to detect the presence of certain chemicals responsible for a disease. A person’s breath contains 2,500 chemical compounds. If a person is ill, his breath, when analysed can indicate the kind of disease he has. Tuberculosis is proven to be detected in this manner. Furthermore, research is being carried out to use this technique for detecting volatile organic compounds emitted by different types of cancerous cells. NASA has developed its own e-nose model that is able to sniff out cancerous Brain cells. Thus, electronic nose facilitates in detecting cancer in a non-invasive, rapid and reliable manner.&lt;/p&gt;
+&lt;p&gt;The scope of this technology has just scratched the surface. In a few years, this technology may even get embedded in smart phones. The Google Nose prank that the company played on us on April Fools’ day, might turn into reality. Who knows what technology has for us in the future; someday, people would be able to smell things just by searching them on Google!&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>Understanding Dirty COW - The Linux Kernel Exploit</title><link>https://www.rahalkar.dev/posts/2019-09-15-understanding-dirty-cow-the-infamous-linux-kernel-exploit</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-09-15-understanding-dirty-cow-the-infamous-linux-kernel-exploit</guid><pubDate>Mon, 16 Sep 2019 04:15:02 GMT</pubDate><content:encoded>&lt;p&gt;Dirty COW is a computer security vulnerability that was discovered in the Linux Kernel in 2016. The exploit was registered under CVE with the designation: CVE-2016-5195. Dirty COW is a root privilege escalation exploit that attacks the Copy-On-Write mechanism in the Linux Kernel. Hence the &quot;COW&quot; in Dirty COW. The proof of concept can be found &lt;a href=&quot;http://dirtycow.ninja&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The vulnerability existed in the Linux Kernel since 2007, but was discovered later in 2016, by Phil Oester. It has been patched in Linux kernel versions 4.8.3, 4.7.9, 4.4.26 and newer. The exploit also attacked Android devices. It allows a user to write to a read-only root file and escalate privileges.&lt;/p&gt;
+&lt;h4&gt;What is Copy-On-Write Mechanism?&lt;/h4&gt;
+&lt;p&gt;Linux kernel has a mechanism that when a process requests a copy of some file, the kernel does not create a copy of the file until the file is requested to be written to. Copy-On-Write Mechanism works in two steps:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Locate/generate a physical address in the memory.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Write to the copy only when the file is requested to be written to.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;COW is basically an optimization strategy used by the Linux kernel. The COW concept is also used in maintenance of instant snapshot on database servers like Microsoft SQL Server 2005. Instant snapshots preserve a static view of a database by storing a pre-modification copy of data when underlaying data are updated. Instant snapshots are used for testing uses or moment-dependent reports and should not be used to replace backups.&lt;/p&gt;
+&lt;h4&gt;How Dirty COW exploits the Copy-On-Write Mechanism?&lt;/h4&gt;
+&lt;p&gt;The exploit creates a private copy(mapping) of a read-only file(which is the file owned by root). Now it tries to write to the private copy. Now the COW mechanism comes into picture. Since the file is never requested to be written to, and now it is - COW does it job.&lt;/p&gt;
+&lt;p&gt;The write action in COW has the two operations as explained above. These operations are non-atomic in nature. We say that an operation is atomic when it has only two states- Either the operation is complete or it is not. The atomic operation completes in a single step and no other process/thread can access the data owned by that operation. Non-atomic operations can have intermediate stages as well, which includes partial execution of the instruction &amp;amp; they can have shared memory accessible by multiple threads or processes at the same time. Since these operations are non-atomic, another thread can get right in the middle of the two operations (locate physical address &amp;amp; write to physical address)&lt;/p&gt;
+&lt;p&gt;In the Dirty COW exploit, initially a private mmap (memory map of the read-only file in the main memory) is created. As per the Linux man page: Mmap is a system call used to allocate memory, or map files or devices into memory). The reason to create a private mmap is that, the system makes all the write changes to the private mapping without affecting the original file.&lt;/p&gt;
+&lt;p&gt;Dirty COW uses two threads- The first thread does not directly write to the actual memory allocated by the mmap, but it writes to &lt;em&gt;/proc/self/mem&lt;/em&gt;. This path is the virtual representation of the exploit executable that is running. The reason to write to this location is because the vulnerability resides in the process-to-process virtual memory access. In short, the thread requests the kernel to write to the private mapping that was initially created with mmap. Thus COW is coming into picture now. The other thread executes the madvise system call. As per the Linux man page:  the &lt;em&gt;madvise()&lt;/em&gt; system call allows a process that has knowledge of its memory behavior to describe it to the system. The advice passed in may be used by the system to alter its virtual memory paging strategy. This thread says to the kernel (&quot;&lt;em&gt;advices&lt;/em&gt;&quot;) that the private mapping that was created initially, is not required anymore and thus should be thrown away.&lt;/p&gt;
+&lt;p&gt;The two threads are running concurrently, and thus in the context switching mechanism, a scenario will occur as shown below :&lt;/p&gt;
+&lt;p&gt;&amp;lt;table &amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;tr &amp;gt;
+Thread 1
+Thread 2
+&amp;lt;/tr&amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;tbody &amp;gt;
+&amp;lt;tr &amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;td style=&quot;text-align:center&quot; &amp;gt;Locate physical address
+&amp;lt;/td&amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;td style=&quot;text-align:center&quot; &amp;gt;
+&amp;lt;/td&amp;gt;
+&amp;lt;/tr&amp;gt;
+&amp;lt;tr &amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;td style=&quot;text-align:center&quot; &amp;gt;
+&amp;lt;/td&amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;td style=&quot;text-align:center&quot; &amp;gt;Throw away private copy
+&amp;lt;/td&amp;gt;
+&amp;lt;/tr&amp;gt;
+&amp;lt;tr &amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;td style=&quot;text-align:center&quot; &amp;gt;Write to physical address
+&amp;lt;/td&amp;gt;&lt;/p&gt;
+&lt;p&gt;&amp;lt;td style=&quot;text-align:center&quot; &amp;gt;
+&amp;lt;/td&amp;gt;
+&amp;lt;/tr&amp;gt;
+&amp;lt;/tbody&amp;gt;
+&amp;lt;/table&amp;gt;&lt;/p&gt;
+&lt;p&gt;Thus the second thread has successfully managed to get in between the two non atomic operations. Thus before writing to the physical address, the mmap is discarded. Now since it does not have any address to write to, it writes to the original read-only file. Thus, the kernel is tricked into thinking that the write was to the original read-only file. This is a race condition exhibited due to write attempts at a location that never exists. And this is how the actual exploit works.&lt;/p&gt;
+&lt;p&gt;The following diagram taken from &lt;a href=&quot;https://www.cs.toronto.edu/~arnold/427/18s/427_18S/indepth/dirty-cow/demo.html&quot;&gt;here&lt;/a&gt; gives an apt visual representation of the exploit. &lt;img src=&quot;006.png&quot; alt=&quot;dirtycow&quot; /&gt;&lt;/p&gt;
+&lt;h4&gt;How does Dirty COW gets root privileges?&lt;/h4&gt;
+&lt;p&gt;Since the exploit is now able to write to read-only files, the &lt;em&gt;/etc/sudoers&lt;/em&gt; file can be   written to. This will add the current user to the sudoers list, thereby escalating privileges. Even the &lt;em&gt;/etc/shadow&lt;/em&gt; file can be manipulated to change the root password.  Several versions of the exploit were implemented attacking SUID binaries, writing to read-only files. Another version of the exploit existed, which used an alternative method to exploit the process-to-process virtual memory access (with ptrace).&lt;/p&gt;
+&lt;h4&gt;Implementation Details&lt;/h4&gt;
+&lt;p&gt;The below code snippet gives a general idea of how the exploit was implemented in C. Most of the functions used here are a part of the Linux Kernel API and hence the necessary headers are required to be included. This snippet just gives a brief overview of the programming part of the exploit.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;    pthread_t pth1,pth2; // The two threads are created
+    f = open(&quot;read-only-file&quot;,O_RDONLY); // Open the read-only file
+    void* map = mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset); // Memory map is created
+    
+    pthread_create(pth1,NULL,madviseThread); // Calling thread 1
+    pthread_create(pth2,NULL,writeToProcSelfMem,&quot;read-only-file&quot;); // Calling thread 2
+    
+    void *madviseThread()
+    {
+      int i,c=0;
+      for(i=0;i&amp;lt;100000000;i++)
+      {
+        c += madvise(map,100,MADV_DONTNEED); // Using madvise and telling the kernel that the allocated space is no longer needed
+      }
+    }
+    
+    void *writeToProcSelfMem(void *arg)
+    {
+      char *str;
+      str = (char*)arg;
+      int f = open(&quot;/proc/self/mem&quot;,O_RDWR); // Opening /proc/self/mem in read-write mode
+      int i,c = 0;
+      for(i=0;i&amp;lt;100000000;i++) {
+        lseek(f,(uintptr_t) map,SEEK_SET);
+        c += write(f,str,strlen(str)); // Write to /proc/self/mem the contents of str
+      }
+    }
+    
+    &amp;lt;/code&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;&lt;/h4&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>&apos;What is Zip Slip?&apos;</title><link>https://www.rahalkar.dev/posts/2019-09-20-zip-slip</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2019-09-20-zip-slip</guid><pubDate>Fri, 20 Sep 2019 10:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Zip Slip was a vulnerability found in the file extraction mechanism employed in programming languages. It was discovered and responsibly disclosed by the Snyk Security team ahead of a public disclosure on 5th June 2018, and affected thousands of projects, including ones from HP, Amazon, Apache, Pivotal. The vulnerability is prevalent in Java, where there is no central library offering high level processing of archives. It was also observed in Go &amp;amp; Python. Zip slip caused havoc on its public disclosure. Zip Slip allowed for remote code execution, thereby granting shell privileges to an adversary. The vulnerability can affect other formats like &lt;code&gt;tar&lt;/code&gt;, &lt;code&gt;jar&lt;/code&gt;, &lt;code&gt;war&lt;/code&gt;,&lt;code&gt;cpio&lt;/code&gt;,&lt;code&gt;apk&lt;/code&gt;,&lt;code&gt;rar&lt;/code&gt; etc.&lt;/p&gt;
+&lt;p&gt;Consider a zip file (&lt;code&gt;foo.zip&lt;/code&gt;) with two files bundled in it - &lt;code&gt;foo.text&lt;/code&gt; and &lt;code&gt;bar.text&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;chaitanya@zipslip$ zip -sf foo.zip
+Archive contains:
+  foo.text
+  bar.text
+Total 2 entries (100 bytes)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The -sf flag scans for files and lists the contents of the archive. However, if a maliciously crafted file is bundled in the zip, and if it is improperly handled during extraction then it may lead to severe problem like remote code execution.&lt;/p&gt;
+&lt;p&gt;Consider a zip file (&lt;code&gt;malicious.zip&lt;/code&gt;) with two files (one is the RCE shell script and the other is an ordinary text file)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;chaitanya@zipslip$ zip -sf malicious.zip 
+Archive contains:
+  foo.text
+  ../../../../../../../../../tmp/rce.sh
+Total 2 entries (560 bytes)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;As soon as this zip is extracted, foo.text would be extracted within the same folder as of the zip file. However, &lt;code&gt;rce.sh&lt;/code&gt; would be extracted to the tmp folder. The &lt;code&gt;../../&lt;/code&gt; part before the file name ensures that the file path eventually hits / if it is within a subdirectory of high depth, and then stores the rce.sh file to the tmp folder. Now, a simple mechanism to execute this shell script would lead to remote code execution. This can overwrite configuration files on the system as well. Usually web applications that deal with zip file uploads rely on the file handling APIs native to a programming language.&lt;/p&gt;
+&lt;p&gt;Consider this Java code snippet,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;1   Enumeration&amp;lt;ZipEntry&amp;gt; entries = zip.getEntries();
+2   while (entries.hasMoreElements()) {
+3      ZipEntry e = entries.nextElement();
+4      File f = new File(destinationDir, e.getName());
+5      InputStream input = zip.getInputStream(e);
+6      IOUtils.copy(input, write(f));
+7   }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;On line 4, &lt;code&gt;e.getName()&lt;/code&gt; is concatenated with the target directory, &lt;code&gt;dir&lt;/code&gt;, without being validated. At this point, when the zip archive gets to &lt;code&gt;rce.sh&lt;/code&gt;, it will append the full path (including every &lt;code&gt;../&lt;/code&gt;) of the zip entry to the target directory resulting in &lt;code&gt;rce.sh&lt;/code&gt; being written outside of the target directory.&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>Zero Trust Architecture: Beyond the Perimeter Security Model</title><link>https://www.rahalkar.dev/posts/2023-01-13-zero-trust-architecture</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2023-01-13-zero-trust-architecture</guid><pubDate>Fri, 13 Jan 2023 10:00:00 GMT</pubDate><content:encoded>&lt;p&gt;In today&apos;s interconnected world, where the traditional network perimeter has all but dissolved, the concept of &quot;trust but verify&quot; has become dangerously outdated. Enter Zero Trust Architecture (ZTA) - a paradigm shift in security thinking that operates on one fundamental principle: never trust, always verify. Let&apos;s dive deep into this revolutionary approach to cybersecurity that&apos;s reshaping how organizations protect their digital assets.&lt;/p&gt;
+&lt;h4&gt;The Evolution of Network Security&lt;/h4&gt;
+&lt;p&gt;Remember the good old days when a strong firewall and VPN were all you needed? Your network was like a medieval castle - hard crunchy exterior, soft chewy interior. Once someone got past the moat (firewall), they had free rein of the castle. But in today&apos;s world of cloud services, remote work, and sophisticated attacks, this model is about as effective as a chocolate teapot.&lt;/p&gt;
+&lt;p&gt;The traditional security model was built on some fundamentally flawed assumptions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Internal network traffic can be trusted&lt;/li&gt;
+&lt;li&gt;External threats are the primary concern&lt;/li&gt;
+&lt;li&gt;IP addresses are reliable identifiers&lt;/li&gt;
+&lt;li&gt;Network location equals trust&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Recent breaches have repeatedly shown how these assumptions fail us. Take the infamous SolarWinds hack - attackers didn&apos;t break down the castle walls; they poisoned the supply chain and walked right through the front door with valid credentials.&lt;/p&gt;
+&lt;h4&gt;Understanding Zero Trust: The Core Principles&lt;/h4&gt;
+&lt;p&gt;Think of Zero Trust like a high-security research facility. Every door requires a new badge scan, every action is logged, and everyone is treated as potentially hostile - even the CEO. Here&apos;s how it breaks down:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Identity is the New Perimeter&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Traditional Model:
+User → Firewall → Network → Resources
+
+Zero Trust Model:
+User → Identity Verification → Policy Check → Resource → Continuous Monitoring
+             ↑                     ↑             ↑              ↑
+        MFA/Biometrics     Context Analysis   Just-in-time    Behavior
+                                               Access         Analytics
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Microsegmentation&lt;/strong&gt;:
+Instead of having one big party room (network), imagine every resource is in its own vault with its own unique access requirements. Even if someone breaks into one vault, they can&apos;t access the others.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Least Privilege Access&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Access Level Matrix:
++-------------------+-------------+----------------+----------------+
+| Role             | Data Access | Network Access | Time Window    |
++-------------------+-------------+----------------+----------------+
+| Developer        | Dev DB Only | Dev Subnet     | Working Hours  |
+| SRE              | Logs, Metrics| All Subnets   | 24/7          |
+| Security Analyst | Audit Logs  | Security Tools | 24/7          |
+| HR Staff         | HR DB Only  | HR Subnet     | Working Hours  |
++-------------------+-------------+----------------+----------------+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Technical Implementation Deep Dive&lt;/h4&gt;
+&lt;p&gt;Let&apos;s get our hands dirty with the technical stuff. Here&apos;s what a Zero Trust implementation typically looks like:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Identity and Access Management (IAM)&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;{
+  &quot;access_policy&quot;: {
+    &quot;user&quot;: &quot;engineer_jane&quot;,
+    &quot;resource&quot;: &quot;prod_database&quot;,
+    &quot;conditions&quot;: {
+      &quot;device_trust_level&quot;: &quot;high&quot;,
+      &quot;location&quot;: [&quot;office&quot;, &quot;approved_home&quot;],
+      &quot;time_window&quot;: &quot;working_hours&quot;,
+      &quot;risk_score&quot;: &quot;&amp;lt;3&quot;,
+      &quot;mfa_status&quot;: &quot;verified&quot;,
+      &quot;device_compliance&quot;: {
+        &quot;os_version&quot;: &quot;&amp;gt;=10.15&quot;,
+        &quot;firewall&quot;: &quot;enabled&quot;,
+        &quot;disk_encryption&quot;: &quot;enabled&quot;,
+        &quot;security_agent&quot;: &quot;running&quot;
+      }
+    },
+    &quot;permissions&quot;: [&quot;read&quot;, &quot;write&quot;],
+    &quot;session_duration&quot;: &quot;8h&quot;,
+    &quot;audit_level&quot;: &quot;high&quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Network Segmentation Implementation&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Example Kubernetes Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: api-isolation
+spec:
+  podSelector:
+    matchLabels:
+      app: api-service
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          role: frontend
+    ports:
+    - protocol: TCP
+      port: 443
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          role: database
+    ports:
+    - protocol: TCP
+      port: 5432
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Authentication Flow&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class ZeroTrustAuthenticator:
+    def authenticate_request(self, request, resource):
+        # 1. Verify identity
+        user = self.verify_identity(request.credentials)
+        if not user:
+            return AuthResult(success=False, reason=&quot;Invalid credentials&quot;)
+        
+        # 2. Check device health
+        device = self.check_device_health(request.device_info)
+        if not device.compliant:
+            return AuthResult(success=False, reason=&quot;Device not compliant&quot;)
+        
+        # 3. Evaluate context
+        context = self.evaluate_context(user, device, resource)
+        if context.risk_score &amp;gt; THRESHOLD:
+            return AuthResult(success=False, reason=&quot;High risk score&quot;)
+        
+        # 4. Apply policy
+        policy_result = self.policy_engine.evaluate(
+            user, device, resource, context
+        )
+        if not policy_result.allowed:
+            return AuthResult(success=False, reason=policy_result.reason)
+        
+        # 5. Generate limited-time access token
+        token = self.token_service.generate(
+            user=user,
+            resource=resource,
+            permissions=policy_result.permissions,
+            expiry=datetime.now() + timedelta(hours=8)
+        )
+        
+        return AuthResult(success=True, token=token)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Real-world Implementation Challenges&lt;/h4&gt;
+&lt;p&gt;Let&apos;s be real - implementing Zero Trust isn&apos;t all sunshine and rainbows. Here are some war stories and solutions:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Legacy System Integration&lt;/strong&gt;
+Remember that ancient COBOL system that&apos;s still running your core business logic? Yeah, it wasn&apos;t built with Zero Trust in mind. Here&apos;s how to handle it:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class LegacySystemProxy:
+    def __init__(self, legacy_system):
+        self.legacy = legacy_system
+        self.auth_service = ModernAuthService()
+        self.encryption = ModernEncryption()
+        
+    def handle_request(self, request):
+        # 1. Modern authentication
+        if not self.auth_service.verify(request):
+            raise SecurityException(&quot;Authentication failed&quot;)
+        
+        # 2. Encrypt communication
+        encrypted_data = self.encryption.encrypt(request.data)
+        
+        # 3. Forward to legacy system
+        response = self.legacy.process(encrypted_data)
+        
+        # 4. Audit logging
+        self.audit_logger.log(request, response)
+        
+        return response
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Performance Impact&lt;/strong&gt;
+With every access requiring verification, your systems might feel like they&apos;re running through molasses. The fix? Implement smart caching and token-based verification:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class PerformanceOptimizedVerifier:
+    def __init__(self):
+        self.cache = TTLCache(maxsize=1000, ttl=300)  # 5-minute TTL
+        
+    def verify_access(self, token, resource):
+        cache_key = f&quot;{token}:{resource}&quot;
+        
+        # Try cache first
+        if cache_key in self.cache:
+            return self.cache[cache_key]
+        
+        # Full verification if cache miss
+        result = self.full_verify(token, resource)
+        
+        # Cache the result
+        self.cache[cache_key] = result
+        return result
+        
+    def full_verify(self, token, resource):
+        # Expensive verification logic here
+        pass
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Advanced Security Controls&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Continuous Monitoring and Analytics&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class SecurityAnalytics:
+    def analyze_access_pattern(self, user_id, resource_id):
+        # Collect metrics
+        access_count = self.get_access_count(user_id, window=&apos;1h&apos;)
+        typical_pattern = self.get_typical_pattern(user_id)
+        location_changes = self.get_location_changes(user_id)
+        
+        # Calculate risk score
+        risk_score = 0
+        risk_score += self.evaluate_frequency(access_count)
+        risk_score += self.evaluate_pattern(typical_pattern)
+        risk_score += self.evaluate_location(location_changes)
+        
+        return {
+            &apos;risk_score&apos;: risk_score,
+            &apos;metrics&apos;: {
+                &apos;access_frequency&apos;: access_count,
+                &apos;pattern_deviation&apos;: typical_pattern.deviation,
+                &apos;location_changes&apos;: len(location_changes)
+            }
+        }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Risk-based Authentication Flow&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;graph TD
+    A[Request] --&amp;gt; B{Check Identity}
+    B --&amp;gt;|Valid| C{Check Device}
+    B --&amp;gt;|Invalid| X[Deny]
+    C --&amp;gt;|Compliant| D{Check Context}
+    C --&amp;gt;|Non-compliant| X
+    D --&amp;gt;|Low Risk| E[Grant Access]
+    D --&amp;gt;|Medium Risk| F[Request Additional Auth]
+    D --&amp;gt;|High Risk| X
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Implementing Zero Trust in the Cloud&lt;/h4&gt;
+&lt;p&gt;Cloud environments present unique challenges and opportunities for Zero Trust:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;AWS Implementation&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Example AWS Security Group for Zero Trust
+resource &quot;aws_security_group&quot; &quot;zero_trust_sg&quot; {
+  name        = &quot;zero-trust-sg&quot;
+  description = &quot;Zero Trust security group&quot;
+  vpc_id      = aws_vpc.main.id
+  
+  # No ingress rules by default
+  # All access must be explicitly granted
+  
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = &quot;-1&quot;
+    cidr_blocks = [&quot;0.0.0.0/0&quot;]
+  }
+  
+  tags = {
+    Name = &quot;zero-trust-sg&quot;
+  }
+}
+
+# IAM Role with fine-grained permissions
+resource &quot;aws_iam_role&quot; &quot;app_role&quot; {
+  name = &quot;app-role&quot;
+  
+  assume_role_policy = jsonencode({
+    Version = &quot;2012-10-17&quot;
+    Statement = [
+      {
+        Action = &quot;sts:AssumeRole&quot;
+        Effect = &quot;Allow&quot;
+        Principal = {
+          Service = &quot;ec2.amazonaws.com&quot;
+        }
+      }
+    ]
+  })
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Kubernetes Implementation&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Service Mesh Configuration (Istio)
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: frontend-ingress
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: frontend
+  rules:
+  - from:
+    - source:
+        principals: [&quot;cluster.local/ns/default/sa/gateway-service&quot;]
+    to:
+    - operation:
+        methods: [&quot;GET&quot;]
+        paths: [&quot;/api/v1/*&quot;]
+  - from:
+    - source:
+        principals: [&quot;cluster.local/ns/default/sa/monitoring&quot;]
+    to:
+    - operation:
+        methods: [&quot;GET&quot;]
+        paths: [&quot;/metrics&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Future of Zero Trust&lt;/h4&gt;
+&lt;p&gt;As we peer into our crystal ball, we see Zero Trust evolving with:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;AI-driven Security&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class AISecurityAnalyzer:
+    def analyze_behavior(self, user_activity):
+        # Load trained model
+        model = self.load_model(&apos;behavior_analysis&apos;)
+        
+        # Extract features
+        features = self.extract_features(user_activity)
+        
+        # Predict risk score
+        risk_score = model.predict(features)
+        
+        # Explain prediction
+        explanation = self.explain_prediction(model, features)
+        
+        return {
+            &apos;risk_score&apos;: risk_score,
+            &apos;explanation&apos;: explanation,
+            &apos;confidence&apos;: model.confidence
+        }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Quantum-resistant Cryptography&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
+
+class QuantumResistantCrypto:
+    def generate_keys(self):
+        # Use quantum-resistant algorithms
+        private_key = dilithium.generate_private_key()
+        public_key = private_key.public_key()
+        return private_key, public_key
+        
+    def sign_message(self, message, private_key):
+        signature = private_key.sign(
+            message,
+            padding.PSS(
+                mgf=padding.MGF1(hashes.SHA3_256()),
+                salt_length=padding.PSS.MAX_LENGTH
+            ),
+            hashes.SHA3_256()
+        )
+        return signature
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Practical Tips for Implementation&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Start small - don&apos;t try to boil the ocean:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Implementation Phases:
+Phase 1: Critical APIs
+        ├── Identity Management
+        ├── MFA Implementation
+        └── Basic Monitoring
+
+Phase 2: Internal Applications
+        ├── Application Segmentation
+        ├── Policy Engine
+        └── Advanced Monitoring
+
+Phase 3: Legacy Systems
+        ├── Proxy Implementation
+        ├── Protocol Translation
+        └── Security Wrapper
+
+Phase 4: IoT Devices
+        ├── Device Identity
+        ├── Network Isolation
+        └── Continuous Monitoring
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Focus on quick wins:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Enable MFA everywhere&lt;/li&gt;
+&lt;li&gt;Implement device health checks&lt;/li&gt;
+&lt;li&gt;Start logging everything&lt;/li&gt;
+&lt;li&gt;Deploy network segmentation&lt;/li&gt;
+&lt;li&gt;Implement just-in-time access&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Measuring Success&lt;/h4&gt;
+&lt;p&gt;How do you know if your Zero Trust implementation is effective? Here are key metrics to track:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;class ZeroTrustMetrics:
+    def calculate_metrics(self):
+        return {
+            &apos;security_posture&apos;: {
+                &apos;unauthorized_access_attempts&apos;: self.count_unauthorized(),
+                &apos;policy_violations&apos;: self.count_violations(),
+                &apos;average_risk_score&apos;: self.avg_risk_score()
+            },
+            &apos;operational_impact&apos;: {
+                &apos;authentication_latency&apos;: self.auth_latency(),
+                &apos;resource_access_time&apos;: self.access_time(),
+                &apos;false_positive_rate&apos;: self.false_positive_rate()
+            },
+            &apos;compliance&apos;: {
+                &apos;policy_coverage&apos;: self.policy_coverage(),
+                &apos;audit_compliance&apos;: self.audit_compliance(),
+                &apos;incident_response_time&apos;: self.response_time()
+            }
+        }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;Conclusion&lt;/h4&gt;
+&lt;p&gt;Zero Trust Architecture isn&apos;t just another security buzzword - it&apos;s a fundamental rethinking of how we approach security in a world where the perimeter is wherever your data is. By adopting these principles, organizations can better protect themselves against modern threats while enabling the flexibility needed in today&apos;s digital landscape.&lt;/p&gt;
+&lt;p&gt;The journey to Zero Trust is continuous, requiring constant evaluation and adjustment. But with careful planning, phased implementation, and a focus on both security and user experience, organizations can successfully make the transition.&lt;/p&gt;
+&lt;p&gt;What&apos;s your take on Zero Trust? Have you implemented it in your organization? Let&apos;s discuss in the comments below!&lt;/p&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>Understanding Shor&apos;s Algorithm: The Quantum Breakthrough in Cryptography</title><link>https://www.rahalkar.dev/posts/2024-01-10-shors-algorithm</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2024-01-10-shors-algorithm</guid><pubDate>Thu, 11 Jan 2024 04:39:06 GMT</pubDate><content:encoded>&lt;p&gt;Shor&apos;s Algorithm is a quantum computing algorithm that has caused a paradigm shift in cryptography. Developed by mathematician Peter Shor in 1994, it has gained significant attention for its potential to break widely used cryptographic protocols. This blog aims to simplify the understanding of Shor&apos;s Algorithm, discuss its history, and explore its profound impact on cryptography.&lt;/p&gt;
+&lt;h4&gt;A Simple Explanation of Shor&apos;s Algorithm&lt;/h4&gt;
+&lt;p&gt;Shor&apos;s Algorithm is a quantum algorithm for integer factorization. In simple terms, it can efficiently decompose a large number into its prime factors. This is a task that is extremely difficult and time-consuming for classical computers, especially as the numbers grow larger. Shor&apos;s Algorithm leverages the principles of quantum mechanics, such as superposition and entanglement, to perform this task exponentially faster than the best-known algorithms running on classical computers.&lt;/p&gt;
+&lt;h4&gt;Historical Context and Development&lt;/h4&gt;
+&lt;p&gt;Peter Shor, while working at AT&amp;amp;T&apos;s Bell Labs, developed this algorithm in 1994. His work was groundbreaking as it showed for the first time how a quantum computer could solve certain problems much faster than a classical computer. This discovery was instrumental in driving interest and research in quantum computing.&lt;/p&gt;
+&lt;h4&gt;The Impact on Cryptography&lt;/h4&gt;
+&lt;p&gt;The most significant impact of Shor&apos;s Algorithm is on public-key cryptography systems like RSA and ECC (Elliptic Curve Cryptography). These systems rely on the difficulty of factorizing large numbers (RSA) or computing discrete logarithms (ECC) - tasks that Shor&apos;s Algorithm can perform efficiently. This means that with the advent of sufficiently powerful quantum computers, the security foundations of much of our current digital infrastructure could be undermined.&lt;/p&gt;
+&lt;h4&gt;How Does It Work? (Simplified)&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Quantum Parallelism&lt;/strong&gt;: Shor&apos;s Algorithm starts by exploiting quantum parallelism. It uses a quantum computer to perform many calculations at once, a feat not possible with classical computers.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Period Finding&lt;/strong&gt;: The algorithm then finds the period of a certain function related to the number to be factorized. This step is where quantum computers show their strength, as finding the period of a function is exponentially faster on a quantum computer.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Classical Post-Processing&lt;/strong&gt;: After the period is found, classical algorithms are used to compute the prime factors.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;insert-image-link&quot; alt=&quot;Diagram explaining Shor&apos;s Algorithm&quot; /&gt;&lt;/p&gt;
+&lt;h4&gt;Challenges and Future Perspectives&lt;/h4&gt;
+&lt;p&gt;While Shor&apos;s Algorithm is theoretically powerful, there are significant practical challenges to its implementation. The primary challenge is building a quantum computer with enough qubits and sufficiently low error rates to run the algorithm effectively. Current quantum computers are not yet advanced enough to factorize large numbers used in practical cryptography.&lt;/p&gt;
+&lt;h5&gt;Conclusion&lt;/h5&gt;
+&lt;p&gt;Shor&apos;s Algorithm highlights both the potential and the challenges of quantum computing. Its ability to break current cryptographic systems makes it a subject of intense study in both quantum computing and cryptography. As we edge closer to more powerful quantum computers, it becomes increasingly important to develop new cryptographic systems that are resistant to quantum attacks.&lt;/p&gt;
+&lt;hr /&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item><item><title>Understanding Buffer Overflow Attacks: A Deep Dive into Memory Exploitation</title><link>https://www.rahalkar.dev/posts/2024-01-14-buffer-overflow-attacks</link><guid isPermaLink="true">https://www.rahalkar.dev/posts/2024-01-14-buffer-overflow-attacks</guid><pubDate>Sun, 14 Jan 2024 10:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Buffer overflow attacks remain one of the most fundamental yet dangerous vulnerabilities in computer systems. Despite being discovered decades ago, they continue to pose significant threats to modern software. This comprehensive guide delves deep into the technical aspects of buffer overflow attacks, their mechanics, and advanced exploitation techniques.&lt;/p&gt;
+&lt;h4&gt;Understanding Memory Layout&lt;/h4&gt;
+&lt;p&gt;Before diving into buffer overflows, it&apos;s crucial to understand how program memory is organized:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Memory Segments&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Text Segment&lt;/strong&gt;: Contains executable code (read-only)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data Segment&lt;/strong&gt;: Initialized global variables&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;BSS Segment&lt;/strong&gt;: Uninitialized global variables&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Heap&lt;/strong&gt;: Dynamic memory allocation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Stack&lt;/strong&gt;: Local variables, function parameters, return addresses&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Stack Organization&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;High Memory Addresses
++------------------------+
+|    Command line args   |
+|    Environment vars    |
++------------------------+
+|    Stack              |
+|    ↓ Growth           |
++------------------------+
+|         ↑             |
+|    Heap Growth        |
+|    Heap               |
++------------------------+
+|    BSS Segment        |
++------------------------+
+|    Data Segment       |
++------------------------+
+|    Text Segment       |
++------------------------+
+Low Memory Addresses
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Deep Dive into Stack Frames&lt;/h4&gt;
+&lt;p&gt;A typical stack frame during function execution:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Stack Frame Layout:
++------------------------+ ← High addresses
+| Function Parameters    |
++------------------------+
+| Return Address        |
++------------------------+
+| Saved Frame Pointer   |
++------------------------+
+| Local Variables       |
++------------------------+
+| Buffer               |
++------------------------+ ← Low addresses
+
+Assembly View:
+push ebp           ; Save old frame pointer
+mov ebp, esp       ; Set up new frame pointer
+sub esp, X         ; Allocate space for locals
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h4&gt;Advanced Buffer Overflow Mechanics&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Stack-based Buffer Overflow Example&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+
+void vulnerable_function(char *user_input) {
+    char buffer[64];
+    char sensitive_data[] = &quot;SECRET_PASSWORD&quot;;
+    
+    // Vulnerable copy operation
+    strcpy(buffer, user_input);
+    
+    printf(&quot;Buffer contains: %s\n&quot;, buffer);
+    printf(&quot;Sensitive data: %s\n&quot;, sensitive_data);
+}
+
+int main(int argc, char **argv) {
+    if (argc &amp;lt; 2) return 1;
+    vulnerable_function(argv[1]);
+    return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Memory Corruption Analysis&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Before Overflow:
++------------------------+
+| sensitive_data        | 
++------------------------+
+| buffer[64]            |
++------------------------+
+| saved EBP             |
++------------------------+
+| return address        |
++------------------------+
+
+After Overflow:
++------------------------+
+| sensitive_data        | ← Corrupted!
++------------------------+
+| AAAAAAAA...          | ← Buffer overflow
++------------------------+
+| AAAAAAAA (saved EBP) | ← Corrupted!
++------------------------+
+| BBBBBBBB (ret addr)  | ← Hijacked!
++------------------------+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Advanced Exploitation Techniques&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Return-to-libc Attack&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Bypassing non-executable stack
+// Stack layout for system(&quot;/bin/sh&quot;) call:
+
+[system_addr]    // Address of system() in libc
+[exit_addr]      // Address of exit() for clean return
+[binsh_addr]     // Address of &quot;/bin/sh&quot; string
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ROP (Return-Oriented Programming) Chains&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;; Example ROP gadgets
+pop_rdi:
+    pop rdi
+    ret
+
+pop_rsi:
+    pop rsi
+    ret
+
+; ROP chain structure
+[pop_rdi_addr]
+[arg1]
+[pop_rsi_addr]
+[arg2]
+[function_addr]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Format String Attack Integration&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Combining format string with buffer overflow
+printf(buffer);  // Format string vulnerability
+strcpy(dest, src);  // Buffer overflow
+
+// Example payload:
+// %x%x%x%n + [overflow data]
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Advanced Protection Mechanisms&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;ASLR Deep Dive&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# View ASLR settings
+cat /proc/sys/kernel/randomize_va_space
+
+# Values:
+# 0 - No randomization
+# 1 - Conservative randomization
+# 2 - Full randomization
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Stack Canary Implementation&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Compiler-generated protection
+void protected_function() {
+    unsigned long canary = __stack_chk_guard;
+    char buffer[64];
+    
+    // ... function code ...
+    
+    if (canary != __stack_chk_guard)
+        __stack_chk_fail();
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Control Flow Integrity (CFI)&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Example of Microsoft&apos;s Control Flow Guard
+__declspec(guard(cf))
+void security_sensitive_function() {
+    // Function protected by CFI
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Advanced Heap Exploitation&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Use-After-Free Scenario&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;struct chunk {
+    size_t prev_size;
+    size_t size;
+    struct chunk *fd;
+    struct chunk *bk;
+    // ... data ...
+};
+
+// Heap exploitation techniques
+// 1. Heap Spraying
+// 2. Heap Feng Shui
+// 3. Double Free
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Heap Memory Layout&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Chunk Header:
++------------------------+
+| Previous Size         |
++------------------------+
+| Size &amp;amp; Flags         |
++------------------------+
+| Forward Pointer      |
++------------------------+
+| Backward Pointer     |
++------------------------+
+| User Data            |
++------------------------+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Advanced Mitigation Strategies&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Compiler Hardening&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# GCC security flags
+gcc -fstack-protector-all \
+    -D_FORTIFY_SOURCE=2 \
+    -O2 \
+    -Wformat \
+    -Wformat-security \
+    -fPIE -pie \
+    -fstack-clash-protection \
+    -fcf-protection \
+    program.c
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Safe Programming Patterns&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Length-prefix strings
+struct safe_string {
+    size_t length;
+    char data[];
+};
+
+// Bounds checking wrapper
+size_t safe_copy(char *dst, size_t dst_size,
+                const char *src, size_t src_size) {
+    size_t to_copy = (dst_size &amp;lt; src_size) ? dst_size : src_size;
+    memcpy(dst, src, to_copy);
+    if (dst_size &amp;gt; 0)
+        dst[dst_size - 1] = &apos;\0&apos;;
+    return to_copy;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Real-world Case Studies&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Morris Worm (1988)&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Exploited &lt;code&gt;gets()&lt;/code&gt; in fingerd&lt;/li&gt;
+&lt;li&gt;First self-replicating malware&lt;/li&gt;
+&lt;li&gt;Affected ~6,000 machines (10% of internet)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Code Red Worm (2001)&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IIS buffer overflow&lt;/li&gt;
+&lt;li&gt;Infected 359,000 hosts in 14 hours&lt;/li&gt;
+&lt;li&gt;Caused $2.6 billion in damage&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Slammer Worm (2003)&lt;/strong&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SQL Server buffer overflow&lt;/li&gt;
+&lt;li&gt;Infected 75,000 hosts in 10 minutes&lt;/li&gt;
+&lt;li&gt;First &quot;Warhol worm&quot;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Modern Defense-in-Depth&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Runtime Application Self-Protection (RASP)&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Example RASP implementation
+@RuntimeProtection
+public class SecureComponent {
+    @BufferCheck
+    public void processInput(byte[] data) {
+        // Protected processing
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Memory Safety with Modern Languages&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;// Rust&apos;s memory safety
+fn safe_buffer_handling(input: &amp;amp;[u8]) -&amp;gt; Result&amp;lt;Vec&amp;lt;u8&amp;gt;, Error&amp;gt; {
+    let mut buffer = Vec::with_capacity(64);
+    buffer.extend_from_slice(input.get(0..64)
+        .ok_or(Error::BufferTooLarge)?);
+    Ok(buffer)
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Advanced Debugging and Analysis&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;GDB Commands for Buffer Overflow Analysis&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Set up GDB for exploitation
+set disassembly-flavor intel
+set pagination off
+
+# Useful commands
+x/200x $esp    # Examine stack
+info frame     # Show stack frame
+pattern create 200  # Create cyclic pattern
+pattern offset 0x41414141  # Find offset
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Using Dynamic Analysis Tools&lt;/strong&gt;:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# Valgrind for memory analysis
+valgrind --tool=memcheck \
+         --leak-check=full \
+         --track-origins=yes \
+         ./vulnerable_program
+
+# AddressSanitizer
+gcc -fsanitize=address program.c
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;Conclusion&lt;/h4&gt;
+&lt;p&gt;Buffer overflow attacks, while well-understood, continue to evolve and pose significant security risks. Understanding their mechanics from the assembly level up to modern exploitation techniques is crucial for both offensive security researchers and defensive engineers. As protection mechanisms become more sophisticated, new bypass techniques emerge, making this a fascinating and critical area of cybersecurity research.&lt;/p&gt;
+&lt;p&gt;The key to defending against buffer overflows lies in a multi-layered approach:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Secure coding practices&lt;/li&gt;
+&lt;li&gt;Compiler protections&lt;/li&gt;
+&lt;li&gt;Runtime mitigations&lt;/li&gt;
+&lt;li&gt;Regular security audits&lt;/li&gt;
+&lt;li&gt;Modern programming language adoption&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Stay vigilant, as memory corruption vulnerabilities continue to be discovered even in modern software systems.&lt;/p&gt;
+&lt;hr /&gt;
+</content:encoded><author>Chaitanya Rahalkar</author></item></channel></rss>
