@@ -32,16 +32,18 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Debug environment
+      - name: Configure npm for public registry
         run: |
-          node --version
-          npm --version
-          pwd
-          ls -la
+          npm config set registry https://registry.npmjs.org/
+          npm config delete @square:registry
+          npm config delete @block:registry
+          npm config set fetch-timeout 300000
+          npm config set fetch-retry-mintimeout 20000
+          npm config set fetch-retry-maxtimeout 120000
 
-      - name: Install dependencies with verbose output
+      - name: Install dependencies with public registry
         run: |
-          npm install --verbose --no-optional
+          npm install --verbose --no-optional --registry https://registry.npmjs.org/
         timeout-minutes: 8
 
       - name: Build with Astro
