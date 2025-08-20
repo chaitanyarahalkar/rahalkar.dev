@@ -17,32 +17,35 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          bun-version: 1.2.11
+          node-version: '16'
+          cache: 'npm'
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Debug Bun version
+      - name: Debug environment
         run: |
-          bun --version
-          which bun
+          node --version
+          npm --version
+          pwd
+          ls -la
 
-      - name: Install dependencies
+      - name: Install dependencies with verbose output
         run: |
-          bun install --frozen-lockfile --no-cache
-        timeout-minutes: 5
+          npm install --verbose --no-optional
+        timeout-minutes: 8
 
       - name: Build with Astro
-        run: bun run build
+        run: npm run build
         timeout-minutes: 5
 
       - name: Upload artifact
