@@ -1,0 +1,369 @@
+---
+import {
+  differenceInCalendarDays,
+  eachDayOfInterval,
+  formatISO,
+  getDay,
+  nextDay,
+  parseISO,
+  subWeeks,
+  getYear,
+  getMonth,
+  isValid,
+} from 'date-fns'
+import type {
+  WeekdayIndex,
+  GitHubActivityApiResponse,
+  GitHubActivityDay,
+  GitHubActivityWeek,
+  GitHubActivityMonthLabel,
+} from '~/types'
+
+interface Props {
+  username: string
+  year?: number
+}
+
+function range(n: number) {
+  return [...Array(n).keys()]
+}
+
+// Cache mechanism with TTL
+const CACHE_KEY_PREFIX = 'github-contributions-'
+const CACHE_TTL = 3600000 // 1 hour in milliseconds
+
+async function fetchDataWithCache(
+  username: string,
+  year: number | 'last',
+): Promise<GitHubActivityApiResponse> {
+  // Check if we're in a browser environment
+  const isBrowser = typeof window !== 'undefined'
+  const cacheKey = `${CACHE_KEY_PREFIX}${username}-${year}`
+  
+  // Try to get from cache if in browser
+  if (isBrowser && window.localStorage) {
+    const cached = localStorage.getItem(cacheKey)
+    if (cached) {
+      try {
+        const { data, timestamp } = JSON.parse(cached)
+        if (Date.now() - timestamp < CACHE_TTL) {
+          return data
+        }
+      } catch (e) {
+        // Invalid cache, continue to fetch
+      }
+    }
+  }
+  
+  // Fetch fresh data
+  const apiUrl = 'https://github-contributions-api.jogruber.de/v4/'
+  const response = await fetch(`${apiUrl}${username}?y=${String(year)}`)
+  const data = (await response.json()) as GitHubActivityApiResponse
+  
+  if (!response.ok) {
+    const message = data.error || 'Unknown error'
+    throw Error(`Fetching GitHub contribution data for "${username}" failed: ${message}`)
+  }
+  
+  // Store in cache if in browser
+  if (isBrowser && window.localStorage) {
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }))
+    } catch (e) {
+      // Storage might be full, ignore
+    }
+  }
+  
+  return data
+}
+
+// Optimized color scale calculation - memoized
+const colorScaleCache = new Map<string, Array<string>>()
+function calcColorScale([start, end]: [string, string], steps: number): Array<string> {
+  const cacheKey = `${start}-${end}-${steps}`
+  if (colorScaleCache.has(cacheKey)) {
+    return colorScaleCache.get(cacheKey)!
+  }
+  
+  const scale = range(steps).map((i) => {
+    if (i === 0) return start
+    if (i === steps - 1) return end
+    const pos = (i / (steps - 1)) * 100
+    return `color-mix(in oklab, ${end} ${pos}%, ${start})`
+  })
+  
+  colorScaleCache.set(cacheKey, scale)
+  return scale
+}
+
+// Optimized fillHoles using a single pass
+function fillHoles(activities: Array<GitHubActivityDay>): Array<GitHubActivityDay> {
+  if (activities.length === 0) return []
+  
+  const firstDate = parseISO(activities[0].date)
+  const lastDate = parseISO(activities[activities.length - 1].date)
+  const totalDays = differenceInCalendarDays(lastDate, firstDate) + 1
+  
+  // Pre-allocate array
+  const result = new Array(totalDays)
+  const activityMap = new Map(activities.map(a => [a.date, a]))
+  
+  let currentDate = firstDate
+  for (let i = 0; i < totalDays; i++) {
+    const dateStr = formatISO(currentDate, { representation: 'date' })
+    result[i] = activityMap.get(dateStr) || { date: dateStr, count: 0, level: 0 }
+    currentDate.setDate(currentDate.getDate() + 1)
+  }
+  
+  return result
+}
+
+// Optimized groupByWeeks
+function groupByWeeks(
+  activities: Array<GitHubActivityDay>,
+  weekStart: WeekdayIndex = 0,
+): Array<GitHubActivityWeek> {
+  const normalizedActivities = fillHoles(activities)
+  if (normalizedActivities.length === 0) return []
+  
+  const firstDate = parseISO(normalizedActivities[0].date)
+  const firstCalendarDate =
+    getDay(firstDate) === weekStart
+      ? firstDate
+      : subWeeks(nextDay(firstDate, weekStart), 1)
+  
+  const padDays = differenceInCalendarDays(firstDate, firstCalendarDate)
+  const totalDays = padDays + normalizedActivities.length
+  const numberOfWeeks = Math.ceil(totalDays / 7)
+  
+  // Pre-allocate weeks array
+  const weeks = new Array(numberOfWeeks)
+  
+  for (let w = 0; w < numberOfWeeks; w++) {
+    const week = new Array(7)
+    for (let d = 0; d < 7; d++) {
+      const index = w * 7 + d - padDays
+      week[d] = index >= 0 && index < normalizedActivities.length 
+        ? normalizedActivities[index] 
+        : undefined
+    }
+    weeks[w] = week
+  }
+  
+  return weeks
+}
+
+// Optimized month labels
+function getMonthLabels(
+  weeks: Array<GitHubActivityWeek>,
+  monthNames: Array<string>,
+): Array<GitHubActivityMonthLabel> {
+  const labels: Array<GitHubActivityMonthLabel> = []
+  let lastMonth = -1
+  
+  for (let weekIndex = 0; weekIndex < weeks.length; weekIndex++) {
+    const week = weeks[weekIndex]
+    const firstActivity = week.find(a => a !== undefined)
+    if (!firstActivity) continue
+    
+    const month = getMonth(parseISO(firstActivity.date))
+    if (month !== lastMonth) {
+      labels.push({ weekIndex, label: monthNames[month] })
+      lastMonth = month
+    }
+  }
+  
+  // Filter labels with minimum spacing
+  return labels.filter((label, index, arr) => {
+    if (index === 0) return !arr[1] || arr[1].weekIndex - label.weekIndex >= 3
+    if (index === arr.length - 1) return weeks.length - label.weekIndex >= 3
+    return true
+  })
+}
+
+// Props and initial setup
+const { username, year = 'last' } = Astro.props
+
+// Use static data during build with timeout
+let data: GitHubActivityApiResponse
+let errorMessage: string | null = null
+
+try {
+  // During SSG, we fetch with a timeout to prevent hanging
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 5000) // 5 second timeout
+  
+  const apiUrl = 'https://github-contributions-api.jogruber.de/v4/'
+  const response = await fetch(`${apiUrl}${username}?y=${String(year)}`, {
+    signal: controller.signal
+  })
+  
+  clearTimeout(timeoutId)
+  
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}`)
+  }
+  
+  data = await response.json()
+} catch (error) {
+  console.warn(`Failed to fetch GitHub contributions for ${username}:`, error)
+  // Provide empty data structure - the component will still render
+  errorMessage = null // Don't show error in production
+  data = {
+    total: { lastYear: 0 },
+    contributions: []
+  }
+}
+
+// Constants
+const themeColors: [string, string] = ['var(--theme-background)', 'var(--theme-accent)']
+const totalCount = year === 'last' ? data.total.lastYear : data.total[year] || 0
+const maxLevel = 4
+const blockMargin = 3 // Reduced from 4
+const labelMargin = 6 // Reduced from 8
+const blockRadius = 2
+const blockSize = 11 // Reduced from 12
+const fontSize = 12 // Reduced from 14
+const weekStart = 0
+
+// Process data only if we have contributions
+const colorScale = calcColorScale(themeColors, maxLevel + 1)
+const weeks = data.contributions.length > 0 ? groupByWeeks(data.contributions, weekStart) : []
+const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+// Calculate dimensions
+const labelHeight = fontSize + labelMargin
+const width = weeks.length * (blockSize + blockMargin) - blockMargin
+const height = labelHeight + (blockSize + blockMargin) * 7 - blockMargin
+---
+
+<article
+  id="github-activity-calendar"
+  class="w-max max-w-full flex flex-col gap-2 text-sm"
+  data-username={username}
+  data-year={String(year)}
+>
+  {errorMessage ? (
+    <div class="text-sm text-muted-foreground p-4 border border-border rounded">
+      {errorMessage}
+    </div>
+  ) : weeks.length === 0 ? (
+    <div class="text-sm text-muted-foreground">
+      GitHub contribution data is temporarily unavailable.
+    </div>
+  ) : (
+    <>
+      <div
+        class="max-w-full overflow-x-auto"
+        style={{ scrollbarGutter: 'stable' }}
+      >
+        <svg
+          width={width}
+          height={height}
+          viewBox={`0 0 ${width} ${height}`}
+          class="block"
+        >
+          <!-- Month labels -->
+          <g>
+            {getMonthLabels(weeks, monthLabels).map(({ label, weekIndex }) => (
+              <text
+                x={(blockSize + blockMargin) * weekIndex}
+                y={0}
+                dominant-baseline="hanging"
+                fill="currentColor"
+                font-size={fontSize}
+              >
+                {label}
+              </text>
+            ))}
+          </g>
+          
+          <!-- Activity blocks - optimized rendering -->
+          {weeks.map((week, weekIndex) => (
+            <g transform={`translate(${(blockSize + blockMargin) * weekIndex}, ${labelHeight})`}>
+              {week.map((activity, dayIndex) => 
+                activity && (
+                  <rect
+                    x={0}
+                    y={(blockSize + blockMargin) * dayIndex}
+                    width={blockSize}
+                    height={blockSize}
+                    rx={blockRadius}
+                    fill={colorScale[activity.level]}
+                    stroke="var(--theme-foreground)"
+                    stroke-opacity="0.1"
+                    data-date={activity.date}
+                    data-count={activity.count}
+                    data-level={activity.level}
+                  >
+                    <title>{`${activity.date}: ${activity.count} contributions`}</title>
+                  </rect>
+                )
+              )}
+            </g>
+          ))}
+        </svg>
+      </div>
+      
+      <!-- Footer -->
+      <footer class="flex flex-col sm:flex-row sm:justify-between gap-2 text-xs">
+        <div>
+          {totalCount} contributions in {year === 'last' ? 'the last year' : year}
+        </div>
+        <div class="flex items-center gap-[3px]">
+          <span class="mr-1.5">Less</span>
+          {range(maxLevel + 1).map((level) => (
+            <svg width={blockSize} height={blockSize}>
+              <rect
+                width={blockSize}
+                height={blockSize}
+                fill={colorScale[level]}
+                rx={blockRadius}
+                stroke="var(--theme-foreground)"
+                stroke-opacity="0.1"
+              />
+            </svg>
+          ))}
+          <span class="ml-1.5">More</span>
+        </div>
+      </footer>
+    </>
+  )}
+</article>
+
+<script>
+// Client-side enhancement for dynamic updates
+document.addEventListener('DOMContentLoaded', () => {
+  const calendar = document.getElementById('github-activity-calendar')
+  if (!calendar) return
+  
+  const username = calendar.dataset.username
+  const year = calendar.dataset.year
+  
+  // Add hover effects
+  const rects = calendar.querySelectorAll('rect[data-date]')
+  rects.forEach(rect => {
+    rect.addEventListener('mouseenter', (e) => {
+      const target = e.target as SVGRectElement
+      target.style.opacity = '0.8'
+    })
+    rect.addEventListener('mouseleave', (e) => {
+      const target = e.target as SVGRectElement
+      target.style.opacity = '1'
+    })
+  })
+})
+</script>
+
+<style>
+  #github-activity-calendar rect {
+    transition: opacity 0.1s ease;
+  }
+  
+  #github-activity-calendar rect:hover {
+    cursor: pointer;
+  }
+</style>

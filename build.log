@@ -1,0 +1,121 @@
+$ astro build
+14:53:18 [vite] Re-optimizing dependencies because vite config has changed
+14:53:18 [content] Syncing content
+14:53:18 [content] Synced content
+14:53:18 [types] Generated 233ms
+14:53:18 [build] output: "static"
+14:53:18 [build] mode: "static"
+14:53:18 [build] directory: /Users/chaitanyarahalkar/Development/my-new-blog/dist/
+14:53:18 [build] Collecting build info...
+14:53:18 [build] ✓ Completed in 549ms.
+14:53:18 [build] Building static entrypoints...
+14:53:19 [vite] ✓ built in 707ms
+14:53:19 [build] ✓ Completed in 726ms.
+
+ building client (vite) 
+14:53:19 [vite] transforming...
+14:53:19 [vite] ✓ 12 modules transformed.
+14:53:19 [vite] rendering chunks...
+14:53:19 [vite] computing gzip size...
+14:53:19 [vite] dist/_astro/ec.p1z7b.js                                               2.48 kB
+14:53:19 [vite] dist/_astro/ec.ut09n.css                                             96.54 kB │ gzip: 13.78 kB
+14:53:19 [vite] dist/_astro/page.V2R8AmkL.js                                          2.16 kB │ gzip:  0.96 kB
+14:53:19 [vite] dist/_astro/Search.astro_astro_type_script_index_0_lang.CxK7xZ3B.js   3.26 kB │ gzip:  1.46 kB
+14:53:19 [vite] dist/_astro/ui-core.BH4WY-HR.js                                      68.07 kB │ gzip: 21.34 kB
+14:53:19 [vite] ✓ built in 104ms
+
+ generating static routes 
+14:53:19 ▶ src/pages/404.astro
+14:53:19   └─ /404.html (+122ms) 
+14:53:19 ▶ src/pages/about.md
+14:53:19   └─ /about/index.html (+69ms) 
+14:53:19 λ src/pages/giscus/[theme].css.ts
+14:53:19   ├─ /giscus/andromeeda.css (+3ms) 
+14:53:19   ├─ /giscus/aurora-x.css (+1ms) 
+14:53:19   ├─ /giscus/ayu-dark.css (+1ms) 
+14:53:19   ├─ /giscus/catppuccin-frappe.css (+1ms) 
+14:53:19   ├─ /giscus/catppuccin-latte.css (+1ms) 
+14:53:19   ├─ /giscus/catppuccin-macchiato.css (+1ms) 
+14:53:19   ├─ /giscus/catppuccin-mocha.css (+1ms) 
+14:53:19   ├─ /giscus/dark-plus.css (+1ms) 
+14:53:19   ├─ /giscus/dracula.css (+0ms) 
+14:53:19   ├─ /giscus/dracula-soft.css (+0ms) 
+14:53:19   ├─ /giscus/everforest-dark.css (+0ms) 
+14:53:19   ├─ /giscus/everforest-light.css (+0ms) 
+14:53:19   ├─ /giscus/github-dark.css (+0ms) 
+14:53:19   ├─ /giscus/github-dark-default.css (+0ms) 
+14:53:19   ├─ /giscus/github-dark-dimmed.css (+0ms) 
+14:53:19   ├─ /giscus/github-dark-high-contrast.css (+0ms) 
+14:53:19   ├─ /giscus/github-light.css (+0ms) 
+14:53:19   ├─ /giscus/github-light-default.css (+0ms) 
+14:53:19   ├─ /giscus/github-light-high-contrast.css (+0ms) 
+14:53:19   ├─ /giscus/gruvbox-dark-hard.css (+1ms) 
+14:53:19   ├─ /giscus/gruvbox-dark-medium.css (+0ms) 
+14:53:19   ├─ /giscus/gruvbox-dark-soft.css (+0ms) 
+14:53:19   ├─ /giscus/gruvbox-light-hard.css (+1ms) 
+14:53:19   ├─ /giscus/gruvbox-light-medium.css (+0ms) 
+14:53:19   ├─ /giscus/gruvbox-light-soft.css (+0ms) 
+14:53:19   ├─ /giscus/houston.css (+0ms) 
+14:53:19   ├─ /giscus/kanagawa-dragon.css (+0ms) 
+14:53:19   ├─ /giscus/kanagawa-lotus.css (+0ms) 
+14:53:19   ├─ /giscus/kanagawa-wave.css (+0ms) 
+14:53:19   ├─ /giscus/laserwave.css (+0ms) 
+14:53:19   ├─ /giscus/light-plus.css (+0ms) 
+14:53:19   ├─ /giscus/material-theme.css (+0ms) 
+14:53:19   ├─ /giscus/material-theme-darker.css (+0ms) 
+14:53:19   ├─ /giscus/material-theme-lighter.css (+0ms) 
+14:53:19   ├─ /giscus/material-theme-ocean.css (+0ms) 
+14:53:19   ├─ /giscus/material-theme-palenight.css (+0ms) 
+14:53:19   ├─ /giscus/min-dark.css (+0ms) 
+14:53:19   ├─ /giscus/min-light.css (+0ms) 
+14:53:19   ├─ /giscus/monokai.css (+0ms) 
+14:53:19   ├─ /giscus/night-owl.css (+0ms) 
+14:53:19   ├─ /giscus/nord.css (+0ms) 
+14:53:19   ├─ /giscus/one-dark-pro.css (+1ms) 
+14:53:19   ├─ /giscus/one-light.css (+0ms) 
+14:53:19   ├─ /giscus/plastic.css (+0ms) 
+14:53:19   ├─ /giscus/poimandres.css (+4ms) 
+14:53:19   ├─ /giscus/red.css (+1ms) 
+14:53:19   ├─ /giscus/rose-pine.css (+0ms) 
+14:53:19   ├─ /giscus/rose-pine-dawn.css (+0ms) 
+14:53:19   ├─ /giscus/rose-pine-moon.css (+1ms) 
+14:53:19   ├─ /giscus/slack-dark.css (+0ms) 
+14:53:19   ├─ /giscus/slack-ochin.css (+1ms) 
+14:53:19   ├─ /giscus/snazzy-light.css (+1ms) 
+14:53:19   ├─ /giscus/solarized-dark.css (+1ms) 
+14:53:19   ├─ /giscus/solarized-light.css (+0ms) 
+14:53:19   ├─ /giscus/synthwave-84.css (+0ms) 
+14:53:19   ├─ /giscus/tokyo-night.css (+0ms) 
+14:53:19   ├─ /giscus/vesper.css (+1ms) 
+14:53:19   ├─ /giscus/vitesse-black.css (+0ms) 
+14:53:19   ├─ /giscus/vitesse-dark.css (+0ms) 
+14:53:19   └─ /giscus/vitesse-light.css (+1ms) 
+14:53:19 ▶ src/pages/posts/[slug].astro
+14:53:19   ├─ /posts/2019-04-06-virtualisation-in-operating-systems/index.html (+66ms) 
+14:53:19   ├─ /posts/2019-05-08-path-environment-variable-in-linux-unix/index.html (+66ms) 
+14:53:19   ├─ /posts/2019-05-15-a-guide-to-partitions-partitioning-drives-in-linux/index.html (+63ms) 
+14:53:20   ├─ /posts/2019-05-18-how-your-computer-starts/index.html (+105ms) 
+14:53:20   ├─ /posts/2019-06-01-the-virtual-file-system/index.html (+55ms) 
+14:53:20   ├─ /posts/2019-06-04-file-permissions-in-unix-linux/index.html (+59ms) 
+14:53:20   ├─ /posts/2019-06-07-exploits-vulnerabilities-with-introduction-to-metasploit/index.html (+57ms) 
+14:53:20   ├─ /posts/2019-07-14-what-is-an-electronic-nose/index.html (+62ms) 
+14:53:20   ├─ /posts/2019-09-15-understanding-dirty-cow-the-infamous-linux-kernel-exploit/index.html (+53ms) 
+14:53:20   ├─ /posts/2019-09-20-zip-slip/index.html (+103ms) 
+14:53:20   ├─ /posts/2023-01-13-zero-trust-architecture/index.html (+77ms) 
+14:53:20   ├─ /posts/2024-01-10-shors-algorithm/index.html (+63ms) 
+14:53:20   └─ /posts/2024-01-14-buffer-overflow-attacks/index.html (+65ms) 
+14:53:20 ▶ src/pages/posts/[...page].astro
+14:53:20   ├─ /posts/index.html (+92ms) 
+14:53:20   ├─ /posts/2/index.html (+53ms) 
+14:53:20   └─ /posts/3/index.html (+51ms) 
+14:53:20 ▶ src/pages/projects.md
+14:53:20   └─ /projects/index.html (+54ms) 
+14:53:20 ▶ src/pages/publications.md
+14:53:20   └─ /publications/index.html (+54ms) 
+14:53:21 λ src/pages/robots.txt.ts
+14:53:21   └─ /robots.txt (+1ms) 
+14:53:21 λ src/pages/rss.xml.ts
+14:53:21   └─ /rss.xml (+20ms) 
+14:53:21 ▶ src/pages/series/[slug].astro
+14:53:21 λ src/pages/social-cards/[slug].png.ts
+14:53:21   ├─ /social-cards/2019-04-06-virtualisation-in-operating-systems.png
