@@ -22,22 +22,27 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          node-version: '20'
-          cache: 'npm'
+          bun-version: 1.2.11
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Debug Bun version
+        run: |
+          bun --version
+          which bun
+
       - name: Install dependencies
-        run: npm ci
+        run: |
+          bun install --frozen-lockfile --no-cache
         timeout-minutes: 5
 
       - name: Build with Astro
-        run: npm run build
+        run: bun run build
         timeout-minutes: 5
 
       - name: Upload artifact
