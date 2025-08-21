@@ -6,7 +6,7 @@ import mdx from '@astrojs/mdx'
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import expressiveCode from 'astro-expressive-code'
-import siteConfig from './src/site.config'
+import siteConfig from './src/site.config.ts'
 import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers'
 import remarkDescription from './src/plugins/remark-description' /* Add description to frontmatter */
 import remarkReadingTime from './src/plugins/remark-reading-time' /* Add reading time to frontmatter */
