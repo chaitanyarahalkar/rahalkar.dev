@@ -9,6 +9,9 @@ I'm Chaitanya Rahalkar, a Software Security Engineer at Block Inc. (formerly Squ
 
 ### Professional Experience
 
+**CEO & Founder** - OmniChat AI  
+Architected and launched an innovative multimodal LLM API platform unifying text, image, video, and audio processing through a single integration point. Built and managed a distributed engineering team, drove partnerships with 20+ companies, and established agile practices that fueled 40% monthly recurring revenue growth.
+
 **Software Security Engineer** - Block Inc. (f.k.a. Square Inc.)  
 Developing enterprise-scale cloud-native security pipelines and detection systems.
 

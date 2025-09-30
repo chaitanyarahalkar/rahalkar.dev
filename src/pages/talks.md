@@ -3,59 +3,73 @@ layout: '~/layouts/MarkdownLayout.astro'
 title: Talks & Presentations
 ---
 
-## Conference Talks & Presentations
+## Invited Talks & Presentations
 
-### 2021
+### 2025
 
-**The Million Dollar Dissident**  
-*CS 8803 Class Discussion, Georgia Tech*  
-October 2021  
-[Slides](https://git.io/ems8803)
-
-A talk about the Zero-Day exploit used by the NSO group on Ahmed Mansoor, its backstory, exploit and network infrastructure.
+**[Breaking Down Buffer Overflow Exploits: From Vulnerability to Patch](https://bsidesslc-2025.sessionize.com/session/794040)**  
+*BSides SLC Security Conference, 2025*  
+[Video](https://youtu.be/SdEyy1Vskck?si=0zkfXbpfLA5CSE4O) | [Slides](https://bit.ly/bsides-slc-sec)
 
 ---
 
-**Designing a Secure Device-to-Device File Transfer Mechanism**  
-*CS 6262 Project Session, Georgia Tech*  
-April 2021  
-[Slides](https://git.io/cs6262)
-
-Secure, reliable, and fast transfer of files across the Internet is a problem attempted to be solved through many application-layer protocols. We propose a protocol that uses a relay server to relay the files from the client to the server.
+**[AI-Driven Phishing Attacks](https://www.sans.org/presentations/sans360-ai-driven-phishing-attacks)**  
+*SANS AI Cybersecurity Summit, 2025*  
+[Video](https://youtu.be/Apn27gAoutE?si=Pcord0-lAiS-ofA6) | [Credentials](https://www.credly.com/earner/earned/badge/9f920bfa-4466-44aa-86ee-41811515c19f)
 
 ---
 
-### 2019
-
-**Hidden Secrets of Python**  
-*Python Pune Meetup*  
-September 2019  
-[Slides](https://bit.ly/python-meetups-sept)
-
-Python has a large number of really cool modules that people don't know about. These are quite helpful. People often tend to program the hard way since they don't know about the existence of these modules.
+**[Killer CLIs: Building Platform Tools Developers Actually Want to Use](https://2025.platformcon.com/sessions/killer-clis-building-platform-tools-developers-actually-want-to-use)**  
+*PlatformCon, 2025*  
+[Slides](https://bit.ly/platform-con-2025)
 
 ---
 
-### Technical Presentations
-
-**Content Addressed Filesystem**  
-Academic presentation on content-addressed storage systems and their applications in distributed computing.
-
-**Privacy in Blockchain**  
-Discussion on privacy-preserving techniques in blockchain technology and cryptocurrency systems.
-
-**Ethics & Privacy in Technology**  
-Exploring the ethical implications of privacy in modern technology systems.
-
-**Centralized vs Decentralized Systems**  
-Comparative analysis of centralized and decentralized architectures in computing systems.
-
-**NoSQL Databases**  
-Overview of NoSQL database systems and their use cases in modern applications.
-
-**Cryptography in Blockchain**  
-Deep dive into cryptographic primitives used in blockchain technology.
+**[Scaling DevOps in Complex Environments: Challenges, Failures, and Successes](https://devopsdays.org/events/2025-austin/schedule/)**  
+*DevOpsDay Austin, 2025*  
+[Video](https://www.youtube.com/watch?v=QWn3F7xLpP) | [Slides](https://bit.ly/aus-devops-day)
 
 ---
 
+**The Linguistics of Large Language Models: What Your AI’s Mistakes Reveal**  
+*Tech STL FinTech Summit, 2025*  
+[Session I](https://techstl.com/st-louis-fintech-summit/) | [Slides I](https://bit.ly/stl-fin-tech)  
+**Navigating AI Security: Protecting Your Organization in the Era of Generative AI**  
+*Tech STL FinTech Summit, 2025*  
+[Session II](https://techstl.com/cybercon-stltechweek/) | [Slides II](https://bit.ly/stl-ai-sec)
+
+---
+
+**[Secure Coding Training: A Critical Foundation for Modern Security](https://www.staysafeonline.org/events/convene-cleveland#speakers)**  
+*Cleveland Convene Security Conference, 2025*
+
+---
+
+**[Agentic CI/CD: From Pull Request to Production Without the Paper Cuts](https://gitnation.com/contents/agentic-cicd-from-pull-request-to-production-without-the-paper-cuts)**  
+*GitNation AI Coding Summit, 2025*
+
+---
+
+**[Kubernetes Runtime Security](https://community.cncf.io/events/details/cncf-kubernetes-austin-presents-kubernetes-home-lab-and-kubernetes-runtime-security/)**  
+*CNCF Kubernetes Austin, 2025*
+
+---
+
+**[Supply Chain Poisoning: Breaking Trust in Modern Software Delivery](https://bsides-nashville-2025.sessionize.com/session/813555)**  
+*BSides Nashville Security Conference, 2025*  
+[Slides](https://bit.ly/bsides-nashville-cr)
+
+---
+
+**The Linguistics of Large Language Models: What Your AI’s Mistakes Reveal**  
+*AI Saturday Houston #1108, 2025*  
+[Slides](https://bit.ly/ai-sat-htx) | [Session](https://sqlsaturday.com/2025-03-22-sqlsaturday1108/)
+
+---
+
+**[Weaving Zero-Trust into Web DNA: Architecting the Unbreachable](https://200ok.us/)**  
+*200OK Tulsa Developer Conference, 2025*  
+[Slides](https://bit.ly/3YRcePW)
+
+---
 For more academic presentations and talks, please see my [publications page](/publications).
