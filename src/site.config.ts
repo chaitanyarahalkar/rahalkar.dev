@@ -161,7 +161,7 @@ const config: SiteConfig = {
   socialLinks: {
     github: 'https://github.com/chaitanyarahalkar',
     mastodon: undefined,
-    email: 'mailto:chaitanyarahalkar4@gmail.com',
+    email: 'mailto:c@rahalkar.dev',
     linkedin: undefined,
     bluesky: undefined,
     twitter: 'https://x.com/chairahalkar',
