@@ -8,11 +8,28 @@ interface Props {
 
 const { headings } = Astro.props
 
-const filteredHeadings = headings.filter(({ depth }) => depth >= 2 && depth <= 3)
+const filteredHeadings = headings.filter(({ depth }) => depth >= 2 && depth <= 4)
 ---
 
+{
+  filteredHeadings.length > 0 && (
+    <details class="toc xl:sticky xl:top-20 mb-6 xl:mb-0 xl:max-w-64 2xl:max-w-72 xl:mr-4 border-2 border-accent/20 rounded-lg p-4 bg-background/50 backdrop-blur-sm" open>
+      <summary class="cursor-pointer font-semibold text-lg mb-3 flex items-center before:content-['▶'] before:inline-block before:mr-2 before:transition-transform">
+        Table of Contents
+      </summary>
+      <nav>
+        <ul class="space-y-1 list-none m-0 p-0">
+          {filteredHeadings.map((heading) => (
+            <TOCHeading heading={heading} />
+          ))}
+        </ul>
+      </nav>
+    </details>
+  )
+}
+
 <script>
-  const anchors = document.querySelectorAll('h2[id], h3[id]')
+  const anchors = document.querySelectorAll('h2[id], h3[id], h4[id]')
   const links = document.querySelectorAll('details.toc > nav > ul > li')
   if (anchors.length === links.length && anchors.length > 0) {
     window.addEventListener('scroll', (_event) => {
