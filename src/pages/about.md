@@ -43,7 +43,7 @@ My research work spans across various domains including:
 
 ### Contact
 
-- Email: [chaitanyarahalkar4@gmail.com](mailto:chaitanyarahalkar4@gmail.com)
+- Email: [c@rahalkar.dev](mailto:c@rahalkar.dev)
 - GitHub: [@chaitanyarahalkar](https://github.com/chaitanyarahalkar)
 - Twitter: [@chairahalkar](https://x.com/chairahalkar)
 - Google Scholar: [Profile](https://scholar.google.com/citations?hl=en&user=jecjKgEAAAAJ)
