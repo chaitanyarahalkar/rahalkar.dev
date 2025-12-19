@@ -21,7 +21,7 @@ title: Talks & Presentations
 
 **[Killer CLIs: Building Platform Tools Developers Actually Want to Use](https://2025.platformcon.com/sessions/killer-clis-building-platform-tools-developers-actually-want-to-use)**  
 *PlatformCon, 2025*  
-[Slides](https://bit.ly/platform-con-2025)
+[Video](https://www.youtube.com/watch?v=Ys9gpxxO3Qc) | [Slides](https://bit.ly/platform-con-2025)
 
 ---
 
