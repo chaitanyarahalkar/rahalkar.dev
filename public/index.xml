@@ -1,0 +1,2957 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/</link>
+      <atom:link href="https://rahalkar.dev/index.xml" rel="self" type="application/rss+xml" />
+    <description>Chaitanya Rahalkar</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Sun, 14 Jan 2024 10:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>Chaitanya Rahalkar</title>
+      <link>https://rahalkar.dev/</link>
+    </image>
+    
+    <item>
+      <title>Understanding Buffer Overflow Attacks: A Deep Dive into Memory Exploitation</title>
+      <link>https://rahalkar.dev/post/understanding-buffer-overflow-attacks/</link>
+      <pubDate>Sun, 14 Jan 2024 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/understanding-buffer-overflow-attacks/</guid>
+      <description>
+
+&lt;p&gt;Buffer overflow attacks remain one of the most fundamental yet dangerous vulnerabilities in computer systems. Despite being discovered decades ago, they continue to pose significant threats to modern software. This comprehensive guide delves deep into the technical aspects of buffer overflow attacks, their mechanics, and advanced exploitation techniques.&lt;/p&gt;
+
+&lt;h4 id=&#34;understanding-memory-layout&#34;&gt;Understanding Memory Layout&lt;/h4&gt;
+
+&lt;p&gt;Before diving into buffer overflows, it&amp;rsquo;s crucial to understand how program memory is organized:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Memory Segments&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Text Segment&lt;/strong&gt;: Contains executable code (read-only)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Data Segment&lt;/strong&gt;: Initialized global variables&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;BSS Segment&lt;/strong&gt;: Uninitialized global variables&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Heap&lt;/strong&gt;: Dynamic memory allocation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Stack&lt;/strong&gt;: Local variables, function parameters, return addresses&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Stack Organization&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;High Memory Addresses
++------------------------+
+|    Command line args   |
+|    Environment vars    |
++------------------------+
+|    Stack              |
+|    ↓ Growth           |
++------------------------+
+|         ↑             |
+|    Heap Growth        |
+|    Heap               |
++------------------------+
+|    BSS Segment        |
++------------------------+
+|    Data Segment       |
++------------------------+
+|    Text Segment       |
++------------------------+
+Low Memory Addresses
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;deep-dive-into-stack-frames&#34;&gt;Deep Dive into Stack Frames&lt;/h4&gt;
+
+&lt;p&gt;A typical stack frame during function execution:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nasm&#34;&gt;Stack Frame Layout:
++------------------------+ ← High addresses
+| Function Parameters    |
++------------------------+
+| Return Address        |
++------------------------+
+| Saved Frame Pointer   |
++------------------------+
+| Local Variables       |
++------------------------+
+| Buffer               |
++------------------------+ ← Low addresses
+
+Assembly View:
+push ebp           ; Save old frame pointer
+mov ebp, esp       ; Set up new frame pointer
+sub esp, X         ; Allocate space for locals
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;advanced-buffer-overflow-mechanics&#34;&gt;Advanced Buffer Overflow Mechanics&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Stack-based Buffer Overflow Example&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;stdio.h&amp;gt;
+   
+void vulnerable_function(char *user_input) {
+   char buffer[64];
+   char sensitive_data[] = &amp;quot;SECRET_PASSWORD&amp;quot;;
+       
+   // Vulnerable copy operation
+   strcpy(buffer, user_input);
+       
+   printf(&amp;quot;Buffer contains: %s\n&amp;quot;, buffer);
+   printf(&amp;quot;Sensitive data: %s\n&amp;quot;, sensitive_data);
+}
+   
+int main(int argc, char **argv) {
+   if (argc &amp;lt; 2) return 1;
+   vulnerable_function(argv[1]);
+   return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Memory Corruption Analysis&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Before Overflow:
++------------------------+
+| sensitive_data        | 
++------------------------+
+| buffer[64]            |
++------------------------+
+| saved EBP             |
++------------------------+
+| return address        |
++------------------------+
+
+After Overflow:
++------------------------+
+| sensitive_data        | ← Corrupted!
++------------------------+
+| AAAAAAAA...          | ← Buffer overflow
++------------------------+
+| AAAAAAAA (saved EBP) | ← Corrupted!
++------------------------+
+| BBBBBBBB (ret addr)  | ← Hijacked!
++------------------------+
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;advanced-exploitation-techniques&#34;&gt;Advanced Exploitation Techniques&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Return-to-libc Attack&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// Bypassing non-executable stack
+// Stack layout for system(&amp;quot;/bin/sh&amp;quot;) call:
+   
+[system_addr]    // Address of system() in libc
+[exit_addr]      // Address of exit() for clean return
+[binsh_addr]     // Address of &amp;quot;/bin/sh&amp;quot; string
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ROP (Return-Oriented Programming) Chains&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-nasm&#34;&gt;; Example ROP gadgets
+pop_rdi:
+   pop rdi
+   ret
+   
+pop_rsi:
+   pop rsi
+   ret
+   
+; ROP chain structure
+[pop_rdi_addr]
+[arg1]
+[pop_rsi_addr]
+[arg2]
+[function_addr]
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Format String Attack Integration&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// Combining format string with buffer overflow
+printf(buffer);  // Format string vulnerability
+strcpy(dest, src);  // Buffer overflow
+   
+// Example payload:
+// %x%x%x%n + [overflow data]
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;advanced-protection-mechanisms&#34;&gt;Advanced Protection Mechanisms&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;ASLR Deep Dive&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# View ASLR settings
+cat /proc/sys/kernel/randomize_va_space
+   
+# Values:
+# 0 - No randomization
+# 1 - Conservative randomization
+# 2 - Full randomization
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Stack Canary Implementation&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// Compiler-generated protection
+void protected_function() {
+   unsigned long canary = __stack_chk_guard;
+   char buffer[64];
+       
+   // ... function code ...
+       
+   if (canary != __stack_chk_guard)
+       __stack_chk_fail();
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Control Flow Integrity (CFI)&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-cpp&#34;&gt;// Example of Microsoft&#39;s Control Flow Guard
+__declspec(guard(cf))
+void security_sensitive_function() {
+   // Function protected by CFI
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;advanced-heap-exploitation&#34;&gt;Advanced Heap Exploitation&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Use-After-Free Scenario&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;struct chunk {
+   size_t prev_size;
+   size_t size;
+   struct chunk *fd;
+   struct chunk *bk;
+   // ... data ...
+};
+   
+// Heap exploitation techniques
+// 1. Heap Spraying
+// 2. Heap Feng Shui
+// 3. Double Free
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Heap Memory Layout&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Chunk Header:
++------------------------+
+| Previous Size         |
++------------------------+
+| Size &amp;amp; Flags         |
++------------------------+
+| Forward Pointer      |
++------------------------+
+| Backward Pointer     |
++------------------------+
+| User Data            |
++------------------------+
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;advanced-mitigation-strategies&#34;&gt;Advanced Mitigation Strategies&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Compiler Hardening&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# GCC security flags
+gcc -fstack-protector-all \
+   -D_FORTIFY_SOURCE=2 \
+   -O2 \
+   -Wformat \
+   -Wformat-security \
+   -fPIE -pie \
+   -fstack-clash-protection \
+   -fcf-protection \
+   program.c
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Safe Programming Patterns&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-c&#34;&gt;// Length-prefix strings
+struct safe_string {
+   size_t length;
+   char data[];
+};
+   
+// Bounds checking wrapper
+size_t safe_copy(char *dst, size_t dst_size,
+               const char *src, size_t src_size) {
+   size_t to_copy = (dst_size &amp;lt; src_size) ? dst_size : src_size;
+   memcpy(dst, src, to_copy);
+   if (dst_size &amp;gt; 0)
+       dst[dst_size - 1] = &#39;\0&#39;;
+   return to_copy;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;real-world-case-studies&#34;&gt;Real-world Case Studies&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Morris Worm (1988)&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Exploited &lt;code&gt;gets()&lt;/code&gt; in fingerd&lt;/li&gt;
+&lt;li&gt;First self-replicating malware&lt;/li&gt;
+&lt;li&gt;Affected ~6,000 machines (10% of internet)
+&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Code Red Worm (2001)&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;IIS buffer overflow&lt;/li&gt;
+&lt;li&gt;Infected 359,000 hosts in 14 hours&lt;/li&gt;
+&lt;li&gt;Caused $2.6 billion in damage&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Slammer Worm (2003)&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SQL Server buffer overflow&lt;/li&gt;
+&lt;li&gt;Infected 75,000 hosts in 10 minutes&lt;/li&gt;
+&lt;li&gt;First &amp;ldquo;Warhol worm&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;modern-defense-in-depth&#34;&gt;Modern Defense-in-Depth&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Runtime Application Self-Protection (RASP)&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// Example RASP implementation
+@RuntimeProtection
+public class SecureComponent {
+   @BufferCheck
+   public void processInput(byte[] data) {
+       // Protected processing
+   }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Memory Safety with Modern Languages&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-rust&#34;&gt;// Rust&#39;s memory safety
+fn safe_buffer_handling(input: &amp;amp;[u8]) -&amp;gt; Result&amp;lt;Vec&amp;lt;u8&amp;gt;, Error&amp;gt; {
+   let mut buffer = Vec::with_capacity(64);
+   buffer.extend_from_slice(input.get(0..64)
+       .ok_or(Error::BufferTooLarge)?);
+   Ok(buffer)
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;advanced-debugging-and-analysis&#34;&gt;Advanced Debugging and Analysis&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;GDB Commands for Buffer Overflow Analysis&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Set up GDB for exploitation
+set disassembly-flavor intel
+set pagination off
+   
+# Useful commands
+x/200x $esp    # Examine stack
+info frame     # Show stack frame
+pattern create 200  # Create cyclic pattern
+pattern offset 0x41414141  # Find offset
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Using Dynamic Analysis Tools&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;# Valgrind for memory analysis
+valgrind --tool=memcheck \
+        --leak-check=full \
+        --track-origins=yes \
+        ./vulnerable_program
+   
+# AddressSanitizer
+gcc -fsanitize=address program.c
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h4&gt;
+
+&lt;p&gt;Buffer overflow attacks, while well-understood, continue to evolve and pose significant security risks. Understanding their mechanics from the assembly level up to modern exploitation techniques is crucial for both offensive security researchers and defensive engineers. As protection mechanisms become more sophisticated, new bypass techniques emerge, making this a fascinating and critical area of cybersecurity research.&lt;/p&gt;
+
+&lt;p&gt;The key to defending against buffer overflows lies in a multi-layered approach:
+- Secure coding practices
+- Compiler protections
+- Runtime mitigations
+- Regular security audits
+- Modern programming language adoption&lt;/p&gt;
+
+&lt;p&gt;Stay vigilant, as memory corruption vulnerabilities continue to be discovered even in modern software systems.&lt;/p&gt;
+
+&lt;hr /&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Zero Trust Architecture: Beyond the Perimeter Security Model</title>
+      <link>https://rahalkar.dev/post/implementing-zero-trust-architecture/</link>
+      <pubDate>Fri, 13 Jan 2023 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/implementing-zero-trust-architecture/</guid>
+      <description>
+
+&lt;p&gt;In today&amp;rsquo;s interconnected world, where the traditional network perimeter has all but dissolved, the concept of &amp;ldquo;trust but verify&amp;rdquo; has become dangerously outdated. Enter Zero Trust Architecture (ZTA) - a paradigm shift in security thinking that operates on one fundamental principle: never trust, always verify. Let&amp;rsquo;s dive deep into this revolutionary approach to cybersecurity that&amp;rsquo;s reshaping how organizations protect their digital assets.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-evolution-of-network-security&#34;&gt;The Evolution of Network Security&lt;/h4&gt;
+
+&lt;p&gt;Remember the good old days when a strong firewall and VPN were all you needed? Your network was like a medieval castle - hard crunchy exterior, soft chewy interior. Once someone got past the moat (firewall), they had free rein of the castle. But in today&amp;rsquo;s world of cloud services, remote work, and sophisticated attacks, this model is about as effective as a chocolate teapot.&lt;/p&gt;
+
+&lt;p&gt;The traditional security model was built on some fundamentally flawed assumptions:
+1. Internal network traffic can be trusted
+2. External threats are the primary concern
+3. IP addresses are reliable identifiers
+4. Network location equals trust&lt;/p&gt;
+
+&lt;p&gt;Recent breaches have repeatedly shown how these assumptions fail us. Take the infamous SolarWinds hack - attackers didn&amp;rsquo;t break down the castle walls; they poisoned the supply chain and walked right through the front door with valid credentials.&lt;/p&gt;
+
+&lt;h4 id=&#34;understanding-zero-trust-the-core-principles&#34;&gt;Understanding Zero Trust: The Core Principles&lt;/h4&gt;
+
+&lt;p&gt;Think of Zero Trust like a high-security research facility. Every door requires a new badge scan, every action is logged, and everyone is treated as potentially hostile - even the CEO. Here&amp;rsquo;s how it breaks down:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Identity is the New Perimeter&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Traditional Model:
+User → Firewall → Network → Resources
+   
+Zero Trust Model:
+User → Identity Verification → Policy Check → Resource → Continuous Monitoring
+            ↑                     ↑             ↑              ↑
+       MFA/Biometrics     Context Analysis   Just-in-time    Behavior
+                                              Access         Analytics
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Microsegmentation&lt;/strong&gt;:
+Instead of having one big party room (network), imagine every resource is in its own vault with its own unique access requirements. Even if someone breaks into one vault, they can&amp;rsquo;t access the others.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Least Privilege Access&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Access Level Matrix:
++-------------------+-------------+----------------+----------------+
+| Role             | Data Access | Network Access | Time Window    |
++-------------------+-------------+----------------+----------------+
+| Developer        | Dev DB Only | Dev Subnet     | Working Hours  |
+| SRE              | Logs, Metrics| All Subnets   | 24/7          |
+| Security Analyst | Audit Logs  | Security Tools | 24/7          |
+| HR Staff         | HR DB Only  | HR Subnet     | Working Hours  |
++-------------------+-------------+----------------+----------------+
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;technical-implementation-deep-dive&#34;&gt;Technical Implementation Deep Dive&lt;/h4&gt;
+
+&lt;p&gt;Let&amp;rsquo;s get our hands dirty with the technical stuff. Here&amp;rsquo;s what a Zero Trust implementation typically looks like:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Identity and Access Management (IAM)&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+ &amp;quot;access_policy&amp;quot;: {
+   &amp;quot;user&amp;quot;: &amp;quot;engineer_jane&amp;quot;,
+   &amp;quot;resource&amp;quot;: &amp;quot;prod_database&amp;quot;,
+   &amp;quot;conditions&amp;quot;: {
+     &amp;quot;device_trust_level&amp;quot;: &amp;quot;high&amp;quot;,
+     &amp;quot;location&amp;quot;: [&amp;quot;office&amp;quot;, &amp;quot;approved_home&amp;quot;],
+     &amp;quot;time_window&amp;quot;: &amp;quot;working_hours&amp;quot;,
+     &amp;quot;risk_score&amp;quot;: &amp;quot;&amp;lt;3&amp;quot;,
+     &amp;quot;mfa_status&amp;quot;: &amp;quot;verified&amp;quot;,
+     &amp;quot;device_compliance&amp;quot;: {
+       &amp;quot;os_version&amp;quot;: &amp;quot;&amp;gt;=10.15&amp;quot;,
+       &amp;quot;firewall&amp;quot;: &amp;quot;enabled&amp;quot;,
+       &amp;quot;disk_encryption&amp;quot;: &amp;quot;enabled&amp;quot;,
+       &amp;quot;security_agent&amp;quot;: &amp;quot;running&amp;quot;
+     }
+   },
+   &amp;quot;permissions&amp;quot;: [&amp;quot;read&amp;quot;, &amp;quot;write&amp;quot;],
+   &amp;quot;session_duration&amp;quot;: &amp;quot;8h&amp;quot;,
+   &amp;quot;audit_level&amp;quot;: &amp;quot;high&amp;quot;
+ }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Network Segmentation Implementation&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;# Example Kubernetes Network Policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+ name: api-isolation
+spec:
+ podSelector:
+   matchLabels:
+     app: api-service
+ policyTypes:
+ - Ingress
+ - Egress
+ ingress:
+ - from:
+   - podSelector:
+       matchLabels:
+         role: frontend
+   ports:
+   - protocol: TCP
+     port: 443
+ egress:
+ - to:
+   - podSelector:
+       matchLabels:
+         role: database
+   ports:
+   - protocol: TCP
+     port: 5432
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Authentication Flow&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class ZeroTrustAuthenticator:
+   def authenticate_request(self, request, resource):
+       # 1. Verify identity
+       user = self.verify_identity(request.credentials)
+       if not user:
+           return AuthResult(success=False, reason=&amp;quot;Invalid credentials&amp;quot;)
+           
+       # 2. Check device health
+       device = self.check_device_health(request.device_info)
+       if not device.compliant:
+           return AuthResult(success=False, reason=&amp;quot;Device not compliant&amp;quot;)
+           
+       # 3. Evaluate context
+       context = self.evaluate_context(user, device, resource)
+       if context.risk_score &amp;gt; THRESHOLD:
+           return AuthResult(success=False, reason=&amp;quot;High risk score&amp;quot;)
+           
+       # 4. Apply policy
+       policy_result = self.policy_engine.evaluate(
+           user, device, resource, context
+       )
+       if not policy_result.allowed:
+           return AuthResult(success=False, reason=policy_result.reason)
+           
+       # 5. Generate limited-time access token
+       token = self.token_service.generate(
+           user=user,
+           resource=resource,
+           permissions=policy_result.permissions,
+           expiry=datetime.now() + timedelta(hours=8)
+       )
+           
+       return AuthResult(success=True, token=token)
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;real-world-implementation-challenges&#34;&gt;Real-world Implementation Challenges&lt;/h4&gt;
+
+&lt;p&gt;Let&amp;rsquo;s be real - implementing Zero Trust isn&amp;rsquo;t all sunshine and rainbows. Here are some war stories and solutions:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Legacy System Integration&lt;/strong&gt;
+Remember that ancient COBOL system that&amp;rsquo;s still running your core business logic? Yeah, it wasn&amp;rsquo;t built with Zero Trust in mind. Here&amp;rsquo;s how to handle it:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class LegacySystemProxy:
+   def __init__(self, legacy_system):
+       self.legacy = legacy_system
+       self.auth_service = ModernAuthService()
+       self.encryption = ModernEncryption()
+           
+   def handle_request(self, request):
+       # 1. Modern authentication
+       if not self.auth_service.verify(request):
+           raise SecurityException(&amp;quot;Authentication failed&amp;quot;)
+           
+       # 2. Encrypt communication
+       encrypted_data = self.encryption.encrypt(request.data)
+           
+       # 3. Forward to legacy system
+       response = self.legacy.process(encrypted_data)
+           
+       # 4. Audit logging
+       self.audit_logger.log(request, response)
+           
+       return response
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Performance Impact&lt;/strong&gt;
+With every access requiring verification, your systems might feel like they&amp;rsquo;re running through molasses. The fix? Implement smart caching and token-based verification:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class PerformanceOptimizedVerifier:
+   def __init__(self):
+       self.cache = TTLCache(maxsize=1000, ttl=300)  # 5-minute TTL
+           
+   def verify_access(self, token, resource):
+       cache_key = f&amp;quot;{token}:{resource}&amp;quot;
+           
+       # Try cache first
+       if cache_key in self.cache:
+           return self.cache[cache_key]
+           
+       # Full verification if cache miss
+       result = self.full_verify(token, resource)
+           
+       # Cache the result
+       self.cache[cache_key] = result
+       return result
+           
+   def full_verify(self, token, resource):
+       # Expensive verification logic here
+       pass
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;advanced-security-controls&#34;&gt;Advanced Security Controls&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Continuous Monitoring and Analytics&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class SecurityAnalytics:
+   def analyze_access_pattern(self, user_id, resource_id):
+       # Collect metrics
+       access_count = self.get_access_count(user_id, window=&#39;1h&#39;)
+       typical_pattern = self.get_typical_pattern(user_id)
+       location_changes = self.get_location_changes(user_id)
+           
+       # Calculate risk score
+       risk_score = 0
+       risk_score += self.evaluate_frequency(access_count)
+       risk_score += self.evaluate_pattern(typical_pattern)
+       risk_score += self.evaluate_location(location_changes)
+           
+       return {
+           &#39;risk_score&#39;: risk_score,
+           &#39;metrics&#39;: {
+               &#39;access_frequency&#39;: access_count,
+               &#39;pattern_deviation&#39;: typical_pattern.deviation,
+               &#39;location_changes&#39;: len(location_changes)
+           }
+       }
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Risk-based Authentication Flow&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-mermaid&#34;&gt;graph TD
+   A[Request] --&amp;gt; B{Check Identity}
+   B --&amp;gt;|Valid| C{Check Device}
+   B --&amp;gt;|Invalid| X[Deny]
+   C --&amp;gt;|Compliant| D{Check Context}
+   C --&amp;gt;|Non-compliant| X
+   D --&amp;gt;|Low Risk| E[Grant Access]
+   D --&amp;gt;|Medium Risk| F[Request Additional Auth]
+   D --&amp;gt;|High Risk| X
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;implementing-zero-trust-in-the-cloud&#34;&gt;Implementing Zero Trust in the Cloud&lt;/h4&gt;
+
+&lt;p&gt;Cloud environments present unique challenges and opportunities for Zero Trust:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;AWS Implementation&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-terraform&#34;&gt;# Example AWS Security Group for Zero Trust
+resource &amp;quot;aws_security_group&amp;quot; &amp;quot;zero_trust_sg&amp;quot; {
+ name        = &amp;quot;zero-trust-sg&amp;quot;
+ description = &amp;quot;Zero Trust security group&amp;quot;
+ vpc_id      = aws_vpc.main.id
+     
+ # No ingress rules by default
+ # All access must be explicitly granted
+     
+ egress {
+   from_port   = 0
+   to_port     = 0
+   protocol    = &amp;quot;-1&amp;quot;
+   cidr_blocks = [&amp;quot;0.0.0.0/0&amp;quot;]
+ }
+     
+ tags = {
+   Name = &amp;quot;zero-trust-sg&amp;quot;
+ }
+}
+   
+# IAM Role with fine-grained permissions
+resource &amp;quot;aws_iam_role&amp;quot; &amp;quot;app_role&amp;quot; {
+ name = &amp;quot;app-role&amp;quot;
+     
+ assume_role_policy = jsonencode({
+   Version = &amp;quot;2012-10-17&amp;quot;
+   Statement = [
+     {
+       Action = &amp;quot;sts:AssumeRole&amp;quot;
+       Effect = &amp;quot;Allow&amp;quot;
+       Principal = {
+         Service = &amp;quot;ec2.amazonaws.com&amp;quot;
+       }
+     }
+   ]
+ })
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Kubernetes Implementation&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;# Service Mesh Configuration (Istio)
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+ name: frontend-ingress
+ namespace: default
+spec:
+ selector:
+   matchLabels:
+     app: frontend
+ rules:
+ - from:
+   - source:
+       principals: [&amp;quot;cluster.local/ns/default/sa/gateway-service&amp;quot;]
+   to:
+   - operation:
+       methods: [&amp;quot;GET&amp;quot;]
+       paths: [&amp;quot;/api/v1/*&amp;quot;]
+ - from:
+   - source:
+       principals: [&amp;quot;cluster.local/ns/default/sa/monitoring&amp;quot;]
+   to:
+   - operation:
+       methods: [&amp;quot;GET&amp;quot;]
+       paths: [&amp;quot;/metrics&amp;quot;]
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;future-of-zero-trust&#34;&gt;Future of Zero Trust&lt;/h4&gt;
+
+&lt;p&gt;As we peer into our crystal ball, we see Zero Trust evolving with:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;AI-driven Security&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class AISecurityAnalyzer:
+   def analyze_behavior(self, user_activity):
+       # Load trained model
+       model = self.load_model(&#39;behavior_analysis&#39;)
+           
+       # Extract features
+       features = self.extract_features(user_activity)
+           
+       # Predict risk score
+       risk_score = model.predict(features)
+           
+       # Explain prediction
+       explanation = self.explain_prediction(model, features)
+           
+       return {
+           &#39;risk_score&#39;: risk_score,
+           &#39;explanation&#39;: explanation,
+           &#39;confidence&#39;: model.confidence
+       }
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Quantum-resistant Cryptography&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import padding
+   
+class QuantumResistantCrypto:
+   def generate_keys(self):
+       # Use quantum-resistant algorithms
+       private_key = dilithium.generate_private_key()
+       public_key = private_key.public_key()
+       return private_key, public_key
+           
+   def sign_message(self, message, private_key):
+       signature = private_key.sign(
+           message,
+           padding.PSS(
+               mgf=padding.MGF1(hashes.SHA3_256()),
+               salt_length=padding.PSS.MAX_LENGTH
+           ),
+           hashes.SHA3_256()
+       )
+       return signature
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;practical-tips-for-implementation&#34;&gt;Practical Tips for Implementation&lt;/h4&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Start small - don&amp;rsquo;t try to boil the ocean:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Implementation Phases:
+Phase 1: Critical APIs
+       ├── Identity Management
+       ├── MFA Implementation
+       └── Basic Monitoring
+   
+Phase 2: Internal Applications
+       ├── Application Segmentation
+       ├── Policy Engine
+       └── Advanced Monitoring
+   
+Phase 3: Legacy Systems
+       ├── Proxy Implementation
+       ├── Protocol Translation
+       └── Security Wrapper
+   
+Phase 4: IoT Devices
+       ├── Device Identity
+       ├── Network Isolation
+       └── Continuous Monitoring
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Focus on quick wins:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Enable MFA everywhere&lt;/li&gt;
+&lt;li&gt;Implement device health checks&lt;/li&gt;
+&lt;li&gt;Start logging everything&lt;/li&gt;
+&lt;li&gt;Deploy network segmentation&lt;/li&gt;
+&lt;li&gt;Implement just-in-time access&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;measuring-success&#34;&gt;Measuring Success&lt;/h4&gt;
+
+&lt;p&gt;How do you know if your Zero Trust implementation is effective? Here are key metrics to track:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-python&#34;&gt;class ZeroTrustMetrics:
+    def calculate_metrics(self):
+        return {
+            &#39;security_posture&#39;: {
+                &#39;unauthorized_access_attempts&#39;: self.count_unauthorized(),
+                &#39;policy_violations&#39;: self.count_violations(),
+                &#39;average_risk_score&#39;: self.avg_risk_score()
+            },
+            &#39;operational_impact&#39;: {
+                &#39;authentication_latency&#39;: self.auth_latency(),
+                &#39;resource_access_time&#39;: self.access_time(),
+                &#39;false_positive_rate&#39;: self.false_positive_rate()
+            },
+            &#39;compliance&#39;: {
+                &#39;policy_coverage&#39;: self.policy_coverage(),
+                &#39;audit_compliance&#39;: self.audit_compliance(),
+                &#39;incident_response_time&#39;: self.response_time()
+            }
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h4&gt;
+
+&lt;p&gt;Zero Trust Architecture isn&amp;rsquo;t just another security buzzword - it&amp;rsquo;s a fundamental rethinking of how we approach security in a world where the perimeter is wherever your data is. By adopting these principles, organizations can better protect themselves against modern threats while enabling the flexibility needed in today&amp;rsquo;s digital landscape.&lt;/p&gt;
+
+&lt;p&gt;The journey to Zero Trust is continuous, requiring constant evaluation and adjustment. But with careful planning, phased implementation, and a focus on both security and user experience, organizations can successfully make the transition.&lt;/p&gt;
+
+&lt;p&gt;What&amp;rsquo;s your take on Zero Trust? Have you implemented it in your organization? Let&amp;rsquo;s discuss in the comments below!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Centralized or Decentralized? The Contact Tracing Dilemma</title>
+      <link>https://rahalkar.dev/talk/centralized-vs-decentralized/</link>
+      <pubDate>Sun, 27 Mar 2022 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/centralized-vs-decentralized/</guid>
+      <description>&lt;p&gt;This is a summary of the &lt;a href=&#34;https://eprint.iacr.org/2020/531.pdf&#34; target=&#34;_blank&#34;&gt;&amp;ldquo;Centralized or Decentralized? The Contact Tracing Dilemma&amp;rdquo;&lt;/a&gt; research paper having the following abstract - &amp;ldquo;The COVID-19 pandemic created a noticeable challenge to the cryptographic community with the development of contact tracing applications. The media reported a dispute between designers proposing a centralized or a decentralized solution (namely, the PEPP-PT and the DP3T projects).
+Perhaps, the time constraints to develop and deploy efficient solutions led to non-optimal (in terms
+of privacy) solutions. Moreover, arguments have been severely biased and the scientific debate did
+not really happen until recently. In this paper, we show the vulnerabilities and the advantages of
+both solutions systematically. We believe that none offers any sufficient level of privacy protection
+and the decision to use one or another is as hard as using automated contact tracing at the first
+place. A third way could be explored. We list here a few possible directions.&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/CS-8803-SCP.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Million Dollar Dissident</title>
+      <link>https://rahalkar.dev/talk/million-dollar-dissident/</link>
+      <pubDate>Fri, 29 Oct 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/million-dollar-dissident/</guid>
+      <description>&lt;p&gt;A talk about the Zero-Day exploit used by the NSO group on Ahmed Mansoor, its backstory, exploit and network
+infrastructure.  Get a copy of the slides &lt;a href=&#34;https://git.io/ems8803&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Summarizing and Analyzing the Privacy-Preserving Techniques in Bitcoin and other Cryptocurrencies</title>
+      <link>https://rahalkar.dev/publication/sum-crypt/</link>
+      <pubDate>Thu, 16 Sep 2021 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/sum-crypt/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Summarizing and Analyzing the Privacy-Preserving Techniques in Bitcoin and other Cryptocurrencies</title>
+      <link>https://rahalkar.dev/talk/privacy-blockchain/</link>
+      <pubDate>Sun, 25 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/privacy-blockchain/</guid>
+      <description>&lt;p&gt;Bitcoin and many other similar Cryptocurrencies have been in existence for over a decade, prominently focusing on decentralized, pseudo-anonymous ledger-based transactions. Many protocol improvements and changes have resulted in new variants of Cryptocurrencies that are known for their peculiar characteristics. For instance, Storjcoin is a Proof-of-Storage-based Cryptocurrency that incentivizes its peers based on the amount of storage owned by them. Cryptocurrencies like Monero strive for user privacy by using privacy-centric cryptographic algorithms.  While Cryptocurrencies strive to maintain peer transparency by making the transactions and the entire ledger public, user privacy is compromised at times. Monero and many other privacy-centric Cryptocurrencies have significantly improved from the original Bitcoin protocol after several problems were found in the protocol. Most of these deficiencies were related to the privacy of users. Even though Bitcoin claims to have pseudo-anonymous user identities, many attacks have managed to successfully de-anonymize users. In this paper, we present some well-known attacks and analysis techniques that have compromised the privacy of Bitcoin and many other similar Cryptocurrencies. We also analyze and study different privacy-preserving algorithms and the problems these algorithms manage to solve. Lastly, we touch upon the ethics, impact, legality, and acceptance of imposing these privacy algorithms. Get a copy of the slides &lt;a href=&#34;https://git.io/cs8803&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Designing a Secure Device-to-Device File Transfer Mechanism</title>
+      <link>https://rahalkar.dev/talk/container-best-practices/</link>
+      <pubDate>Sat, 24 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/container-best-practices/</guid>
+      <description>&lt;p&gt;Secure, reliable, and fast transfer of files across the Internet is a problem attempted to be solved through many application-layer protocols. In this paper, we aim to design a secure, reliable, open-design, and performant file transfer protocol that is inspired by the WebRTC protocol stack. Traditionally, transferring files involves a publicly exposed (available on the public network) third-party server that serves the uploaded files to the receiver. Here, the third-party server has to bear the storage and bandwidth cost to transfer the files between the two parties. We propose a protocol that uses a relay server to relay the files from the client to the server. A relay server has several advantages over a regular file-hosting server. Firstly, a relay server does not retain the uploaded files, it simply relays them. Secondly, a relay server has a full-duplex communication channel and therefore the receiver is not required to wait for the sender to upload the files completely. In this paper, we study available file transfer approaches and their known flaws. We propose our idea and compare our stack with WebRTC. Finally, we perform empirical analysis and, benchmark our device-to-device transfer approach along with other available options including WebRTC. Get a copy of the slides &lt;a href=&#34;https://git.io/cs6262&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Designing a Secure Device-to-Device File Transfer Mechanism</title>
+      <link>https://rahalkar.dev/talk/secure-p2p-file-transfer/</link>
+      <pubDate>Sat, 24 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/secure-p2p-file-transfer/</guid>
+      <description>&lt;p&gt;Secure, reliable, and fast transfer of files across the Internet is a problem attempted to be solved through many application-layer protocols. In this paper, we aim to design a secure, reliable, open-design, and performant file transfer protocol that is inspired by the WebRTC protocol stack. Traditionally, transferring files involves a publicly exposed (available on the public network) third-party server that serves the uploaded files to the receiver. Here, the third-party server has to bear the storage and bandwidth cost to transfer the files between the two parties. We propose a protocol that uses a relay server to relay the files from the client to the server. A relay server has several advantages over a regular file-hosting server. Firstly, a relay server does not retain the uploaded files, it simply relays them. Secondly, a relay server has a full-duplex communication channel and therefore the receiver is not required to wait for the sender to upload the files completely. In this paper, we study available file transfer approaches and their known flaws. We propose our idea and compare our stack with WebRTC. Finally, we perform empirical analysis and, benchmark our device-to-device transfer approach along with other available options including WebRTC. Get a copy of the slides &lt;a href=&#34;https://git.io/cs6262&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>End-to-End Lung Cancer Diagnosis on Computed Tomography Scans using 3D CNN and Explainable AI</title>
+      <link>https://rahalkar.dev/publication/e2e-dl/</link>
+      <pubDate>Thu, 16 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/e2e-dl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Content Addressed Peer-to-Peer File System for the Web with Blockchain-based Metadata Integrity</title>
+      <link>https://rahalkar.dev/publication/ca-fs/</link>
+      <pubDate>Thu, 12 Dec 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/ca-fs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Using Generative Adversarial Networks for Secure Pseudorandom Number Generation</title>
+      <link>https://rahalkar.dev/publication/gan-ccs/</link>
+      <pubDate>Mon, 11 Nov 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/gan-ccs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hidden Secrets of Python</title>
+      <link>https://rahalkar.dev/talk/python-pune-sept/</link>
+      <pubDate>Sat, 28 Sep 2019 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/python-pune-sept/</guid>
+      <description>&lt;p&gt;Python has a large number of really cool modules that people don&amp;rsquo;t know about. These are quite helpful. People often tend to program the hard way since they don&amp;rsquo;t know about the existence of these modules. Such examples can be the itertools module, the secrets module to generate secure random numbers etc. Get a copy of the talk slides &lt;a href=&#34;https://bit.ly/python-meetups-sept&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>What is Zip Slip?</title>
+      <link>https://rahalkar.dev/post/zip-slip/</link>
+      <pubDate>Fri, 20 Sep 2019 10:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/zip-slip/</guid>
+      <description>&lt;p&gt;Zip Slip was a vulnerability found in the file extraction mechanism employed in programming languages. It was discovered and responsibly disclosed by the Snyk Security team ahead of a public disclosure on 5th June 2018, and affected thousands of projects, including ones from HP, Amazon, Apache, Pivotal. The vulnerability is prevalent in Java, where there is no central library offering high level processing of archives. It was also observed in Go &amp;amp; Python. Zip slip caused havoc on its public disclosure. Zip Slip allowed for remote code execution, thereby granting shell privileges to an adversary. The vulnerability can affect other formats like &lt;code&gt;tar&lt;/code&gt;, &lt;code&gt;jar&lt;/code&gt;, &lt;code&gt;war&lt;/code&gt;,&lt;code&gt;cpio&lt;/code&gt;,&lt;code&gt;apk&lt;/code&gt;,&lt;code&gt;rar&lt;/code&gt; etc.&lt;/p&gt;
+
+&lt;p&gt;Consider a zip file (&lt;code&gt;foo.zip&lt;/code&gt;) with two files bundled in it - &lt;code&gt;foo.text&lt;/code&gt; and &lt;code&gt;bar.text&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chaitanya@zipslip$ zip -sf foo.zip
+Archive contains:
+  foo.text
+  bar.text
+Total 2 entries (100 bytes)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The -sf flag scans for files and lists the contents of the archive. However, if a maliciously crafted file is bundled in the zip, and if it is improperly handled during extraction then it may lead to severe problem like remote code execution.&lt;/p&gt;
+
+&lt;p&gt;Consider a zip file (&lt;code&gt;malicious.zip&lt;/code&gt;) with two files (one is the RCE shell script and the other is an ordinary text file)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;chaitanya@zipslip$ zip -sf malicious.zip 
+Archive contains:
+  foo.text
+  ../../../../../../../../../tmp/rce.sh
+Total 2 entries (560 bytes)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As soon as this zip is extracted, foo.text would be extracted within the same folder as of the zip file. However, &lt;code&gt;rce.sh&lt;/code&gt; would be extracted to the tmp folder. The &lt;code&gt;../../&lt;/code&gt; part before the file name ensures that the file path eventually hits / if it is within a subdirectory of high depth, and then stores the rce.sh file to the tmp folder. Now, a simple mechanism to execute this shell script would lead to remote code execution. This can overwrite configuration files on the system as well. Usually web applications that deal with zip file uploads rely on the file handling APIs native to a programming language.&lt;/p&gt;
+
+&lt;p&gt;Consider this Java code snippet,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;1   Enumeration&amp;lt;ZipEntry&amp;gt; entries = zip.getEntries();
+2   while (entries.hasMoreElements()) {
+3      ZipEntry e = entries.nextElement();
+4      File f = new File(destinationDir, e.getName());
+5      InputStream input = zip.getInputStream(e);
+6      IOUtils.copy(input, write(f));
+7   }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On line 4, &lt;code&gt;e.getName()&lt;/code&gt; is concatenated with the target directory, &lt;code&gt;dir&lt;/code&gt;, without being validated. At this point, when the zip archive gets to &lt;code&gt;rce.sh&lt;/code&gt;, it will append the full path (including every &lt;code&gt;../&lt;/code&gt;) of the zip entry to the target directory resulting in &lt;code&gt;rce.sh&lt;/code&gt; being written outside of the target directory.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cedit</title>
+      <link>https://rahalkar.dev/project/cedit/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/project/cedit/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cyberfort CTF</title>
+      <link>https://rahalkar.dev/project/cyberfort/</link>
+      <pubDate>Wed, 18 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/project/cyberfort/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Understanding Dirty COW - The Linux Kernel Exploit</title>
+      <link>https://rahalkar.dev/post/understanding-dirty-cow-the-infamous-linux-kernel-exploit/</link>
+      <pubDate>Mon, 16 Sep 2019 04:15:02 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/understanding-dirty-cow-the-infamous-linux-kernel-exploit/</guid>
+      <description>
+
+&lt;p&gt;Dirty COW is a computer security vulnerability that was discovered in the Linux Kernel in 2016. The exploit was registered under CVE with the designation: CVE-2016-5195. Dirty COW is a root privilege escalation exploit that attacks the Copy-On-Write mechanism in the Linux Kernel. Hence the &amp;ldquo;COW&amp;rdquo; in Dirty COW. The proof of concept can be found &lt;a href=&#34;http://dirtycow.ninja&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The vulnerability existed in the Linux Kernel since 2007, but was discovered later in 2016, by Phil Oester. It has been patched in Linux kernel versions 4.8.3, 4.7.9, 4.4.26 and newer. The exploit also attacked Android devices. It allows a user to write to a read-only root file and escalate privileges.&lt;/p&gt;
+
+&lt;h4 id=&#34;what-is-copy-on-write-mechanism&#34;&gt;What is Copy-On-Write Mechanism?&lt;/h4&gt;
+
+&lt;p&gt;Linux kernel has a mechanism that when a process requests a copy of some file, the kernel does not create a copy of the file until the file is requested to be written to. Copy-On-Write Mechanism works in two steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Locate/generate a physical address in the memory.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write to the copy only when the file is requested to be written to.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;COW is basically an optimization strategy used by the Linux kernel. The COW concept is also used in maintenance of instant snapshot on database servers like Microsoft SQL Server 2005. Instant snapshots preserve a static view of a database by storing a pre-modification copy of data when underlaying data are updated. Instant snapshots are used for testing uses or moment-dependent reports and should not be used to replace backups.&lt;/p&gt;
+
+&lt;h4 id=&#34;how-dirty-cow-exploits-the-copy-on-write-mechanism&#34;&gt;How Dirty COW exploits the Copy-On-Write Mechanism?&lt;/h4&gt;
+
+&lt;p&gt;The exploit creates a private copy(mapping) of a read-only file(which is the file owned by root). Now it tries to write to the private copy. Now the COW mechanism comes into picture. Since the file is never requested to be written to, and now it is - COW does it job.&lt;/p&gt;
+
+&lt;p&gt;The write action in COW has the two operations as explained above. These operations are non-atomic in nature. We say that an operation is atomic when it has only two states- Either the operation is complete or it is not. The atomic operation completes in a single step and no other process/thread can access the data owned by that operation. Non-atomic operations can have intermediate stages as well, which includes partial execution of the instruction &amp;amp; they can have shared memory accessible by multiple threads or processes at the same time. Since these operations are non-atomic, another thread can get right in the middle of the two operations (locate physical address &amp;amp; write to physical address)&lt;/p&gt;
+
+&lt;p&gt;In the Dirty COW exploit, initially a private mmap (memory map of the read-only file in the main memory) is created. As per the Linux man page: Mmap is a system call used to allocate memory, or map files or devices into memory). The reason to create a private mmap is that, the system makes all the write changes to the private mapping without affecting the original file.&lt;/p&gt;
+
+&lt;p&gt;Dirty COW uses two threads- The first thread does not directly write to the actual memory allocated by the mmap, but it writes to &lt;em&gt;/proc/self/mem&lt;/em&gt;. This path is the virtual representation of the exploit executable that is running. The reason to write to this location is because the vulnerability resides in the process-to-process virtual memory access. In short, the thread requests the kernel to write to the private mapping that was initially created with mmap. Thus COW is coming into picture now. The other thread executes the madvise system call. As per the Linux man page:  the &lt;em&gt;madvise()&lt;/em&gt; system call allows a process that has knowledge of its memory behavior to describe it to the system. The advice passed in may be used by the system to alter its virtual memory paging strategy. This thread says to the kernel (&amp;rdquo;&lt;em&gt;advices&lt;/em&gt;&amp;rdquo;) that the private mapping that was created initially, is not required anymore and thus should be thrown away.&lt;/p&gt;
+
+&lt;p&gt;The two threads are running concurrently, and thus in the context switching mechanism, a scenario will occur as shown below :&lt;/p&gt;
+
+&lt;table &gt;
+
+&lt;tr &gt;
+Thread 1
+Thread 2
+&lt;/tr&gt;
+
+&lt;tbody &gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Locate physical address
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Throw away private copy
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Write to physical address
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Thus the second thread has successfully managed to get in between the two non atomic operations. Thus before writing to the physical address, the mmap is discarded. Now since it does not have any address to write to, it writes to the original read-only file. Thus, the kernel is tricked into thinking that the write was to the original read-only file. This is a race condition exhibited due to write attempts at a location that never exists. And this is how the actual exploit works.&lt;/p&gt;
+
+&lt;p&gt;The following diagram taken from &lt;a href=&#34;https://www.cs.toronto.edu/~arnold/427/18s/427_18S/indepth/dirty-cow/demo.html&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; gives an apt visual representation of the exploit. &lt;img src=&#34;006.png&#34; alt=&#34;dirtycow&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;how-does-dirty-cow-gets-root-privileges&#34;&gt;How does Dirty COW gets root privileges?&lt;/h4&gt;
+
+&lt;p&gt;Since the exploit is now able to write to read-only files, the &lt;em&gt;/etc/sudoers&lt;/em&gt; file can be   written to. This will add the current user to the sudoers list, thereby escalating privileges. Even the &lt;em&gt;/etc/shadow&lt;/em&gt; file can be manipulated to change the root password.  Several versions of the exploit were implemented attacking SUID binaries, writing to read-only files. Another version of the exploit existed, which used an alternative method to exploit the process-to-process virtual memory access (with ptrace).&lt;/p&gt;
+
+&lt;h4 id=&#34;implementation-details&#34;&gt;Implementation Details&lt;/h4&gt;
+
+&lt;p&gt;The below code snippet gives a general idea of how the exploit was implemented in C. Most of the functions used here are a part of the Linux Kernel API and hence the necessary headers are required to be included. This snippet just gives a brief overview of the programming part of the exploit.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    pthread_t pth1,pth2; // The two threads are created
+    f = open(&amp;quot;read-only-file&amp;quot;,O_RDONLY); // Open the read-only file
+    void* map = mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset); // Memory map is created
+    
+    pthread_create(pth1,NULL,madviseThread); // Calling thread 1
+    pthread_create(pth2,NULL,writeToProcSelfMem,&amp;quot;read-only-file&amp;quot;); // Calling thread 2
+    
+    void *madviseThread()
+    {
+      int i,c=0;
+      for(i=0;i&amp;lt;100000000;i++)
+      {
+        c += madvise(map,100,MADV_DONTNEED); // Using madvise and telling the kernel that the allocated space is no longer needed
+      }
+    }
+    
+    void *writeToProcSelfMem(void *arg)
+    {
+      char *str;
+      str = (char*)arg;
+      int f = open(&amp;quot;/proc/self/mem&amp;quot;,O_RDWR); // Opening /proc/self/mem in read-write mode
+      int i,c = 0;
+      for(i=0;i&amp;lt;100000000;i++) {
+        lseek(f,(uintptr_t) map,SEEK_SET);
+        c += write(f,str,strlen(str)); // Write to /proc/self/mem the contents of str
+      }
+    }
+    
+    &amp;lt;/code&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Secure Password Manager</title>
+      <link>https://rahalkar.dev/publication/pwm-ijca/</link>
+      <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/pwm-ijca/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Frost Linux</title>
+      <link>https://rahalkar.dev/project/frost-linux/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/project/frost-linux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Password Manager</title>
+      <link>https://rahalkar.dev/project/password-manager/</link>
+      <pubDate>Sat, 27 Jul 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/project/password-manager/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>What is an Electronic Nose?</title>
+      <link>https://rahalkar.dev/post/what-is-an-electronic-nose/</link>
+      <pubDate>Sun, 14 Jul 2019 11:00:01 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/what-is-an-electronic-nose/</guid>
+      <description>&lt;p&gt;Alexander Graham Bell once said- “Did you ever measure a smell? Can you tell whether one smell is just twice strong as another? Can you measure the difference between two kinds of smell and another? It is very obvious that we have very many different kinds of smells, all the way from the odour of violets and roses up to asafetida. But until you can measure their likeness and differences, you can have no science of odour. If you are ambitious to find a new science, measure a smell.” An electric nose is a device which has the capability of detecting, identifying and discriminating the presence of molecules in a sample of air. It was termed by Gardner and Barlett in 1994. The improvements over the past 20 years have led to the creation of the artificial olfaction technology.&lt;/p&gt;
+
+&lt;p&gt;Electronic noses are based on the mammalian olfactory model. The olfactory receptors that are responsible for detection of odorants in the human body are analogous to the array of electronic sensors in the electronic nose. Biomimetics is a field in which the principles of biology, chemistry and engineering are applied to develop an artificial system that is based on a natural phenomenon. Electronic nose is one example of it.&lt;/p&gt;
+
+&lt;p&gt;The electronic nose comprises of three components- a detecting system, computing system and sample delivery system. The delivery system collects the required sample, which is then sent to the detection system. The detection system is a group of sensors, which change their electrical characteristics on coming in contact with the volatile compounds. Scientists were successful in creating a global fingerprint for every unique smell and flavor. The computing system has an Artificial Neural Network. This ANN is trained with qualified samples taken from a reference database. The instrument then recognizes new samples by comparing them with the existing fingerprints from the database. With the help of this architecture, the electronic nose simulates the mammalian olfactory system.This has however proven to be inaccurate in some cases of odors, where it may be made up of multiple different molecules. The electronic nose interprets these different molecules as different compounds, thereby posing inaccurate results.&lt;br /&gt;
+Current research aims to increase the accuracy, reliability and efficiency of the electric nose. With the emergence of this out-of-the-world technology, applications are endless. Detecting contamination, spoilage or adulteration of materials is a major use case. Electronic noses have been used for quality control applications in food, beverage, cosmetic and perfumery industries. They are used to identify volatile organic compounds in air,water and soil samples for conducting agricultural analysis. Currently, they are being developed for conducting medical diagnosis, where the patient’s breath is analysed to detect the presence of certain chemicals responsible for a disease. A person’s breath contains 2,500 chemical compounds. If a person is ill, his breath, when analysed can indicate the kind of disease he has. Tuberculosis is proven to be detected in this manner. Furthermore, research is being carried out to use this technique for detecting volatile organic compounds emitted by different types of cancerous cells. NASA has developed its own e-nose model that is able to sniff out cancerous Brain cells. Thus, electronic nose facilitates in detecting cancer in a non-invasive, rapid and reliable manner.&lt;/p&gt;
+
+&lt;p&gt;The scope of this technology has just scratched the surface. In a few years, this technology may even get embedded in smart phones. The Google Nose prank that the company played on us on April Fools’ day, might turn into reality. Who knows what technology has for us in the future; someday, people would be able to smell things just by searching them on Google!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exploits &amp; Vulnerabilities with Introduction to Metasploit</title>
+      <link>https://rahalkar.dev/post/exploits-vulnerabilities-with-introduction-to-metasploit/</link>
+      <pubDate>Fri, 07 Jun 2019 09:09:55 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/exploits-vulnerabilities-with-introduction-to-metasploit/</guid>
+      <description>
+
+&lt;h3 id=&#34;exploits-and-vulnerabilities&#34;&gt;Exploits and Vulnerabilities&lt;/h3&gt;
+
+&lt;p&gt;In computer security, a vulnerability is a weakness which can be exploited by a Threat Actor like an attacker, to perform unauthorized actions within a computer system.
+These vulnerabilities have to be managed to inform the developers to patch it. Vulnerability management involves identifying,classifying,remediation and mitigating vulnerabilites in computer systems.
+The well known CVE (Common Vulnerabilities and Exposures) system is used to record and maintain the system. It is a database of vulnerabilities found in software packages. CVEs come with their own identifier of the format
+&amp;gt;
+&amp;gt; CVE Prefix + Year of Discovery + Arbitrary Digits
+&amp;gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;metasploit&#34;&gt;Metasploit&lt;/h5&gt;
+
+&lt;p&gt;Metasploit is a popular penetration testing tool maintained by Rapid7. It has a collection of all the well known vulnerabilities and exploits in software packages with their PoCs(Proof Of Concepts). These PoC scripts can be directly used by Penetration Testers.
+Metasploit also has a graphical version called Armitage.
+Exploiting any system involves the following steps:&lt;/p&gt;
+
+&lt;p&gt;1.Reconnaissance of the system. (With tools like Nmap)&lt;/p&gt;
+
+&lt;p&gt;2.Choosing the appropriate exploit.&lt;/p&gt;
+
+&lt;p&gt;3.Choosing and configuring the payload. (Code that will be executed on the system after successful entry)&lt;/p&gt;
+
+&lt;p&gt;4.Encoding the payload to avoid detection by the system firewalls or antivirus softwares and to remove the bad characters that may cause the exploit to fail.&lt;/p&gt;
+
+&lt;p&gt;5.Executing the exploit.&lt;/p&gt;
+
+&lt;p&gt;You can get Metasploit&amp;rsquo;s Open Source version &lt;a href=&#34;https://github.com/rapid7/metasploit-framework/wiki/Nightly-Installers&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Follow the instructions to install Metasploit. If you are on a Penetration Testing based OS like Kali Linux or Parrot OS, Metasploit comes pre-installed.&lt;/p&gt;
+
+&lt;p&gt;Start the Metasploit console with &lt;code&gt;msfconsole&lt;/code&gt;.
+Metasploit downloads the exploits and vulnerabilites database from its servers and stores it offine. Make sure your offline Metasploit database is kept updated.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;help&lt;/code&gt; will give you more information about using msfconsole.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;show exploits&lt;/code&gt; will list out all the available exploits in the database. To search for a selected exploit use &lt;code&gt;search software_package_name&lt;/code&gt; to get the list of available vulnerabilites and exploits.&lt;/p&gt;
+
+&lt;p&gt;Using the exploit is simple. (Ensure that you mention the exact path of the exploit while using it. )&lt;/p&gt;
+
+&lt;p&gt;For example:
+&lt;code&gt;use exploit/linux/ssh/symantec_smg_ssh&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;show info&lt;/code&gt; will give information about what the exploit does,the author of the exploit,parameters required etc.&lt;/p&gt;
+
+&lt;p&gt;Type &lt;code&gt;show options&lt;/code&gt; to know the parameters that are required for the exploit.&lt;/p&gt;
+
+&lt;p&gt;Using this for the above exploit produces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;      
+      Module options (exploit/linux/ssh/symantec_smg_ssh):
+    
+       Name   Current Setting  Required  Description
+       ----   ---------------  --------  -----------
+       RHOST                   yes       The target address
+       RPORT  22               yes       The target port
+    
+    
+    Exploit target:
+    
+       Id  Name
+       --  ----
+       0   Symantec Messaging Gateway 9.5
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(RHOST indicates the host on which the exploit will be executed)&lt;/p&gt;
+
+&lt;p&gt;We set the RHOST IP address by &lt;code&gt;set RHOST 192.168.1.2 (The IP address)&lt;/code&gt;
+For any exploit make sure that you necessarily fill in all the required parameters.
+To run the exploit enter &lt;code&gt;run&lt;/code&gt; or &lt;code&gt;exploit&lt;/code&gt;
+Metasploit will then give the status of the exploit.
+Here are some of the important commands in Metasploit&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;host website -&amp;gt; Gives the IP info&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;use exploit name -&amp;gt; Use the given exploit&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;search something -&amp;gt; Get exploit related information&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;show exploits-&amp;gt; Shows all the exploit related information&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;show options-&amp;gt;Gives the exploit options&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;set SETTINGS -&amp;gt; Set the given exploit options&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;run-&amp;gt;Runs the exploit&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;back-&amp;gt;Go back&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;exploit-&amp;gt; Start the exploit&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;?-&amp;gt;help&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;show payloads -&amp;gt; Lists all the playloads&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;set payload name -&amp;gt; Sets the payload&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;mfsupdate-&amp;gt; Update metasploit&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>File Permissions in Unix/Linux</title>
+      <link>https://rahalkar.dev/post/file-permissions-in-unix-linux/</link>
+      <pubDate>Wed, 05 Jun 2019 01:15:35 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/file-permissions-in-unix-linux/</guid>
+      <description>
+
+&lt;h3 id=&#34;file-permissions&#34;&gt;File Permissions&lt;/h3&gt;
+
+&lt;p&gt;Unix &amp;amp; Linux provides Read(r),Write(w) and Execute(x) permissions to any file on the system.
+If you &lt;code&gt;ls -l&lt;/code&gt; every file with its permissions will be shown.&lt;/p&gt;
+
+&lt;p&gt;The system is divided into three types - User,Group and others. The r,w,x permissions are assigned to each type. This is well explained by the diagram shown below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/permissions.jpg&#34; alt=&#34;Permissions&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Owner permissions − The owner&amp;rsquo;s permissions determine what actions the owner of the file can perform on the file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Group permissions − The group&amp;rsquo;s permissions determine what actions a user, who is a member of the group that a file belongs to, can perform on the file.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Other (world) permissions − The permissions for others indicate what action all other users can perform on the file.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The chmod command helps to assign permissions or remove existing permissions. Permissions can be assigned in two ways -&lt;/p&gt;
+
+&lt;p&gt;1.By using the letters r,w,x &amp;amp; a,o,u with the symbols +, - &amp;amp; =.
+2. Using octal numbers.
+Let us create a sample file and apply some root privileges to it.&lt;/p&gt;
+
+&lt;p&gt;Enter into root by typing &lt;code&gt;su&lt;/code&gt; and entering the root password.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;echo &amp;quot;Test File &amp;quot; &amp;gt;&amp;gt; only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Check the default permissions for the file by typing &lt;code&gt;ls -l only_root.txt&lt;/code&gt;. This produced:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    -rw-r--r--  1 linus staff 0 Jan 1 08:28 only_root.txt
+   
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We will be adding readonly permissions to this file.
+&lt;code&gt;chmod a-w only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us split the command.
+* chmod - Used to assign permissions.
+* a-w - a indicates &amp;lsquo;all&amp;rsquo; minus is remove and w is write. So it is the shorthand notation for remove write permissions from all. Similarly to add a permission we can use the plus symbol.&lt;/p&gt;
+
+&lt;p&gt;only_root.txt - Is the file
+Some examples of this shorthand notation:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;a+rwx - Add read,write and execute permissions to all&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;u=x - Assign execute permission to the current user.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;o-wx - Remove write-execute permissions from other users.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;g+rw - Add read-write permissions to the group that the user belongs to.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The other mentioned way was is the octal number system. Check out the table given below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal.png&#34; alt=&#34;Octal System&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The chmod command also accepts this method to assign permissions.
+Some examples are illustrated below:&lt;/p&gt;
+
+&lt;p&gt;The very popluar permission set that is seen is&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chmod 755 only_root.txt&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Let us break it into parts&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;7 - Read,write &amp;amp; Execute permissions to the user&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5 - Read &amp;amp; Execute permission to the group of the user&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The way to remember this number system is referring to the binary equivalent of the octal number.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/octal-permission.png&#34; alt=&#34;Octal permissions&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A set bit indicates that the permission exists and a clear bit indicates that it is removed.
+Similar permissions can be assigned to directories as well.&lt;/p&gt;
+
+&lt;h5 id=&#34;suid-sgid-permissions&#34;&gt;SUID &amp;amp; SGID Permissions&lt;/h5&gt;
+
+&lt;p&gt;setuid and setgid are Unix and Linux access right flags that allow users to run an executable having the permissions of executing the binary,restricted to some other user or group.&lt;/p&gt;
+
+&lt;p&gt;setuid allows execution access to a specific user
+and setgid does the same for a group.&lt;/p&gt;
+
+&lt;p&gt;Usually it is used to allow local users to execute some privileged binaries belonging to the root user.
+For example, the root user may have some privileged executables like curl,wget etc. and the root user may set the access right flags to allow any other trusted local user to use these executables.&lt;/p&gt;
+
+&lt;p&gt;These permissions are usually set with the chmod command.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;chmod ug+s /usr/bin/wget&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Running this command in root will allow local users and groups to execute the binary. In short we have lowered the privileges for this binary executable by setting the SUID &amp;amp; SGID bit.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Virtual File System</title>
+      <link>https://rahalkar.dev/post/the-virtual-file-system/</link>
+      <pubDate>Sat, 01 Jun 2019 14:04:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/the-virtual-file-system/</guid>
+      <description>
+
+&lt;h3 id=&#34;file-systems-in-linux&#34;&gt;File Systems In Linux&lt;/h3&gt;
+
+&lt;p&gt;Linux works on the concept of virtual file systems. Everything on a Linux/Unix system is a file.
+Here is a brief look at the file system structure -&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/lfs.png&#34; alt=&#34;Linux File System&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This directory structure is followed in all Linux distributions which is similar to a Unix file system. Whenever a Linux system boots,this virtual file system is mounted. Each directory in this tree has its own significance.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;/bin - The bin directory stores all the Linux command binaries. The default commands like ls,cd,mkdir etc have their binaries located in this folder.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/boot - This directory stores all the boot related information. The Linux kernel can be found here with usually the name &lt;code&gt;vmlinuz&lt;/code&gt;. A separate subdirectory for GRUB can also be found here if it is installed.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/dev - Here all the external devices are mounted. It also contains ttys,null,urandom,random devices which are internal devices used in several situations.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/etc - Here all the configuration files are stored for different programs. A well known file - hosts can be found here. FTP,SSH and several applications store their configuration files here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/home - Here all the documents and personal files of different users on the system are stored. /home may have sub directories for each user.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/lib - This directory has all the library files used by the Kernel or the system while booting. It has shared library images (Shared Object files &amp;amp; dependencies)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/media - This directory is now no longer used. It is kept for backward compatibility to older systems having floppy or CD drivers. The CDs and floppies inserted into the drives were mounted here. Instead they can now be mounted in the /mnt directory.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/mnt - This directory is used to mount external drives or even ISO mounts. Other Linux Virtual File systems can also be mounted here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/opt - Add on software package files are installed in this folder. Some softwares use this folder to place its libraries and dependencies here. It also has /bin, /doc , /include directories reserved for the system administrator.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/root - A separate directory is provied for the root user. All the documents and root files are stored here. Other non-privileged users are not allowed access to this directory as well as all the other directories mentioned.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/sbin - This directory contains all the system binaries. Binaries for programs like systemctl,service etc. can be found here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/tmp - This is a directory used to store temporary files. The system creates several temporary files which are deleted once the system is powered off. Ususally incomplete download files can be found here. Sometimes temporary mounts are also created here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/srv - This directory has site-specific data served by the system. Usually files related to services are stored here. Eg. ftp,rsync related files are stored here.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/usr - It is one of the major directories in Linux. It has various sub-directories like bin(User binaries),include(All the C headers are stored here),share(Architecture independent data),local(Local system files) etc.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;/var - This directory has variable data files. It has several sub directories like cache(Applications&amp;rsquo; cache data),lib,opt(Variable /opt data),tmp(Temporary system files),log(System logs),lock(Lock files),cron(Crontab configuration file),backups etc.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;File systems are also used on numerous storage devices that use different kinds of media. NTFS,HFS+,APFS,ExFAT etc. are some of the well known file systems designed by proprietary companies. Linux uses Extended File Systems. ext4 is the latest file system used on Linux based distributions. It is backward compatible with its older generations ext3,ext2 &amp;amp; ext. ext4 allows volumes upto size 1EiB (Exbibyte) and files with sizes upto 16 TiB (Tebibytes).&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>How Your Computer Starts</title>
+      <link>https://rahalkar.dev/post/how-your-computer-starts/</link>
+      <pubDate>Sat, 18 May 2019 16:11:17 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/how-your-computer-starts/</guid>
+      <description>
+
+&lt;p&gt;Every computer follows a standard boot sequence when it starts up.&lt;/p&gt;
+
+&lt;h4 id=&#34;bios-basic-input-output-system&#34;&gt;BIOS (Basic Input Output System)&lt;/h4&gt;
+
+&lt;p&gt;The CPU runs an instruction in memory for the BIOS. This is a Jump instruction that transfers the Instruction Pointer to the code of the BIOS start-up program.&lt;/p&gt;
+
+&lt;p&gt;The BIOS runs the Power On Self Test. It is a process performed by firmware or software routines immediately after a computer or any digital device is powered on.
+The POST performs the following checks &amp;amp; tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;verify CPU registers&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;verify the integrity of the BIOS code itself&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;verify some basic components like DMA, timer, interrupt controller&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;find, size, and verify system main memory
+initialize BIOS&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;pass control to other specialized extension BIOSes (if installed)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;identify, organize, and select which devices are available for booting&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;discover, initialize, and catalog all system buses and devices&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;provide a user interface for system&amp;rsquo;s configuration&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;construct whatever system environment is required by the target operating system&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Every hardware manufacturer has its own BIOS code hardcoded on the ROM.
+The BIOS has a boot sequence configured which searches for the boot devices sequentially.
+Booting devices can be of several types:&lt;/p&gt;
+
+&lt;p&gt;1.CD Drives&lt;/p&gt;
+
+&lt;p&gt;2.Hard Disk Drives&lt;/p&gt;
+
+&lt;p&gt;3.USB Drives&lt;/p&gt;
+
+&lt;p&gt;4.Network&lt;/p&gt;
+
+&lt;p&gt;As soon as it finds the boot device, it looks for the Master Boot Record. The MBR has number of partitions in it. If any active partition is found it is loaded into memory.&lt;/p&gt;
+
+&lt;h4 id=&#34;master-boot-record&#34;&gt;Master Boot Record&lt;/h4&gt;
+
+&lt;p&gt;It is a special type of boot sector at the beginning of data drives. It holds information about the logical partitions,organisation of the file systems and also a boot loader. The boot loader is responsible to load the kernel(A subset of the entire OS) into memory.
+It may happen that the selected memory drive has multiple operating systems. The bootloader allows selection of the OS(Along with different kernels)to be loaded. GRUB is an open source bootloader by GNU prominently seen on most Linux Distributions.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/mbr.png&#34; alt=&#34;Master Boot Record&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;kernel&#34;&gt;Kernel&lt;/h4&gt;
+
+&lt;p&gt;As soon as the kernel is loaded into memory by the boot loader, the Kernel mounts Linux/Unix Virtual file system.
+The Linux Virtual File System is of the format shown below:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/lfs.png&#34; alt=&#34;Linux Virtual File System&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;init-now-systemd-for-linux&#34;&gt;Init (Now Systemd For Linux)&lt;/h4&gt;
+
+&lt;p&gt;The Kernel executes the /sbin/init binary. Init is the first program executed by the Kernel in Kernel Space. It is given the process Id (PID) of 1.
+However in the recent versions init is replaced by a System Management Daemon called systemd. Systemd was designed to overcome the shortcomings of Initd. It is the parent process of all the processes.&lt;/p&gt;
+
+&lt;p&gt;You can find the source code of Systemd &lt;a href=&#34;https://github.com/systemd/systemd&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are six different run levels in Linux. (Used with Initd)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;0 – halt&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;1 – Single user mode&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;2 – Multiuser, without NFS&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;3 – Full multiuser mode&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;4 – unused&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;5 – X11 (X Window System)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;6 – reboot&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Each runlevel has its own set of programs which can be seen in -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    Run level 0 – /etc/rc.d/rc0.d/
+    Run level 1 – /etc/rc.d/rc1.d/
+    Run level 2 – /etc/rc.d/rc2.d/
+    Run level 3 – /etc/rc.d/rc3.d/
+    Run level 4 – /etc/rc.d/rc4.d/
+    Run level 5 – /etc/rc.d/rc5.d/
+    Run level 6 – /etc/rc.d/rc6.d/
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each of these directories have programs starting with S (Used during startup) and K(Used during shutdown)&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Guide to Partitions &amp; Partitioning Drives in Linux</title>
+      <link>https://rahalkar.dev/post/a-guide-to-partitions-partitioning-drives-in-linux/</link>
+      <pubDate>Thu, 16 May 2019 04:39:06 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/a-guide-to-partitions-partitioning-drives-in-linux/</guid>
+      <description>
+
+&lt;p&gt;Linux has completely different naming conventions while mounting drives as compared to Windows. /dev/sda,/dev/sdb,/dev/sdc etc. are the conventions in Linux.&lt;/p&gt;
+
+&lt;p&gt;Each drive has its own partition table that describes the layout of partitions of the drive. MBR,GPT etc. are the different partition table standards used.
+The MBR partition scheme is quite old and is rarely used due to limitations like-&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;It does not allow the configuration of more than four main partitions. Those partitions are called primary partitions.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Disk partitions are limited to 2TB&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Every disk can have three kinds of partitions as per the MBR scheme -&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Primary Partitions - Usually for storing OSes&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Logical Partitions - Every primary partition may have multiple logical partitions&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extended Partitions - A primary partition can be extended with this to overcome the limitation of maximum four primary partitions.
+These partitions can be found named with the conventions /dev/sda1,/dev/sda2 etc.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(Enter all the commands mentioned below in root or with a sudoers&amp;rsquo; user)&lt;/p&gt;
+
+&lt;h4 id=&#34;mounting-drives-in-linux&#34;&gt;Mounting drives in Linux&lt;/h4&gt;
+
+&lt;p&gt;Running &lt;code&gt;fdisk -l&lt;/code&gt; in root lists out the number of drives that are mounted on the system. &lt;code&gt;/dev/sda&lt;/code&gt; is usually the hard drive or SSD on which the OS is running. Other external drives can be found ususally at &lt;code&gt;/dev/sdb&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;df -h&lt;/code&gt; may also help locating external drives.&lt;/p&gt;
+
+&lt;p&gt;Whenever an external drive is inserted it is usually automatically mounted. To format a drive it must be unmounted first.&lt;/p&gt;
+
+&lt;p&gt;Drives can also be mounted with &lt;code&gt;mount /dev/sda /mnt&lt;/code&gt; if the drive to be mounted is &lt;code&gt;/dev/sda&lt;/code&gt; and the mount location is &lt;code&gt;/mnt&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;formatting-drives-in-linux&#34;&gt;Formatting drives in Linux&lt;/h4&gt;
+
+&lt;p&gt;There are two ways to format drives. One is with a graphical interface utility (GParted) or via the terminal.&lt;/p&gt;
+
+&lt;p&gt;GParted may be installed with the aptitude package manager supporting OSes by
+&lt;code&gt;apt-get install gparted&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Entering &lt;code&gt;umount /dev/sdc1&lt;/code&gt; in root if sdc1 is the drive mount point, will unmount the external drive.
+Format the drive with the mkfs utility provided with Linux&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    mkfs.ext4 /dev/sdc1 For ext4 file system
+    mkfs.vfat /dev/sdc1 For vFat file system
+    mkfs.ntfs /dev/sdc1 For NTFS file system
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;creating-a-bootable-drive-in-linux&#34;&gt;Creating a bootable drive in Linux&lt;/h4&gt;
+
+&lt;p&gt;The USB drive must be completely formatted before installing. Format the drive to any supported file system. Several GUI based utilities like etcher can be used to format and create bootable drives.
+Linux and Unix based systems provide the data duplicator(dd) utility to copy binary data to drives.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    dd if=/home/linus/file.iso of=/dev/sdc 
+    if - The location of the input file
+    of - Location of the mounted drive
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Status of dd can be monitored by&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    grep -l &#39;^dd$ - Returns the process Id of dd
+    kill -USR1 process_id - Shows the status 
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After dd has completed transferring the iso to the drive type &lt;code&gt;sync&lt;/code&gt;.
+This is a good practice, since it forces completition of pending disk writes. It flushes the cache.&lt;/p&gt;
+
+&lt;h4 id=&#34;partitioning-drives-in-linux&#34;&gt;Partitioning Drives In Linux&lt;/h4&gt;
+
+&lt;h5 id=&#34;creating-a-partition&#34;&gt;Creating a partition&lt;/h5&gt;
+
+&lt;p&gt;GParted is an excellent utility to partition drives. It can also be done with its command-line version invoked by &lt;code&gt;parted&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;1.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; (within the parted console invoked after typing &lt;code&gt;parted&lt;/code&gt;)if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.Label the disk with &lt;code&gt;mklabel name&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;3.Create the partition&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    mkpart logical - Creates a logical partition
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Enter the start and end location in megabytes. This will indicate the size of the partition. Eg. Start can be 1 and End can be 1000 indicating a partition of 1 Gb&lt;/p&gt;
+
+&lt;p&gt;4.The partition can be formatted with any file system with the &lt;code&gt;mkfs&lt;/code&gt; command as explained above.&lt;/p&gt;
+
+&lt;h5 id=&#34;removing-a-partition&#34;&gt;Removing a partition&lt;/h5&gt;
+
+&lt;p&gt;1.Invoke the parted utility with &lt;code&gt;parted&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;2.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;code&gt;rm 1&lt;/code&gt; will remove the first partition from sdc if it has been selected&lt;/p&gt;
+
+&lt;h5 id=&#34;resizing-a-partition&#34;&gt;Resizing a partition&lt;/h5&gt;
+
+&lt;p&gt;1.Invoke the parted utility with &lt;code&gt;parted&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;2.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;resizepart&lt;/code&gt; will ask for the new start and end to resize the partition.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;recovering-a-partition&#34;&gt;Recovering a partition&lt;/h5&gt;
+
+&lt;p&gt;Lost partitions can be recovered by &lt;code&gt;rescue&lt;/code&gt;. It asks for the start and end point in Mbs. If any lost partition is found,parted will recover the lost partition.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>PATH Environment Variable in Linux/Unix</title>
+      <link>https://rahalkar.dev/post/path-environment-variable-in-linux-unix/</link>
+      <pubDate>Wed, 08 May 2019 16:59:15 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/path-environment-variable-in-linux-unix/</guid>
+      <description>
+
+&lt;h5 id=&#34;what-is-the-path-environment-variable&#34;&gt;What is the $PATH environment variable?&lt;/h5&gt;
+
+&lt;p&gt;Every Linux &amp;amp; Unix System has several environment variables which are dynamic variables essential for running several processes in the system.
+$HOME,$env being some of the well known environment variables.&lt;/p&gt;
+
+&lt;p&gt;The $PATH environment variable stores all the paths where one can find the binary executables for all the commands that we use.&lt;/p&gt;
+
+&lt;p&gt;Whenever a command is invoked from the terminal,all the paths in the $PATH environment variable are looked up and if the binary is found, the command is executed.&lt;/p&gt;
+
+&lt;p&gt;Trying this out on the terminal produces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    echo $PATH
+    
+    /home/linus/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The path variable can be usually edited or updated from the .bash_profile hidden file(On Unix like OS) or directly by exporting the variable with the export command.&lt;/p&gt;
+
+&lt;p&gt;Creating your own command recipies&lt;/p&gt;
+
+&lt;p&gt;Linux or Unix commands can be usually built by shell scripts, Python or Perl scripts.
+Let us create a simple Bash script that calculates the factorial of the number sent to it as an argument in the command.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    #!/bin/bash
+    count=$1 
+    fact=1
+    while [ $count -gt 0 ] 
+    do
+       fact=$(( $fact * $count ))
+       count=$(( $count - 1 ))
+    done
+    echo $fact
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create a sample file with a  .sh extension and copy the factorial code as given above.
+Add the directory which contains the given file to your $PATH variable. Edit the variable from your .bash_profile or .profile located in your root directory with your preferred text editor.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    nano ~/.bash_profle
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The file may contain several other aliases and variables but look out for the lines and update
+as shown below
+(Make sure there are no spacings between PATH and =)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+    export PATH=/home/linus/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/directory_of_bash_script
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Do not forget to source the .bash_profile or .profile file with the source command or .&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    
+    source .bash_profile
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Calling the script file name from the terminal with any number as the argument to the command will print the factorial to stdout.
+The same thing can also be done by creating a symbolic link which will be discussed later.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Virtualisation in Operating Systems</title>
+      <link>https://rahalkar.dev/post/virtualisation-in-operating-systems/</link>
+      <pubDate>Sat, 06 Apr 2019 12:05:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/virtualisation-in-operating-systems/</guid>
+      <description>
+
+&lt;p&gt;Virtualisation is the process of creating a virtual version of a physical object.&lt;/p&gt;
+
+&lt;p&gt;Virtualisation is of three types primarily:
+1. Hardware Virtualisation - Based on simulating real hardware. This can be used to run a complete operating system. This can be further subdivided into full and paravirtualisation.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Desktop Virtualisation - It is the concept of separating the logical desktop from the physical machine.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Operating system level virtualisation (also called as containerisation) - It is the operating system feature in which the kernel allows the existence of multiple isolated user-space instances. Such instances are called containers. Containerisation was introduced as a Linux Kernel feature in 2010. It started gaining momentum with the introduction of Docker.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;hardware-virtualisation&#34;&gt;Hardware Virtualisation&lt;/h4&gt;
+
+&lt;p&gt;Some terminologies associated with Virtualisation:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Virtual Machine: It is a virtual representation of a physical machine.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Hypervisor: It is a software that manages and monitors running virtual machines.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Host machine: The physical machine that a virtual machine is running on.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Guest machine: The virtual machine running on the host machine.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The following block diagram shows the position of each component mentioned above:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/virtualisation.png&#34; alt=&#34;Virtual Machine Diagram&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;hypervisors&#34;&gt;Hypervisors&lt;/h4&gt;
+
+&lt;p&gt;There are two main types of hypervisors:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Native: They run directly on the host machine and share out resources between guest machines.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Hosted: They run as an application inside the operating system and support virtual machines running as individual processes.
+Eg. VirutalBox,Parallel Desktop&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/hypervisor.png&#34; alt=&#34;Hypervisor Types&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>WebTTY</title>
+      <link>https://rahalkar.dev/project/webtty/</link>
+      <pubDate>Wed, 27 Mar 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/project/webtty/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hidden Secrets of Python</title>
+      <link>https://rahalkar.dev/slides/python_workshop_meetups/</link>
+      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/slides/python_workshop_meetups/</guid>
+      <description>
+
+&lt;h2 id=&#34;get-a-copy-of-this-notebook-here-https-bit-ly-python-meetups-sept&#34;&gt;Get a copy of this notebook &lt;a href=&#34;https://bit.ly/python-meetups-sept&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h2 id=&#34;f-strings&#34;&gt;F-Strings&lt;/h2&gt;
+
+&lt;p&gt;PEP 498 introduced a new string formatting mechanism known as Literal String Interpolation or more commonly as F-strings&lt;/p&gt;
+
+&lt;p&gt;Why F-Strings?
+- They are fast.
+- They can evaluate expressions.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = 10 
+b = 20
+
+print(f&amp;quot;{a + b}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;yield&#34;&gt;Yield&lt;/h2&gt;
+
+&lt;p&gt;The yield statement suspends function’s execution and sends a value back to caller, but retains enough state to enable function to resume where it is left off. It is used in Python generator functions.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def foo(bar):
+  yield bar
+  print(f&amp;quot;Resuming execution after returning {bar}&amp;quot;)
+  yield bar + 1
+  print(f&amp;quot;Resuming execution after returning {bar + 1}&amp;quot;)
+  yield bar + 2
+  print(f&amp;quot;Resuming execution after returning {bar + 2}&amp;quot;)
+
+values_returned = foo(10)
+
+for value in values_returned:
+  print(value)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;context-managers&#34;&gt;Context Managers&lt;/h2&gt;
+
+&lt;p&gt;Context Managers are used to manage resources which includes file pointers, variables etc. The scope of the variables is retained within the context.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &#39;&#39;&#39; 
+ with open(&amp;quot;file.txt&amp;quot;,&amp;quot;r&amp;quot;) as f:
+  data = f.read()
+&#39;&#39;&#39;
+class ContextManager(): 
+    def __init__(self): 
+        print(&#39;init method called&#39;) 
+          
+    def __enter__(self): 
+        print(&#39;enter method called&#39;) 
+        return self
+      
+    def __exit__(self, exc_type, exc_value, exc_traceback): 
+        print(&#39;exit method called&#39;) 
+
+
+with ContextManager() as manager: 
+    print(&#39;with statement block&#39;) 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;else-clauses-on-loops&#34;&gt;Else Clauses on Loops&lt;/h2&gt;
+
+&lt;p&gt;Python allows us to add else conditions to for/while loops as well.  If the for/while loop condition fails, then the else statement is executed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+def find_index(to_search,target):
+  flag = False
+  index = int()
+  for i,value in enumerate(to_search):
+    if value == target:
+      flag = True
+      index = i
+      break
+
+  if flag:
+    return index
+  else:
+     return -1 
+
+
+my_list = [&#39;Corey&#39;, &#39;Rick&#39;, &#39;John&#39;]
+index_location = find_index(my_list, &#39;Steve&#39;)
+
+print(&#39;Location of target is index: {}&#39;.format(index_location))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;def find_index(to_search, target):
+  for i, value in enumerate(to_search):
+    if value == target:
+      break
+  else:
+    return -1
+  return i
+
+
+my_list = [&#39;Corey&#39;, &#39;Rick&#39;, &#39;John&#39;]
+index_location = find_index(my_list, &#39;Steve&#39;)
+
+print(&#39;Location of target is index: {}&#39;.format(index_location))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;named-tuples&#34;&gt;Named Tuples&lt;/h2&gt;
+
+&lt;p&gt;Named tuples are easy-to-create, lightweight object types. Named tuple instances can be referenced using object-like variable dereferencing or the standard tuple syntax. They can be used similarly to struct or other common record types, except that they are immutable.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from collections import namedtuple
+
+Color = namedtuple(&#39;Color&#39;, [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;])
+
+color = Color(red = 55,green = 155,blue = 255)
+white = Color(255,255,255)
+
+print(color.blue)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;itertools-to-manage-looping-efficiently&#34;&gt;Itertools - To Manage Looping Efficiently&lt;/h2&gt;
+
+&lt;p&gt;Python has an extensive suite of iterators in its itertools module, which allow for memory efficient and faster looping. It is recommended that programmers should rely on these pre-defined iterators instead of hard-coding the logic by themselves.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from itertools import count, cycle, compress, groupby, permutations, combinations
+
+
+## 1. Count 
+print(&amp;quot;Demonstration of count&amp;quot;)
+for i in count(10,2):
+  print(i)
+  if i == 30:
+    break
+
+# 2. Cycle
+print(&amp;quot;Demonstration of cycle&amp;quot;)
+iteration = 0 
+for i in cycle(&amp;quot;ABC&amp;quot;):
+  print(i)
+  iteration += 1
+  if iteration == 5:
+    break
+
+# 3. Group By
+print(&amp;quot;Demonstration of Group by&amp;quot;)
+def get_state(person):
+    return person[&#39;state&#39;]
+
+people = [
+    {
+        &#39;name&#39;: &#39;John Doe&#39;,
+        &#39;city&#39;: &#39;Gotham&#39;,
+        &#39;state&#39;: &#39;NY&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Jane Doe&#39;,
+        &#39;city&#39;: &#39;Kings Landing&#39;,
+        &#39;state&#39;: &#39;NY&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Corey Schafer&#39;,
+        &#39;city&#39;: &#39;Boulder&#39;,
+        &#39;state&#39;: &#39;CO&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Al Einstein&#39;,
+        &#39;city&#39;: &#39;Denver&#39;,
+        &#39;state&#39;: &#39;CO&#39;
+    },
+    {
+        &#39;name&#39;: &#39;John Henry&#39;,
+        &#39;city&#39;: &#39;Hinton&#39;,
+        &#39;state&#39;: &#39;WV&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Randy Moss&#39;,
+        &#39;city&#39;: &#39;Rand&#39;,
+        &#39;state&#39;: &#39;WV&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Nicole K&#39;,
+        &#39;city&#39;: &#39;Asheville&#39;,
+        &#39;state&#39;: &#39;NC&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Jim Doe&#39;,
+        &#39;city&#39;: &#39;Charlotte&#39;,
+        &#39;state&#39;: &#39;NC&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Jane Taylor&#39;,
+        &#39;city&#39;: &#39;Faketown&#39;,
+        &#39;state&#39;: &#39;NC&#39;
+    }
+]
+
+person_group = groupby(people, get_state)
+
+for group,values in person_group:
+  print(group,[value[&#39;name&#39;] for value in values])
+
+# 4. Compress
+print(&amp;quot;Demonstration of compress&amp;quot;)
+values = compress(&amp;quot;Meetups&amp;quot;,[1,1,1,1,0,0,0])
+print(list(values))
+
+# 5. Permutations
+print(&amp;quot;Demonstration of permutations&amp;quot;)
+
+lst = [1,2,3]
+for perm in permutations(lst,2):
+  print(perm)
+
+
+# 6. Combinations 
+print(&amp;quot;Demonstration of combinations&amp;quot;)
+name = &amp;quot;ABCD&amp;quot;
+
+for comb in combinations(name,2):
+  print(comb)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;one-liner-if-else-if-else-condition&#34;&gt;One liner if else if else condition&lt;/h2&gt;
+
+&lt;p&gt;Python allows a cleaner and shorthand syntax for defining if-else statements.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = 10
+print(&#39;Even&#39;) if a % 2 == 0 else print(&#39;False&#39;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;swapping-variables&#34;&gt;Swapping variables&lt;/h2&gt;
+
+&lt;p&gt;Variable swapping can be done without the need of a third temporary variable.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a,b = 1,2
+print(a,b)
+
+a,b = b,a
+print(a,b)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;chained-function-call&#34;&gt;Chained function call&lt;/h2&gt;
+
+&lt;p&gt;Python allows a cleaner and shorthand syntax for defining chained else-if statements.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+def add(x,y):
+  return x + y
+
+def sub(x,y):
+  return x - y
+
+def mul(x,y):
+  return x * y
+
+x = 1
+
+# Lengthy approach
+if x == 1:
+  print(add(10,20))
+elif x == 2:
+  print(sub(10,20))
+elif x == 3:
+  print(mul(10,20))
+  
+# Quick approach 
+print((add if x == 1 else sub if x == 2 else mul)(10,20))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;print-an-array-with-strings-as-one-comma-separated-string&#34;&gt;Print an array with strings as one comma-separated string&lt;/h2&gt;
+
+&lt;p&gt;The power of Python allows you to print a list to the standard I/O, with the choice of your own delimiter like a comma.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;row = [&amp;quot;1&amp;quot;, &amp;quot;bob&amp;quot;, &amp;quot;developer&amp;quot;, &amp;quot;python&amp;quot;]
+print(*row, sep=&#39;,&#39;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;enumerate&#34;&gt;Enumerate&lt;/h2&gt;
+
+&lt;p&gt;List enumeration can be done without the need of maintaining manual counter with the enumerate function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cities = [&amp;quot;London&amp;quot;, &amp;quot;Paris&amp;quot;, &amp;quot;New York&amp;quot;]
+
+# Lengthy approach
+count=0
+for city in cities:
+  print(count,city)
+  count+=1
+
+# Recommended approach
+for count,city in enumerate(cities):
+  print(count,city)
+  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;0 London
+1 Paris
+2 New York
+0 London
+1 Paris
+2 New York
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;zip&#34;&gt;Zip&lt;/h2&gt;
+
+&lt;p&gt;Two or more iterables can be iterated in parallel with the zip function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;roll_no = [101,102,103,104,105,106,107,108,109,110]
+marks = [45,32,23,15,44]
+
+# Lengthy approach
+&#39;&#39;&#39;for i in range(len(roll_no)):
+    r = roll_no[i]
+    m = marks[i]
+    #print(r,m)
+   &#39;&#39;&#39; 
+# Recommended approach
+for r,m in zip(roll_no,marks):
+    print(r,m)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;101 45
+102 32
+103 23
+104 15
+105 44
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;hiding-your-source-code&#34;&gt;Hiding Your Source Code&lt;/h2&gt;
+
+&lt;p&gt;Since Python is built on C, the Python interpreter has the benefits that a C compiler has. Python code can be translated to a runnable binary with the .pyc file. The Python interpreter converts the .py file to a runnable binary in order to prevent recompilation of the code and save time in future. If the same python script is called again, the interpreter simply exectutes the precompiled .pyc file to save time.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+chaitanya@meetups$ python3 -m py_compile foo.py
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;getpass-function&#34;&gt;GetPass Function&lt;/h2&gt;
+
+&lt;p&gt;Ever created a Python script that accepts passwords as input? The normal input() function in Python shows on the screen what you are typing. The GetPass function allows you to get passwords as input the UNIX style.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from getpass import getpass 
+
+username = input(&amp;quot;Enter your username: &amp;quot;)
+password  = getpass(&amp;quot;Enter your password: &amp;quot;)
+
+print(username,password,sep = &#39;\n&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;http-server&#34;&gt;HTTP Server&lt;/h2&gt;
+
+&lt;p&gt;Want to host your files or a static website? Python has a built in minimalistic HTTP Server useful for serving static content. It is fast and easy to use.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+anushka@meetups$ python3 -m http.server 8001 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;hiding-secrets-keys-with-enviroment-variables&#34;&gt;Hiding Secrets &amp;amp; Keys with Enviroment variables&lt;/h2&gt;
+
+&lt;p&gt;Exposing your private keys or passwords in Python scripts is not a good idea, especially if you are uploading the code on some online repository. Secrets and keys should be stored in environment variables, which then Python can access through the &lt;i&gt; os &lt;/i&gt; module.&lt;/p&gt;
+
+&lt;p&gt;On a Linux/Mac machine -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+chaitanya@meetups$ nano .bash_profile 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add a line to the .bash_profile file -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+export password=&amp;quot;mypassword&amp;quot; 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;import os 
+
+
+print(os.environ.get(&amp;quot;password&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;underscore-placeholders&#34;&gt;Underscore placeholders&lt;/h2&gt;
+
+&lt;h4 id=&#34;there-are-five-underscore-variable-naming-conventions-used-in-python&#34;&gt;There are five underscore variable naming conventions used in Python&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Single Leading Underscore: _var&lt;/li&gt;
+&lt;li&gt;Single Trailing Underscore: var_&lt;/li&gt;
+&lt;li&gt;Double Leading Underscore: __var&lt;/li&gt;
+&lt;li&gt;Double Leading and Trailing Underscore: _&lt;em&gt;var_&lt;/em&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Single Underscore: _&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;_x = 10 # 1. Variable is for internal use
+class_ = 14 # 2. To use keywords as variable names
+for_ = &amp;quot;Meetups&amp;quot; 
+
+# 3. Acts as a sort-of private variable (Name-mangling)
+
+class Base(object):
+def __init__(self): # Constructor 
+self.__foo = 7 
+
+class Derived(Base):
+def __init__(self):
+super().__init__() # Calling the base class constructor
+self.__foo = 10 
+
+
+s = Derived()
+print(&amp;quot;Value from derived class: &amp;quot;,s._Derived__foo)
+print(&amp;quot;Value from base class: &amp;quot;,s._Base__foo)
+
+# 4. __var__ is reserved for internal Python magic methods and variables. Not recommended to be used by programmer.
+
+# 5. Single underscore acts as useless variables by convention. It is also used as a temporary variable in Python REPL 
+
+for _ in range(2):
+# Code 
+None 
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;secrets-module&#34;&gt;Secrets Module&lt;/h2&gt;
+
+&lt;p&gt;Python has a module to generate secure random numbers. It uses the operating system&amp;rsquo;s random number generator.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import secrets 
+  
+token = secrets.token_hex(16) 
+  
+print(token)
+
+
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  # Why the random module in Python is insecure 
+  r1 = random.Random(31337)
+  outputs = [r1.getrandbits(32) for _ in range(625)]
+  
+  mtr = MT19937Recover() # Mersenne Twister Breaker 
+  r2 = mtr.go(outputs)
+  
+  print(r1.getrandbits(32) == r2.getrandbits(32))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;shallow-and-deep-copy&#34;&gt;Shallow and Deep Copy&lt;/h2&gt;
+
+&lt;p&gt;In Python, assignment statements do not copy objects, they create bindings between a target and an object. When we use = operator user thinks that this creates a new object; well, it doesn’t. It only creates a new variable that shares the reference of the original object.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Shallow copy 
+l = [1,2,3,4,5]
+
+p = l 
+
+l[0] = 100 
+
+print(p[0])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;# Deep copy 
+import copy 
+
+l = [1,2,3,4,5]
+
+p = copy.deepcopy(l) # Creates a deep copy
+q = list(l) # Creates a deep copy 
+
+l[0] = 100 
+print(p[0])
+print(q[0])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;1
+1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;a = [0 for i in range(5)]
+
+mat = list()
+
+for _ in range(5):
+  mat.append(a) # Creates a shallow copy 
+
+mat[1][1] = 10 
+
+print(mat)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;default-dictionary&#34;&gt;Default Dictionary&lt;/h2&gt;
+
+&lt;p&gt;Python allows us to preset dictionary values even if a given key does not exist in the dictionary. This can be done with defaultdict from collections module.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import collections
+
+data = {
+    &#39;Tom&#39;:33,
+    &#39;Jack&#39;:45,
+    &#39;Jill&#39;:32,
+    &#39;Mark&#39;:45,
+    &#39;Sam&#39;:38
+}
+
+# Lengthy way
+
+if &#39;John&#39; in data:
+  print(data[&#39;John&#39;])
+else:
+  print(&#39;Absent&#39;)
+  
+# Recommended way
+
+print(data.get(&#39;John&#39;,&#39;Absent&#39;))
+
+# Recommended way
+
+marks_data = collections.defaultdict(int)
+print(marks_data[&#39;Tom&#39;])
+
+pass_data = collections.defaultdict(str)
+print(pass_data[&#39;Tom&#39;])
+
+students_data = collections.defaultdict(lambda:&#39;Absent&#39;)
+students_data.update(data)
+
+print(students_data[&#39;Jim&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;type-hinting&#34;&gt;Type Hinting&lt;/h2&gt;
+
+&lt;p&gt;Type hinting is a Python programming convention that allows us to specify the return type &amp;amp; parameters of the function. This is a good coding practice that improves code readability.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def headline_without_type(text, align=True):
+    if align:
+        return f&amp;quot;{text.title()}\n{&#39;-&#39; * len(text)}&amp;quot;
+    else:
+        return f&amp;quot; {text.title()} &amp;quot;.center(50, &amp;quot;o&amp;quot;)
+
+
+def headline_with_type(text: str, align: bool = True) -&amp;gt; str:
+    if align:
+        return f&amp;quot;{text.title()}\n{&#39;-&#39; * len(text)}&amp;quot;
+    else:
+        return f&amp;quot; {text.title()} &amp;quot;.center(50, &amp;quot;o&amp;quot;)
+
+      
+print(headline_without_type(&amp;quot;python type checking&amp;quot;))
+print(headline_with_type(&amp;quot;python type checking&amp;quot;, False))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;vs-is&#34;&gt;== vs is&lt;/h2&gt;
+
+&lt;p&gt;There are two ways in Python to check the equivalence of two variables. However there is a big difference between their compiler level implementation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;list1 = [1,2,3]
+list2 = list1
+list3 = list(list1)
+
+print(list1 == list2)
+print(list1 == list3)
+
+print(list1 is list2)
+print(list1 is list3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;True
+True
+True
+False
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;extended-iterable-unpacking&#34;&gt;Extended Iterable Unpacking&lt;/h2&gt;
+
+&lt;p&gt;Extended iterable unpacking allows us to use star operator to gather items from an iterable as a list.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a,b,c = [1,2,3]
+print(a,b,c)
+
+cities = [&#39;London&#39;,&#39;Paris&#39;,&#39;New York&#39;,&#39;Boston&#39;,&#39;Jerusalem&#39;,&#39;California&#39;]
+start,*route,end = cities
+
+print(start)
+print(route)
+print(end)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;1 2 3
+London
+[&#39;Paris&#39;, &#39;New York&#39;, &#39;Boston&#39;, &#39;Jerusalem&#39;]
+California
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;antigravity&#34;&gt;Antigravity&lt;/h2&gt;
+
+&lt;p&gt;Python is not that boring! It is full of strange and interesting things that never stop surprising us. This is really one of them!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import antigravity
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ethics for Platforms</title>
+      <link>https://rahalkar.dev/talk/ethics-privacy/</link>
+      <pubDate>Wed, 11 Jul 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/ethics-privacy/</guid>
+      <description>&lt;p&gt;How much does the Internet know about you? It is a question that most of us will struggle to answer today. This illiteracy and nescience about the internal working of products and services that we use daily can prove to be exceedingly dangerous. The blind trust and complete faith of consumers in dot-com companies is being exploited at unprecedented levels, without the knowledge of the said beneficiaries. The lack of transparency in how our messages and other private data moves through the Internet, and how these tech giants make use of it has forced leaders like Tim Berners-Lee, founder of the WWW to radically overhaul his own creation! Migrating to a “Decentralized Internet” may seem like a longshot at best, but it is a necessary transition that all of us will have to make when an eventual tipping point is reached and the people realize that the “Data belongs to me”.&lt;/p&gt;
+
+&lt;p&gt;Ask a 10-year-old Jack what Facebook is for, and he’ll tell you it is “to help me make friends”
+But, Facebook’s board is not working to help Jack make more friends. It is looking to make a hefty profit out of Jack’s social graph. The discernment that we are not the customers of Facebook, we are the product, Facebook is selling us to advertisers, is yet to kick-in.
+Looking back at the last year, there’s evidence that Internet has become more of a purveyor of lies than of truth because of the way the targeted advertising model encourages people to put things online which are likely to be clicked upon (Clickbait)
+With the Indian SC declaring privacy as a “fundamental” right, it is clear that the companies who treat data ethics as a social responsibility as important as environmental awareness are tomorrow’s winners. Digital trust is paramount for digital growth and welfare.&lt;/p&gt;
+
+&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Ethics-Privacy.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MongoDB (NoSQL Databases)</title>
+      <link>https://rahalkar.dev/talk/no-sql/</link>
+      <pubDate>Sat, 21 Apr 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/no-sql/</guid>
+      <description>&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://bit.ly/mongodbdemo&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Content Addressed Peer-to-Peer File System for the Web with Blockchain-Based Metadata Integrity</title>
+      <link>https://rahalkar.dev/talk/content-addressed-filesystem/</link>
+      <pubDate>Tue, 27 Mar 2018 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/content-addressed-filesystem/</guid>
+      <description>&lt;p&gt;With the exponentially scaled World Wide Web, the standard HTTP protocol has started showing its limitations. With an increased amount of data duplication &amp;amp; accidental deletion of files on the Internet, the P2P file system called IPFS completely changes the way files are stored. IPFS is a file storage protocol allowing files to be stored on decentralized systems. In the HTTP client-server protocol, files are downloaded  has from a single source. With files stored on a decentralized network, IPFS allows packet retrieval from multiple sources, simultaneously saving considerable bandwidth. IPFS uses a content-addressed block storage model with content-addressed hyperlinks. Large amounts of data can is addressable with IPFS with the immutable and permanent IPFS links with meta-data stored as Blockchain transactions. This timestamps and secures the data, instead of having to put it on the chain itself. Our paper proposes a model to use the decentralized file storage system of IPFS, and the integrity preservation properties of the Blockchain, to store and distribute data on the Web.&lt;/p&gt;
+
+&lt;p&gt;With the ever-expanding World Wide Web, the data generated on the web has grown vastly. The amount of data generated daily is at a staggering 2.5 quintillion bytes. This pace is gaining constant momentum due to the inclusion of new IoT devices every day. Sensory data produced by IoT devices get bulkier as modern devices are added to the Internet. To counter the problem of data handling, many distributed file systems were introduced. The popular ones being Napster, BitTorrent, KaZaA, supporting millions of distributed users. Among all of them, HTTP - one of the oldest protocols on the Internet is the biggest distributed file system, when coupled with browsers allowing users to share files globally. With the increase in the scalability of the World Wide Web, the reliability of  HTTP began to degrade. Keeping track of terabytes of data and moving these files over the Web is a difficult task. Several other protocols were introduced to tackle the problem of scalability and decentralization with an intention of replacing the well-established reign of HTTP.
+The other problem with HTTP is security and data integrity. As a countermeasure, the inclusion of Blockchain technology was introduced. Blockchain technology cannot be used to store the entire data due to its distributed ledger protocol. This protocol states that every node in the Blockchain must preserve a copy of the data, on the chain. Hence, storing petabytes of data on the Blockchain is infeasible. This model proposes to store only the file metadata, summarizing necessary information about data, on the Blockchain. This data, being in bytes for a single file, reduces the overall size of the ledger.&lt;/p&gt;
+
+&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Seminar.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cryptocurrencies and Blockchain</title>
+      <link>https://rahalkar.dev/talk/crypto-blockchain/</link>
+      <pubDate>Fri, 25 Aug 2017 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/crypto-blockchain/</guid>
+      <description>&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Cryptocurrencies%20and%20Blockchain.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Awesome Learning</title>
+      <link>https://rahalkar.dev/awesome-learning/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/awesome-learning/</guid>
+      <description>
+
+&lt;p&gt;I love to explore the vast field of Computer Science. I&amp;rsquo;ve dabbled with a variety of stuff over the past few years. While doing so, I&amp;rsquo;ve had to invest considerable amount of time in digging up resources from the corners of the Web. Also, people often ask me for suggestions regarding tutorials and courses about something they wish to learn.&lt;/p&gt;
+
+&lt;p&gt;Thus, I decided to compile this list with the hope that it would be useful to people and to also help me keep track of some great stuff I&amp;rsquo;ve found on the Web.&lt;/p&gt;
+
+&lt;p&gt;Please keep in mind that I&amp;rsquo;ve not consumed all the material mentioned on this list. If I&amp;rsquo;ve mentioned 4 different resources for a topic, it means that I&amp;rsquo;ve skimmed over all of them, but may have decided to go with one of those, personally. However, I&amp;rsquo;ve added all of them since everyone has a different taste. The lists are mostly in my order of preference.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;Disclaimer&lt;/strong&gt;: Some of the links to books on Amazon are affiliate links. If you use them while purchasing, they grant me a small percentage of the cost of the book. Please note that the cost remains the same for you; Amazon simply gives me a small cut out of it. If you decide to buy a book, please use my link as it helps support the blog. Thanks!&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;similar-lists&#34;&gt;Similar Lists&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/danistefanovic/build-your-own-x&#34; target=&#34;_blank&#34;&gt;Daniel Stefanovic on GitHub: Build Your Own X&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/news/370-online-courses-with-real-college-credit-that-you-can-access-for-free-4fec5a28646/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp: 400+ Online Courses With Real College Credit That You Can Access For Free&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;table-of-contents&#34;&gt;Table of Contents&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#c&#34;&gt;C&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#c-1&#34;&gt;C++&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#compilers&#34;&gt;Compilers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#data-science&#34;&gt;Data Science&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#docker&#34;&gt;Docker&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#game-development&#34;&gt;Game Development&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#go&#34;&gt;Go&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#git-and-github&#34;&gt;Git and GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#interpreters--bytecode-virtual-machines&#34;&gt;Interpreters &amp;amp; Bytecode Virtual Machines&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#java&#34;&gt;Java&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#javascript&#34;&gt;JavaScript&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#machine-learning&#34;&gt;Machine Learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#mongodb&#34;&gt;MongoDB&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#nodejs&#34;&gt;Node.js&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#oauth-20-authorization-framework&#34;&gt;OAuth 2.0 Authorization Framework&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#opengl&#34;&gt;OpenGL&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#operating-systems&#34;&gt;Operating Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#python&#34;&gt;Python&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#react&#34;&gt;React&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#redis&#34;&gt;Redis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#rest&#34;&gt;REST&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#web-development&#34;&gt;Web Development&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;c&#34;&gt;C&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner&#34;&gt;Beginner&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=8Ib7nwc33uA&amp;amp;list=PLGLfVvz_LVvSaXCpKS395wbCcmsmgRea7&#34; target=&#34;_blank&#34;&gt;Derek Banas&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=KJgsSFOSQv0&#34; target=&#34;_blank&#34;&gt;Giraffe Academy&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=CPjZKsUYSXg&amp;amp;list=PL_c9BZzLwBRKKqOc9TJz1pP0ASrxLMtp2&#34; target=&#34;_blank&#34;&gt;Caleb Curry&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced&#34;&gt;Advanced&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=LtXEMwSG5-8&#34; target=&#34;_blank&#34;&gt;Socket Programming with C by Eduonix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.craftinginterpreters.com/a-bytecode-virtual-machine.html&#34; target=&#34;_blank&#34;&gt;Crafting Interpreters by Robert Nystrom&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLSiFUSQSRYAOFwfP-aMzXJlWKVyIuWfPU&#34; target=&#34;_blank&#34;&gt;Stack-based Virtual Machine by Philip Bohun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLSiFUSQSRYAND5ETcWAkiD5tBxM-kZGLD&#34; target=&#34;_blank&#34;&gt;Corgi64: Register-based Virtual Machine by Philip Bohun&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/2Ymyfnx&#34; target=&#34;_blank&#34;&gt;The C Programming Language by Brian Kernighan and Dennis Ritchie&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;documentation&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://devdocs.io/c/&#34; target=&#34;_blank&#34;&gt;C Documentation at DevDocs&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;c-1&#34;&gt;C++&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner-1&#34;&gt;Beginner&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=vLnPwxZdW4Y&#34; target=&#34;_blank&#34;&gt;C++ by Giraffe Academy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced-modern&#34;&gt;Advanced/Modern&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL5jc9xFGsL8FWtnZBeTqZBbniyw0uHyaH&#34; target=&#34;_blank&#34;&gt;C++ 11 by Bo Qian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=DamuE8TM3xo&amp;amp;list=PLGLfVvz_LVvQ9S8YSV0iDsuEU8v11yP9M&#34; target=&#34;_blank&#34;&gt;Advanced C++ by Derek Banas&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/TheChernoProject&#34; target=&#34;_blank&#34;&gt;Modern C++ by TheChernoProject&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL5jc9xFGsL8E12so1wlMS0r0hTQoJL74M&#34; target=&#34;_blank&#34;&gt;Concurrency in C++ by Bo Qian&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=_Sk9JT_gTV4&amp;amp;list=PL_dsdStdDXbrz9Ngrc1ErBwJIXLdClj1T&#34; target=&#34;_blank&#34;&gt;C++ 11 Smart Pointers by CodesBay&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books-1&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/30WHah3&#34; target=&#34;_blank&#34;&gt;The C++ Programming Language by Bjarne Stroustrup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/30WTv4T&#34; target=&#34;_blank&#34;&gt;C++: The Complete Reference by Herbert Schildt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;documentation-1&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.cppreference.com/w/&#34; target=&#34;_blank&#34;&gt;cppreference&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.microsoft.com/en-us/cpp/cpp/cpp-language-reference?view=vs-2019&#34; target=&#34;_blank&#34;&gt;C++ Language Reference by Microsoft&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;compilers&#34;&gt;Compilers&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udacity.com/course/compilers-theory-and-practice--ud168&#34; target=&#34;_blank&#34;&gt;Georgia Tech&amp;rsquo;s Compilers: Theory and Practice&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://lagunita.stanford.edu/courses/Engineering/Compilers/Fall2014/about&#34; target=&#34;_blank&#34;&gt;Stanford&amp;rsquo;s Compilers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLzLzYGEbdY5n9ITKUqOuRjXkRU5tMW2Sd&#34; target=&#34;_blank&#34;&gt;Bisqwit&amp;rsquo;s Create a Compiler Series&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://compilerbook.com/&#34; target=&#34;_blank&#34;&gt;Write an Compiler in Go by Thorsten Ball&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;data-science&#34;&gt;Data Science&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/specializations/ibm-data-science-professional-certificate&#34; target=&#34;_blank&#34;&gt;IBM Data Science Professional Certificate&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.edx.org/professional-certificate/harvardx-data-science&#34; target=&#34;_blank&#34;&gt;HarvardX&amp;rsquo;s Data Science Professional Certificate&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;docker&#34;&gt;Docker&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/news/a-beginner-friendly-introduction-to-containers-vms-and-docker-79a9e3e119b/&#34; target=&#34;_blank&#34;&gt;A Beginner-Friendly Introduction to Containers, VMs and Docker by Preethi Kasireddy on freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=YFl2mCHdv24&#34; target=&#34;_blank&#34;&gt;Learn Docker in 12 Minutes by Jake Wright&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Kyx2PsuwomE&#34; target=&#34;_blank&#34;&gt;Exploring Docker by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.docker.com/&#34; target=&#34;_blank&#34;&gt;Docker Official Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Utf-A4rODH8&#34; target=&#34;_blank&#34;&gt;Building a container from scratch by Liz Rice&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;game-development&#34;&gt;Game Development&lt;/h1&gt;
+
+&lt;h2 id=&#34;c-2&#34;&gt;C++&lt;/h2&gt;
+
+&lt;h4 id=&#34;opengl-directx&#34;&gt;OpenGL/DirectX&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCsyHonfwHi4fLb2lkq0DEAA&#34; target=&#34;_blank&#34;&gt;ChilliTomatoNoodle&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCQ-W1KE9EYfdxhL6S4twUNw&#34; target=&#34;_blank&#34;&gt;TheChernoProject&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/handmadeheroarchive&#34; target=&#34;_blank&#34;&gt;Handmade Hero&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;sfml-sdl&#34;&gt;SFML/SDL&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/creaper/&#34; target=&#34;_blank&#34;&gt;Let&amp;rsquo;s Make Games&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL21OsoBLPpMOO6zyVlxZ4S4hwkY_SLRW9&#34; target=&#34;_blank&#34;&gt;Hilze Vonck&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLRtjMdoYXLf776y4K432eL_qPw4na_py3&#34; target=&#34;_blank&#34;&gt;Sonar Systems&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;unity-3d&#34;&gt;Unity 3D&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLPV2KyIb3jR5QFsefuO2RlAgWEz6EvVi6&#34; target=&#34;_blank&#34;&gt;Brackeys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/the-complete-unity-indie-game-developer-course/&#34; target=&#34;_blank&#34;&gt;The Complete Unity Indie Game Developer Course&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/unity-master-video-game-development-the-complete-course/&#34; target=&#34;_blank&#34;&gt;Unity: Beginner to Advanced - Complete Course&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;java-lwjgl&#34;&gt;Java (LWJGL)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCUkRj4qoT1bsWpE_C8lZYoQ&#34; target=&#34;_blank&#34;&gt;ThinMatrix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLlrATfBNZ98eOOCk2fOFg7Qg5yoQfFAdf&#34; target=&#34;_blank&#34;&gt;TheChernoProject&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;miscellaneous&#34;&gt;Miscellaneous&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.edx.org/course/cs50s-introduction-to-game-development&#34; target=&#34;_blank&#34;&gt;CS50&amp;rsquo;s Introduction to Game Development by Harvard University&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCeQhZOvNKSBRU0Mdg7V44wA&#34; target=&#34;_blank&#34;&gt;Matthew Hopson&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UC-yuWVUplUJZvieEligKBkA&#34; target=&#34;_blank&#34;&gt;OneLoneCoder/javidx9&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.haroldserrano.com/&#34; target=&#34;_blank&#34;&gt;Harold Serrano&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;go&#34;&gt;Go&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner-2&#34;&gt;Beginner&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://tour.golang.org/welcome/1&#34; target=&#34;_blank&#34;&gt;A Tour of Go&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=YS4e4q9oBaU&#34; target=&#34;_blank&#34;&gt;Introduction to Go by Michael Van Sickle&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=SqrbIlUwR0U&#34; target=&#34;_blank&#34;&gt;Go Crash Course by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=oppb7qE3Uao&amp;amp;list=PLmxT2pVYo5LDMV0epL4z4CUbxvIw6umg_&#34; target=&#34;_blank&#34;&gt;Write a Web App in Go by Davy Wybiral&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced-1&#34;&gt;Advanced&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gophercises.com/&#34; target=&#34;_blank&#34;&gt;Gophercises by Jon Calhoun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://interpreterbook.com/&#34; target=&#34;_blank&#34;&gt;Write an Interpreter in Go by Thorsten Ball&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://compilerbook.com/&#34; target=&#34;_blank&#34;&gt;Write an Compiler in Go by Thorsten Ball&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLOXvU5Ov-cqpjd1_OnczdizY0I64OfH-T&#34; target=&#34;_blank&#34;&gt;Gaming in Go by Velovix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=9D4yH7e_ea8&amp;amp;list=PLDZujg-VgQlZUy1iCqBbe5faZLMkA3g2x&#34; target=&#34;_blank&#34;&gt;Games with Go by Jack Mott&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=aYkxFbd6luY&#34; target=&#34;_blank&#34;&gt;Flappy Bird in Go by JustForFunc&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books-2&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.golang-book.com/books/intro&#34; target=&#34;_blank&#34;&gt;An Introduction to Programming in Go by Caleb Doxsey&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/2Gxpa50&#34; target=&#34;_blank&#34;&gt;The Go Programming Language by Alan A. A. Donovan and Brian Kernighan&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;documentation-2&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://golang.org/pkg/&#34; target=&#34;_blank&#34;&gt;Official Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;git-and-github&#34;&gt;Git and GitHub&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL-osiE80TeTuRUfjRe54Eea17-YfnOOAx&#34; target=&#34;_blank&#34;&gt;Git Tutorial by Corey Schafer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=SWYqp7iY_Tc&#34; target=&#34;_blank&#34;&gt;Git and GitHub Crash Course by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.katacoda.com/courses/git&#34; target=&#34;_blank&#34;&gt;Interactive Git Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://learngitbranching.js.org/&#34; target=&#34;_blank&#34;&gt;Interactive Tutorial on Git Branching&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;interpreters-bytecode-virtual-machines&#34;&gt;Interpreters &amp;amp; Bytecode Virtual Machines&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.craftinginterpreters.com/&#34; target=&#34;_blank&#34;&gt;Crafting Interpreters by Robert Nystrom&lt;/a&gt; &lt;em&gt;(cannot recommend this gem enough)&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://interpreterbook.com/&#34; target=&#34;_blank&#34;&gt;Write an Interpreter in Go by Thorsten Ball&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.subnetzero.io/post/building-language-vm-part-00/&#34; target=&#34;_blank&#34;&gt;So You Want to Build a Language VM by Fletcher Haynes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ruslanspivak.com/lsbasi-part1/&#34; target=&#34;_blank&#34;&gt;Simple Interpreter by Ruslan Spivak&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLSiFUSQSRYAOFwfP-aMzXJlWKVyIuWfPU&#34; target=&#34;_blank&#34;&gt;Stack-based Virtual Machine by Philip Bohun&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLSiFUSQSRYAND5ETcWAkiD5tBxM-kZGLD&#34; target=&#34;_blank&#34;&gt;Corgi64: Register-based Virtual Machine by Philip Bohun&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;java&#34;&gt;Java&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner-3&#34;&gt;Beginner&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=eIrMbAQSU34&#34; target=&#34;_blank&#34;&gt;Programming with Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=2dZiMBwX_5Q&amp;amp;list=PL_c9BZzLwBRKIMP_xNTJxi9lIgQhE51rF&#34; target=&#34;_blank&#34;&gt;Caleb Curry&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLE7E8B7F4856C9B19&#34; target=&#34;_blank&#34;&gt;Derek Banas&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced-2&#34;&gt;Advanced&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=FLkOX4Eez6o&amp;amp;list=PL6gx4Cwl9DGBzfXLWLSYVy8EbTdpGbUIG&#34; target=&#34;_blank&#34;&gt;JavaFX by thenewboston&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCCXbhmjID-T2I0KfuDPbi6A&#34; target=&#34;_blank&#34;&gt;JavaFX by Genuine Coder&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLqq-6Pq4lTTZh5U8RbdXq0WaYvZBz2rbn&#34; target=&#34;_blank&#34;&gt;Building REST APIs with JAX-RS by Java Brains&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books-3&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://amzn.to/2Y532Kl&#34; target=&#34;_blank&#34;&gt;Java: The Complete Reference by Herbert Schildt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;javascript&#34;&gt;JavaScript&lt;/h1&gt;
+
+&lt;h2 id=&#34;beginner-tutorials-crash-courses&#34;&gt;Beginner Tutorials &amp;amp; Crash Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLqq-6Pq4lTTYFJxC9NLJ7dSTI5Z1WWB6K&#34; target=&#34;_blank&#34;&gt;Introduction to JavaScript for Developers by Java Brains&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=hdI2bqOjy3c&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=W6NZfCO5SIk&#34; target=&#34;_blank&#34;&gt;Programming with Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=PkZNo7MFNFg&#34; target=&#34;_blank&#34;&gt;freeCodeCamp on YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scrimba.com/g/gintrotojavascript&#34; target=&#34;_blank&#34;&gt;Introduction to JavaScript at Scrimba&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scrimba.com/g/ges6&#34; target=&#34;_blank&#34;&gt;ES6 Tutorial at Scrimba&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;advanced-and-full-courses&#34;&gt;Advanced and Full Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/modern-javascript-from-the-beginning/?couponCode=TRAVERSYMEDIA&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9i9Ae2D9Ee1RvylH38dKuET&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=PFmuCDHHpwk&#34; target=&#34;_blank&#34;&gt;Object-Oriented JavaScript by Mosh Hamedani&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;machine-learning&#34;&gt;Machine Learning&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/learn/machine-learning&#34; target=&#34;_blank&#34;&gt;Stanford&amp;rsquo;s Machine Learning by Andrew Ng&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.coursera.org/specializations/machine-learning&#34; target=&#34;_blank&#34;&gt;University of Washington&amp;rsquo;s Machine Learning Specialization&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://courses.edx.org/courses/course-v1:MITx+6.86x+1T2019/course/&#34; target=&#34;_blank&#34;&gt;MITx&amp;rsquo;s Machine Learning with Python: From Linear Models to Deep Learning&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLblh5JKOoLUICTaGLRoHQDuF_7q2GfuJF&#34; target=&#34;_blank&#34;&gt;StatQuest&amp;rsquo;s Machine Learning Series&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;mongodb&#34;&gt;MongoDB&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9jpvoYriLI0bY8DOgWZfi6u&#34; target=&#34;_blank&#34;&gt;MongoDB Tutorial by The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=-56x56UppqQ&#34; target=&#34;_blank&#34;&gt;MongoDB Crash Course by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;node-js&#34;&gt;Node.js&lt;/h1&gt;
+
+&lt;h2 id=&#34;tutorials-crash-courses&#34;&gt;Tutorials &amp;amp; Crash Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9gcy9lrvMJ75z9maRw4byYp&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=RLtyhwFtXQA&#34; target=&#34;_blank&#34;&gt;freeCodeCamp on YouTube&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=fBNz5xF-Kx4&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=C7TFgfY7JdE&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=TlB_eWDSMt4&#34; target=&#34;_blank&#34;&gt;Programming with Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;full-courses&#34;&gt;Full Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://codewithmosh.com/p/the-complete-node-js-course&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/course/nodejs-the-complete-guide/?couponCode=ACAD_Y&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://codewithmosh.com/p/the-complete-node-js-course&#34; target=&#34;_blank&#34;&gt;Programming with Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;project-tutorials&#34;&gt;Project Tutorials&lt;/h2&gt;
+
+&lt;p&gt;Check out the following channels on YouTube which build a lot of stuff with Node.js:
+- &lt;a href=&#34;https://www.youtube.com/user/TechGuyWeb&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;
+- &lt;a href=&#34;https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;
+- &lt;a href=&#34;https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;
+- &lt;a href=&#34;https://www.youtube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;oauth-2-0-authorization-framework&#34;&gt;OAuth 2.0 Authorization Framework&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=CPbvxxslDTU&#34; target=&#34;_blank&#34;&gt;OAuth 2.0: An Overview&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=996OiexHze0&#34; target=&#34;_blank&#34;&gt;OAuth 2.0 by Nate Barbettini&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.digitalocean.com/community/tutorials/an-introduction-to-oauth-2&#34; target=&#34;_blank&#34;&gt;An Introduction to OAuth 2 by the DigitalOcean Community&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;opengl&#34;&gt;OpenGL&lt;/h1&gt;
+
+&lt;h2 id=&#34;video-tutorials-with-c&#34;&gt;Video Tutorials with C++&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2&#34; target=&#34;_blank&#34;&gt;TheChernoProject&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=0jML5fMBDGg&amp;amp;list=PLEETnX-uPtBXT9T-hD0Bj31DSnwio-ywh&#34; target=&#34;_blank&#34;&gt;thebennybox&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLRtjMdoYXLf6zUMDJVRZYV-6g6n62vet8&#34; target=&#34;_blank&#34;&gt;Sonar Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL6xSOsbVA1eYSZTKBxnoXYboy7wc4yg-Z&#34; target=&#34;_blank&#34;&gt;Suraj Sharma&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;video-tutorials-with-java&#34;&gt;Video Tutorials with Java&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLRIWtICgwaX0u7Rf9zkZhLoLuZVfUksDP&#34; target=&#34;_blank&#34;&gt;ThinMatrix&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=ss3AnSxJ2X8&amp;amp;list=PLEETnX-uPtBXP_B2yupUKlflXBznWIlL5&#34; target=&#34;_blank&#34;&gt;thebennybox&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;books-4&#34;&gt;Books&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://learnopengl.com/&#34; target=&#34;_blank&#34;&gt;Learn OpenGL&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;documentation-3&#34;&gt;Documentation&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://docs.gl/&#34; target=&#34;_blank&#34;&gt;docs.gl&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;operating-systems&#34;&gt;Operating Systems&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://littleosbook.github.io/&#34; target=&#34;_blank&#34;&gt;The Little Book About OS Development&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udacity.com/course/introduction-to-operating-systems--ud923&#34; target=&#34;_blank&#34;&gt;Georgia Tech&amp;rsquo;s Introduction to Operating Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udacity.com/course/advanced-operating-systems--ud189&#34; target=&#34;_blank&#34;&gt;Georgia Tech&amp;rsquo;s Advanced Operating Systems&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/cfenollosa/os-tutorial&#34; target=&#34;_blank&#34;&gt;Write an OS from scratch&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLHh55M_Kq4OApWScZyPl5HhgsTJS9MZ6M&#34; target=&#34;_blank&#34;&gt;Write your own Operating System&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLmlvkUN3-1MNKwINqdCDtTdNDjfBmWcZA&#34; target=&#34;_blank&#34;&gt;Writing an Operating System&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;python&#34;&gt;Python&lt;/h1&gt;
+
+&lt;h2 id=&#34;all-things-python&#34;&gt;All Things Python&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/sentdex&#34; target=&#34;_blank&#34;&gt;sentdex&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/schafer5&#34; target=&#34;_blank&#34;&gt;Corey Schafer&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=_uQrJ0TkZlc&#34; target=&#34;_blank&#34;&gt;Python for Beginners by Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=f79MRyMsjrQ&#34; target=&#34;_blank&#34;&gt;Python for Programmers by Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLGLfVvz_LVvTn3cK5e6LjhgGiSeVlIRwt&#34; target=&#34;_blank&#34;&gt;Derek Banas&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=rfscVS0vtbw&#34; target=&#34;_blank&#34;&gt;Giraffe Academy&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;web-development&#34;&gt;Web Development&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9ib4HsrXEYpQnTOTZE1x0uc&#34; target=&#34;_blank&#34;&gt;Django Tutorial by The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tangowithdjango.com/&#34; target=&#34;_blank&#34;&gt;Tango with Django&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Fc2O3_2kax8&amp;amp;list=PLw02n0FEB3E3VSHjyYMcFadtQORvl1Ssj&#34; target=&#34;_blank&#34;&gt;Django Tutorial by Max Goodridge&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=zRwy8gtgJ1A&amp;amp;list=PLillGF-RfqbbbPz6GSEM9hLQObuQjNoj_&#34; target=&#34;_blank&#34;&gt;Flask Tutorial by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;react&#34;&gt;React&lt;/h1&gt;
+
+&lt;h2 id=&#34;tutorials-and-crash-courses&#34;&gt;Tutorials and Crash Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL478wQWRhpfaQbaET2DvDzG60EFGThtd1&#34; target=&#34;_blank&#34;&gt;Kirupa Chinnathambi&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=pgAvVxowaYU&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=sBws8MSXN7A&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Ke90Tje7VS0&amp;amp;&#34; target=&#34;_blank&#34;&gt;Programming With Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;full-courses-1&#34;&gt;Full Courses&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.udemy.com/react-the-complete-guide-incl-redux/&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL4cUxeGkcC9ij8CfkAY2RAGb-tmkNwQHG&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://codewithmosh.com/p/mastering-react&#34; target=&#34;_blank&#34;&gt;Programming With Mosh&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scrimba.com/g/glearnreact&#34; target=&#34;_blank&#34;&gt;Scrimba&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;redis&#34;&gt;Redis&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Hbt56gFj998&#34; target=&#34;_blank&#34;&gt;Crash Course by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://try.redis.io/&#34; target=&#34;_blank&#34;&gt;Try Redis&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://redis.io/documentation&#34; target=&#34;_blank&#34;&gt;Official Documentation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLrEMgOSrS_3fghr8ez63xKFNF-BA6Pz13&#34; target=&#34;_blank&#34;&gt;Writing System Software: A series about Redis internals by its creator, Salvatore Sanfilippo&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/antirez/redis&#34; target=&#34;_blank&#34;&gt;Redis Source Code on GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;rest&#34;&gt;REST&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLqq-6Pq4lTTZh5U8RbdXq0WaYvZBz2rbn&#34; target=&#34;_blank&#34;&gt;Building REST APIs with JAX-RS by Java Brains&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PL55RiY5tL51q4D-B63KBnygU6opNPFk_q&#34; target=&#34;_blank&#34;&gt;Building a RESTful API with Node.js by Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=qVTAB8Z2VmA&#34; target=&#34;_blank&#34;&gt;What is a REST API? by Telusko&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=Q-BpqyOT3a8&#34; target=&#34;_blank&#34;&gt;REST and HTTP Explained by Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;web-development-1&#34;&gt;Web Development&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freecodecamp.org/&#34; target=&#34;_blank&#34;&gt;freeCodeCamp&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.w3schools.com/&#34; target=&#34;_blank&#34;&gt;W3Schools&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/user/TechGuyWeb&#34; target=&#34;_blank&#34;&gt;Traversy Media&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg&#34; target=&#34;_blank&#34;&gt;The Net Ninja&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/channel/UCSJbGtTlrDami-tDGPUV9-w&#34; target=&#34;_blank&#34;&gt;Academind&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://scrimba.com/&#34; target=&#34;_blank&#34;&gt;Scrimba&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

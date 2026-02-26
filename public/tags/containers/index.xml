@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>containers | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/containers/</link>
+      <atom:link href="https://rahalkar.dev/tags/containers/index.xml" rel="self" type="application/rss+xml" />
+    <description>containers</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Sat, 06 Apr 2019 12:05:37 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>containers</title>
+      <link>https://rahalkar.dev/tags/containers/</link>
+    </image>
+    
+    <item>
+      <title>Virtualisation in Operating Systems</title>
+      <link>https://rahalkar.dev/post/virtualisation-in-operating-systems/</link>
+      <pubDate>Sat, 06 Apr 2019 12:05:37 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/virtualisation-in-operating-systems/</guid>
+      <description>
+
+&lt;p&gt;Virtualisation is the process of creating a virtual version of a physical object.&lt;/p&gt;
+
+&lt;p&gt;Virtualisation is of three types primarily:
+1. Hardware Virtualisation - Based on simulating real hardware. This can be used to run a complete operating system. This can be further subdivided into full and paravirtualisation.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Desktop Virtualisation - It is the concept of separating the logical desktop from the physical machine.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Operating system level virtualisation (also called as containerisation) - It is the operating system feature in which the kernel allows the existence of multiple isolated user-space instances. Such instances are called containers. Containerisation was introduced as a Linux Kernel feature in 2010. It started gaining momentum with the introduction of Docker.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&#34;hardware-virtualisation&#34;&gt;Hardware Virtualisation&lt;/h4&gt;
+
+&lt;p&gt;Some terminologies associated with Virtualisation:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Virtual Machine: It is a virtual representation of a physical machine.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Hypervisor: It is a software that manages and monitors running virtual machines.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Host machine: The physical machine that a virtual machine is running on.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Guest machine: The virtual machine running on the host machine.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The following block diagram shows the position of each component mentioned above:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/virtualisation.png&#34; alt=&#34;Virtual Machine Diagram&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;hypervisors&#34;&gt;Hypervisors&lt;/h4&gt;
+
+&lt;p&gt;There are two main types of hypervisors:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Native: They run directly on the host machine and share out resources between guest machines.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Hosted: They run as an application inside the operating system and support virtual machines running as individual processes.
+Eg. VirutalBox,Parallel Desktop&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://chaitanyarahalkar.000webhostapp.com/wp-content/uploads/2019/06/hypervisor.png&#34; alt=&#34;Hypervisor Types&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

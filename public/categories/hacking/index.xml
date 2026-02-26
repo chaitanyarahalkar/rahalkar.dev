@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hacking | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/categories/hacking/</link>
+      <atom:link href="https://rahalkar.dev/categories/hacking/index.xml" rel="self" type="application/rss+xml" />
+    <description>Hacking</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Mon, 16 Sep 2019 04:15:02 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>Hacking</title>
+      <link>https://rahalkar.dev/categories/hacking/</link>
+    </image>
+    
+    <item>
+      <title>Understanding Dirty COW - The Linux Kernel Exploit</title>
+      <link>https://rahalkar.dev/post/understanding-dirty-cow-the-infamous-linux-kernel-exploit/</link>
+      <pubDate>Mon, 16 Sep 2019 04:15:02 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/understanding-dirty-cow-the-infamous-linux-kernel-exploit/</guid>
+      <description>
+
+&lt;p&gt;Dirty COW is a computer security vulnerability that was discovered in the Linux Kernel in 2016. The exploit was registered under CVE with the designation: CVE-2016-5195. Dirty COW is a root privilege escalation exploit that attacks the Copy-On-Write mechanism in the Linux Kernel. Hence the &amp;ldquo;COW&amp;rdquo; in Dirty COW. The proof of concept can be found &lt;a href=&#34;http://dirtycow.ninja&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The vulnerability existed in the Linux Kernel since 2007, but was discovered later in 2016, by Phil Oester. It has been patched in Linux kernel versions 4.8.3, 4.7.9, 4.4.26 and newer. The exploit also attacked Android devices. It allows a user to write to a read-only root file and escalate privileges.&lt;/p&gt;
+
+&lt;h4 id=&#34;what-is-copy-on-write-mechanism&#34;&gt;What is Copy-On-Write Mechanism?&lt;/h4&gt;
+
+&lt;p&gt;Linux kernel has a mechanism that when a process requests a copy of some file, the kernel does not create a copy of the file until the file is requested to be written to. Copy-On-Write Mechanism works in two steps:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Locate/generate a physical address in the memory.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Write to the copy only when the file is requested to be written to.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;COW is basically an optimization strategy used by the Linux kernel. The COW concept is also used in maintenance of instant snapshot on database servers like Microsoft SQL Server 2005. Instant snapshots preserve a static view of a database by storing a pre-modification copy of data when underlaying data are updated. Instant snapshots are used for testing uses or moment-dependent reports and should not be used to replace backups.&lt;/p&gt;
+
+&lt;h4 id=&#34;how-dirty-cow-exploits-the-copy-on-write-mechanism&#34;&gt;How Dirty COW exploits the Copy-On-Write Mechanism?&lt;/h4&gt;
+
+&lt;p&gt;The exploit creates a private copy(mapping) of a read-only file(which is the file owned by root). Now it tries to write to the private copy. Now the COW mechanism comes into picture. Since the file is never requested to be written to, and now it is - COW does it job.&lt;/p&gt;
+
+&lt;p&gt;The write action in COW has the two operations as explained above. These operations are non-atomic in nature. We say that an operation is atomic when it has only two states- Either the operation is complete or it is not. The atomic operation completes in a single step and no other process/thread can access the data owned by that operation. Non-atomic operations can have intermediate stages as well, which includes partial execution of the instruction &amp;amp; they can have shared memory accessible by multiple threads or processes at the same time. Since these operations are non-atomic, another thread can get right in the middle of the two operations (locate physical address &amp;amp; write to physical address)&lt;/p&gt;
+
+&lt;p&gt;In the Dirty COW exploit, initially a private mmap (memory map of the read-only file in the main memory) is created. As per the Linux man page: Mmap is a system call used to allocate memory, or map files or devices into memory). The reason to create a private mmap is that, the system makes all the write changes to the private mapping without affecting the original file.&lt;/p&gt;
+
+&lt;p&gt;Dirty COW uses two threads- The first thread does not directly write to the actual memory allocated by the mmap, but it writes to &lt;em&gt;/proc/self/mem&lt;/em&gt;. This path is the virtual representation of the exploit executable that is running. The reason to write to this location is because the vulnerability resides in the process-to-process virtual memory access. In short, the thread requests the kernel to write to the private mapping that was initially created with mmap. Thus COW is coming into picture now. The other thread executes the madvise system call. As per the Linux man page:  the &lt;em&gt;madvise()&lt;/em&gt; system call allows a process that has knowledge of its memory behavior to describe it to the system. The advice passed in may be used by the system to alter its virtual memory paging strategy. This thread says to the kernel (&amp;rdquo;&lt;em&gt;advices&lt;/em&gt;&amp;rdquo;) that the private mapping that was created initially, is not required anymore and thus should be thrown away.&lt;/p&gt;
+
+&lt;p&gt;The two threads are running concurrently, and thus in the context switching mechanism, a scenario will occur as shown below :&lt;/p&gt;
+
+&lt;table &gt;
+
+&lt;tr &gt;
+Thread 1
+Thread 2
+&lt;/tr&gt;
+
+&lt;tbody &gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Locate physical address
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Throw away private copy
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr &gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;Write to physical address
+&lt;/td&gt;
+
+&lt;td style=&#34;text-align:center&#34; &gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Thus the second thread has successfully managed to get in between the two non atomic operations. Thus before writing to the physical address, the mmap is discarded. Now since it does not have any address to write to, it writes to the original read-only file. Thus, the kernel is tricked into thinking that the write was to the original read-only file. This is a race condition exhibited due to write attempts at a location that never exists. And this is how the actual exploit works.&lt;/p&gt;
+
+&lt;p&gt;The following diagram taken from &lt;a href=&#34;https://www.cs.toronto.edu/~arnold/427/18s/427_18S/indepth/dirty-cow/demo.html&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; gives an apt visual representation of the exploit. &lt;img src=&#34;006.png&#34; alt=&#34;dirtycow&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;how-does-dirty-cow-gets-root-privileges&#34;&gt;How does Dirty COW gets root privileges?&lt;/h4&gt;
+
+&lt;p&gt;Since the exploit is now able to write to read-only files, the &lt;em&gt;/etc/sudoers&lt;/em&gt; file can be   written to. This will add the current user to the sudoers list, thereby escalating privileges. Even the &lt;em&gt;/etc/shadow&lt;/em&gt; file can be manipulated to change the root password.  Several versions of the exploit were implemented attacking SUID binaries, writing to read-only files. Another version of the exploit existed, which used an alternative method to exploit the process-to-process virtual memory access (with ptrace).&lt;/p&gt;
+
+&lt;h4 id=&#34;implementation-details&#34;&gt;Implementation Details&lt;/h4&gt;
+
+&lt;p&gt;The below code snippet gives a general idea of how the exploit was implemented in C. Most of the functions used here are a part of the Linux Kernel API and hence the necessary headers are required to be included. This snippet just gives a brief overview of the programming part of the exploit.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-C&#34;&gt;    pthread_t pth1,pth2; // The two threads are created
+    f = open(&amp;quot;read-only-file&amp;quot;,O_RDONLY); // Open the read-only file
+    void* map = mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset); // Memory map is created
+    
+    pthread_create(pth1,NULL,madviseThread); // Calling thread 1
+    pthread_create(pth2,NULL,writeToProcSelfMem,&amp;quot;read-only-file&amp;quot;); // Calling thread 2
+    
+    void *madviseThread()
+    {
+      int i,c=0;
+      for(i=0;i&amp;lt;100000000;i++)
+      {
+        c += madvise(map,100,MADV_DONTNEED); // Using madvise and telling the kernel that the allocated space is no longer needed
+      }
+    }
+    
+    void *writeToProcSelfMem(void *arg)
+    {
+      char *str;
+      str = (char*)arg;
+      int f = open(&amp;quot;/proc/self/mem&amp;quot;,O_RDWR); // Opening /proc/self/mem in read-write mode
+      int i,c = 0;
+      for(i=0;i&amp;lt;100000000;i++) {
+        lseek(f,(uintptr_t) map,SEEK_SET);
+        c += write(f,str,strlen(str)); // Write to /proc/self/mem the contents of str
+      }
+    }
+    
+    &amp;lt;/code&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Exploits &amp; Vulnerabilities with Introduction to Metasploit</title>
+      <link>https://rahalkar.dev/post/exploits-vulnerabilities-with-introduction-to-metasploit/</link>
+      <pubDate>Fri, 07 Jun 2019 09:09:55 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/exploits-vulnerabilities-with-introduction-to-metasploit/</guid>
+      <description>
+
+&lt;h3 id=&#34;exploits-and-vulnerabilities&#34;&gt;Exploits and Vulnerabilities&lt;/h3&gt;
+
+&lt;p&gt;In computer security, a vulnerability is a weakness which can be exploited by a Threat Actor like an attacker, to perform unauthorized actions within a computer system.
+These vulnerabilities have to be managed to inform the developers to patch it. Vulnerability management involves identifying,classifying,remediation and mitigating vulnerabilites in computer systems.
+The well known CVE (Common Vulnerabilities and Exposures) system is used to record and maintain the system. It is a database of vulnerabilities found in software packages. CVEs come with their own identifier of the format
+&amp;gt;
+&amp;gt; CVE Prefix + Year of Discovery + Arbitrary Digits
+&amp;gt;&lt;/p&gt;
+
+&lt;h5 id=&#34;metasploit&#34;&gt;Metasploit&lt;/h5&gt;
+
+&lt;p&gt;Metasploit is a popular penetration testing tool maintained by Rapid7. It has a collection of all the well known vulnerabilities and exploits in software packages with their PoCs(Proof Of Concepts). These PoC scripts can be directly used by Penetration Testers.
+Metasploit also has a graphical version called Armitage.
+Exploiting any system involves the following steps:&lt;/p&gt;
+
+&lt;p&gt;1.Reconnaissance of the system. (With tools like Nmap)&lt;/p&gt;
+
+&lt;p&gt;2.Choosing the appropriate exploit.&lt;/p&gt;
+
+&lt;p&gt;3.Choosing and configuring the payload. (Code that will be executed on the system after successful entry)&lt;/p&gt;
+
+&lt;p&gt;4.Encoding the payload to avoid detection by the system firewalls or antivirus softwares and to remove the bad characters that may cause the exploit to fail.&lt;/p&gt;
+
+&lt;p&gt;5.Executing the exploit.&lt;/p&gt;
+
+&lt;p&gt;You can get Metasploit&amp;rsquo;s Open Source version &lt;a href=&#34;https://github.com/rapid7/metasploit-framework/wiki/Nightly-Installers&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Follow the instructions to install Metasploit. If you are on a Penetration Testing based OS like Kali Linux or Parrot OS, Metasploit comes pre-installed.&lt;/p&gt;
+
+&lt;p&gt;Start the Metasploit console with &lt;code&gt;msfconsole&lt;/code&gt;.
+Metasploit downloads the exploits and vulnerabilites database from its servers and stores it offine. Make sure your offline Metasploit database is kept updated.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;help&lt;/code&gt; will give you more information about using msfconsole.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;show exploits&lt;/code&gt; will list out all the available exploits in the database. To search for a selected exploit use &lt;code&gt;search software_package_name&lt;/code&gt; to get the list of available vulnerabilites and exploits.&lt;/p&gt;
+
+&lt;p&gt;Using the exploit is simple. (Ensure that you mention the exact path of the exploit while using it. )&lt;/p&gt;
+
+&lt;p&gt;For example:
+&lt;code&gt;use exploit/linux/ssh/symantec_smg_ssh&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;show info&lt;/code&gt; will give information about what the exploit does,the author of the exploit,parameters required etc.&lt;/p&gt;
+
+&lt;p&gt;Type &lt;code&gt;show options&lt;/code&gt; to know the parameters that are required for the exploit.&lt;/p&gt;
+
+&lt;p&gt;Using this for the above exploit produces:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;      
+      Module options (exploit/linux/ssh/symantec_smg_ssh):
+    
+       Name   Current Setting  Required  Description
+       ----   ---------------  --------  -----------
+       RHOST                   yes       The target address
+       RPORT  22               yes       The target port
+    
+    
+    Exploit target:
+    
+       Id  Name
+       --  ----
+       0   Symantec Messaging Gateway 9.5
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(RHOST indicates the host on which the exploit will be executed)&lt;/p&gt;
+
+&lt;p&gt;We set the RHOST IP address by &lt;code&gt;set RHOST 192.168.1.2 (The IP address)&lt;/code&gt;
+For any exploit make sure that you necessarily fill in all the required parameters.
+To run the exploit enter &lt;code&gt;run&lt;/code&gt; or &lt;code&gt;exploit&lt;/code&gt;
+Metasploit will then give the status of the exploit.
+Here are some of the important commands in Metasploit&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;host website -&amp;gt; Gives the IP info&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;use exploit name -&amp;gt; Use the given exploit&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;search something -&amp;gt; Get exploit related information&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;show exploits-&amp;gt; Shows all the exploit related information&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;show options-&amp;gt;Gives the exploit options&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;set SETTINGS -&amp;gt; Set the given exploit options&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;run-&amp;gt;Runs the exploit&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;back-&amp;gt;Go back&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;exploit-&amp;gt; Start the exploit&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;?-&amp;gt;help&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;show payloads -&amp;gt; Lists all the playloads&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;set payload name -&amp;gt; Sets the payload&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;mfsupdate-&amp;gt; Update metasploit&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

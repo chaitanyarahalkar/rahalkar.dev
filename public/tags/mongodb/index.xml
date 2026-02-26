@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mongodb | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/mongodb/</link>
+      <atom:link href="https://rahalkar.dev/tags/mongodb/index.xml" rel="self" type="application/rss+xml" />
+    <description>mongodb</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Sat, 21 Apr 2018 14:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>mongodb</title>
+      <link>https://rahalkar.dev/tags/mongodb/</link>
+    </image>
+    
+    <item>
+      <title>MongoDB (NoSQL Databases)</title>
+      <link>https://rahalkar.dev/talk/no-sql/</link>
+      <pubDate>Sat, 21 Apr 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/no-sql/</guid>
+      <description>&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://bit.ly/mongodbdemo&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
