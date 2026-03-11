@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/authors/chaitanya-rahalkar/</link>
+      <atom:link href="https://rahalkar.dev/authors/chaitanya-rahalkar/index.xml" rel="self" type="application/rss+xml" />
+    <description>Chaitanya Rahalkar</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Sun, 27 Mar 2022 11:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>Chaitanya Rahalkar</title>
+      <link>https://rahalkar.dev/authors/chaitanya-rahalkar/</link>
+    </image>
+    
+    <item>
+      <title>Centralized or Decentralized? The Contact Tracing Dilemma</title>
+      <link>https://rahalkar.dev/talk/centralized-vs-decentralized/</link>
+      <pubDate>Sun, 27 Mar 2022 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/centralized-vs-decentralized/</guid>
+      <description>&lt;p&gt;This is a summary of the &lt;a href=&#34;https://eprint.iacr.org/2020/531.pdf&#34; target=&#34;_blank&#34;&gt;&amp;ldquo;Centralized or Decentralized? The Contact Tracing Dilemma&amp;rdquo;&lt;/a&gt; research paper having the following abstract - &amp;ldquo;The COVID-19 pandemic created a noticeable challenge to the cryptographic community with the development of contact tracing applications. The media reported a dispute between designers proposing a centralized or a decentralized solution (namely, the PEPP-PT and the DP3T projects).
+Perhaps, the time constraints to develop and deploy efficient solutions led to non-optimal (in terms
+of privacy) solutions. Moreover, arguments have been severely biased and the scientific debate did
+not really happen until recently. In this paper, we show the vulnerabilities and the advantages of
+both solutions systematically. We believe that none offers any sufficient level of privacy protection
+and the decision to use one or another is as hard as using automated contact tracing at the first
+place. A third way could be explored. We list here a few possible directions.&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/CS-8803-SCP.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>The Million Dollar Dissident</title>
+      <link>https://rahalkar.dev/talk/million-dollar-dissident/</link>
+      <pubDate>Fri, 29 Oct 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/million-dollar-dissident/</guid>
+      <description>&lt;p&gt;A talk about the Zero-Day exploit used by the NSO group on Ahmed Mansoor, its backstory, exploit and network
+infrastructure.  Get a copy of the slides &lt;a href=&#34;https://git.io/ems8803&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Summarizing and Analyzing the Privacy-Preserving Techniques in Bitcoin and other Cryptocurrencies</title>
+      <link>https://rahalkar.dev/talk/privacy-blockchain/</link>
+      <pubDate>Sun, 25 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/privacy-blockchain/</guid>
+      <description>&lt;p&gt;Bitcoin and many other similar Cryptocurrencies have been in existence for over a decade, prominently focusing on decentralized, pseudo-anonymous ledger-based transactions. Many protocol improvements and changes have resulted in new variants of Cryptocurrencies that are known for their peculiar characteristics. For instance, Storjcoin is a Proof-of-Storage-based Cryptocurrency that incentivizes its peers based on the amount of storage owned by them. Cryptocurrencies like Monero strive for user privacy by using privacy-centric cryptographic algorithms.  While Cryptocurrencies strive to maintain peer transparency by making the transactions and the entire ledger public, user privacy is compromised at times. Monero and many other privacy-centric Cryptocurrencies have significantly improved from the original Bitcoin protocol after several problems were found in the protocol. Most of these deficiencies were related to the privacy of users. Even though Bitcoin claims to have pseudo-anonymous user identities, many attacks have managed to successfully de-anonymize users. In this paper, we present some well-known attacks and analysis techniques that have compromised the privacy of Bitcoin and many other similar Cryptocurrencies. We also analyze and study different privacy-preserving algorithms and the problems these algorithms manage to solve. Lastly, we touch upon the ethics, impact, legality, and acceptance of imposing these privacy algorithms. Get a copy of the slides &lt;a href=&#34;https://git.io/cs8803&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Designing a Secure Device-to-Device File Transfer Mechanism</title>
+      <link>https://rahalkar.dev/talk/container-best-practices/</link>
+      <pubDate>Sat, 24 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/container-best-practices/</guid>
+      <description>&lt;p&gt;Secure, reliable, and fast transfer of files across the Internet is a problem attempted to be solved through many application-layer protocols. In this paper, we aim to design a secure, reliable, open-design, and performant file transfer protocol that is inspired by the WebRTC protocol stack. Traditionally, transferring files involves a publicly exposed (available on the public network) third-party server that serves the uploaded files to the receiver. Here, the third-party server has to bear the storage and bandwidth cost to transfer the files between the two parties. We propose a protocol that uses a relay server to relay the files from the client to the server. A relay server has several advantages over a regular file-hosting server. Firstly, a relay server does not retain the uploaded files, it simply relays them. Secondly, a relay server has a full-duplex communication channel and therefore the receiver is not required to wait for the sender to upload the files completely. In this paper, we study available file transfer approaches and their known flaws. We propose our idea and compare our stack with WebRTC. Finally, we perform empirical analysis and, benchmark our device-to-device transfer approach along with other available options including WebRTC. Get a copy of the slides &lt;a href=&#34;https://git.io/cs6262&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Designing a Secure Device-to-Device File Transfer Mechanism</title>
+      <link>https://rahalkar.dev/talk/secure-p2p-file-transfer/</link>
+      <pubDate>Sat, 24 Apr 2021 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/secure-p2p-file-transfer/</guid>
+      <description>&lt;p&gt;Secure, reliable, and fast transfer of files across the Internet is a problem attempted to be solved through many application-layer protocols. In this paper, we aim to design a secure, reliable, open-design, and performant file transfer protocol that is inspired by the WebRTC protocol stack. Traditionally, transferring files involves a publicly exposed (available on the public network) third-party server that serves the uploaded files to the receiver. Here, the third-party server has to bear the storage and bandwidth cost to transfer the files between the two parties. We propose a protocol that uses a relay server to relay the files from the client to the server. A relay server has several advantages over a regular file-hosting server. Firstly, a relay server does not retain the uploaded files, it simply relays them. Secondly, a relay server has a full-duplex communication channel and therefore the receiver is not required to wait for the sender to upload the files completely. In this paper, we study available file transfer approaches and their known flaws. We propose our idea and compare our stack with WebRTC. Finally, we perform empirical analysis and, benchmark our device-to-device transfer approach along with other available options including WebRTC. Get a copy of the slides &lt;a href=&#34;https://git.io/cs6262&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;!&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hidden Secrets of Python</title>
+      <link>https://rahalkar.dev/talk/python-pune-sept/</link>
+      <pubDate>Sat, 28 Sep 2019 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/python-pune-sept/</guid>
+      <description>&lt;p&gt;Python has a large number of really cool modules that people don&amp;rsquo;t know about. These are quite helpful. People often tend to program the hard way since they don&amp;rsquo;t know about the existence of these modules. Such examples can be the itertools module, the secrets module to generate secure random numbers etc. Get a copy of the talk slides &lt;a href=&#34;https://bit.ly/python-meetups-sept&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Hidden Secrets of Python</title>
+      <link>https://rahalkar.dev/slides/python_workshop_meetups/</link>
+      <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/slides/python_workshop_meetups/</guid>
+      <description>
+
+&lt;h2 id=&#34;get-a-copy-of-this-notebook-here-https-bit-ly-python-meetups-sept&#34;&gt;Get a copy of this notebook &lt;a href=&#34;https://bit.ly/python-meetups-sept&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/h2&gt;
+
+&lt;h2 id=&#34;f-strings&#34;&gt;F-Strings&lt;/h2&gt;
+
+&lt;p&gt;PEP 498 introduced a new string formatting mechanism known as Literal String Interpolation or more commonly as F-strings&lt;/p&gt;
+
+&lt;p&gt;Why F-Strings?
+- They are fast.
+- They can evaluate expressions.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = 10 
+b = 20
+
+print(f&amp;quot;{a + b}&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;yield&#34;&gt;Yield&lt;/h2&gt;
+
+&lt;p&gt;The yield statement suspends function’s execution and sends a value back to caller, but retains enough state to enable function to resume where it is left off. It is used in Python generator functions.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def foo(bar):
+  yield bar
+  print(f&amp;quot;Resuming execution after returning {bar}&amp;quot;)
+  yield bar + 1
+  print(f&amp;quot;Resuming execution after returning {bar + 1}&amp;quot;)
+  yield bar + 2
+  print(f&amp;quot;Resuming execution after returning {bar + 2}&amp;quot;)
+
+values_returned = foo(10)
+
+for value in values_returned:
+  print(value)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;context-managers&#34;&gt;Context Managers&lt;/h2&gt;
+
+&lt;p&gt;Context Managers are used to manage resources which includes file pointers, variables etc. The scope of the variables is retained within the context.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt; &#39;&#39;&#39; 
+ with open(&amp;quot;file.txt&amp;quot;,&amp;quot;r&amp;quot;) as f:
+  data = f.read()
+&#39;&#39;&#39;
+class ContextManager(): 
+    def __init__(self): 
+        print(&#39;init method called&#39;) 
+          
+    def __enter__(self): 
+        print(&#39;enter method called&#39;) 
+        return self
+      
+    def __exit__(self, exc_type, exc_value, exc_traceback): 
+        print(&#39;exit method called&#39;) 
+
+
+with ContextManager() as manager: 
+    print(&#39;with statement block&#39;) 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;else-clauses-on-loops&#34;&gt;Else Clauses on Loops&lt;/h2&gt;
+
+&lt;p&gt;Python allows us to add else conditions to for/while loops as well.  If the for/while loop condition fails, then the else statement is executed.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+def find_index(to_search,target):
+  flag = False
+  index = int()
+  for i,value in enumerate(to_search):
+    if value == target:
+      flag = True
+      index = i
+      break
+
+  if flag:
+    return index
+  else:
+     return -1 
+
+
+my_list = [&#39;Corey&#39;, &#39;Rick&#39;, &#39;John&#39;]
+index_location = find_index(my_list, &#39;Steve&#39;)
+
+print(&#39;Location of target is index: {}&#39;.format(index_location))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;def find_index(to_search, target):
+  for i, value in enumerate(to_search):
+    if value == target:
+      break
+  else:
+    return -1
+  return i
+
+
+my_list = [&#39;Corey&#39;, &#39;Rick&#39;, &#39;John&#39;]
+index_location = find_index(my_list, &#39;Steve&#39;)
+
+print(&#39;Location of target is index: {}&#39;.format(index_location))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;named-tuples&#34;&gt;Named Tuples&lt;/h2&gt;
+
+&lt;p&gt;Named tuples are easy-to-create, lightweight object types. Named tuple instances can be referenced using object-like variable dereferencing or the standard tuple syntax. They can be used similarly to struct or other common record types, except that they are immutable.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from collections import namedtuple
+
+Color = namedtuple(&#39;Color&#39;, [&#39;red&#39;, &#39;green&#39;, &#39;blue&#39;])
+
+color = Color(red = 55,green = 155,blue = 255)
+white = Color(255,255,255)
+
+print(color.blue)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;itertools-to-manage-looping-efficiently&#34;&gt;Itertools - To Manage Looping Efficiently&lt;/h2&gt;
+
+&lt;p&gt;Python has an extensive suite of iterators in its itertools module, which allow for memory efficient and faster looping. It is recommended that programmers should rely on these pre-defined iterators instead of hard-coding the logic by themselves.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from itertools import count, cycle, compress, groupby, permutations, combinations
+
+
+## 1. Count 
+print(&amp;quot;Demonstration of count&amp;quot;)
+for i in count(10,2):
+  print(i)
+  if i == 30:
+    break
+
+# 2. Cycle
+print(&amp;quot;Demonstration of cycle&amp;quot;)
+iteration = 0 
+for i in cycle(&amp;quot;ABC&amp;quot;):
+  print(i)
+  iteration += 1
+  if iteration == 5:
+    break
+
+# 3. Group By
+print(&amp;quot;Demonstration of Group by&amp;quot;)
+def get_state(person):
+    return person[&#39;state&#39;]
+
+people = [
+    {
+        &#39;name&#39;: &#39;John Doe&#39;,
+        &#39;city&#39;: &#39;Gotham&#39;,
+        &#39;state&#39;: &#39;NY&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Jane Doe&#39;,
+        &#39;city&#39;: &#39;Kings Landing&#39;,
+        &#39;state&#39;: &#39;NY&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Corey Schafer&#39;,
+        &#39;city&#39;: &#39;Boulder&#39;,
+        &#39;state&#39;: &#39;CO&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Al Einstein&#39;,
+        &#39;city&#39;: &#39;Denver&#39;,
+        &#39;state&#39;: &#39;CO&#39;
+    },
+    {
+        &#39;name&#39;: &#39;John Henry&#39;,
+        &#39;city&#39;: &#39;Hinton&#39;,
+        &#39;state&#39;: &#39;WV&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Randy Moss&#39;,
+        &#39;city&#39;: &#39;Rand&#39;,
+        &#39;state&#39;: &#39;WV&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Nicole K&#39;,
+        &#39;city&#39;: &#39;Asheville&#39;,
+        &#39;state&#39;: &#39;NC&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Jim Doe&#39;,
+        &#39;city&#39;: &#39;Charlotte&#39;,
+        &#39;state&#39;: &#39;NC&#39;
+    },
+    {
+        &#39;name&#39;: &#39;Jane Taylor&#39;,
+        &#39;city&#39;: &#39;Faketown&#39;,
+        &#39;state&#39;: &#39;NC&#39;
+    }
+]
+
+person_group = groupby(people, get_state)
+
+for group,values in person_group:
+  print(group,[value[&#39;name&#39;] for value in values])
+
+# 4. Compress
+print(&amp;quot;Demonstration of compress&amp;quot;)
+values = compress(&amp;quot;Meetups&amp;quot;,[1,1,1,1,0,0,0])
+print(list(values))
+
+# 5. Permutations
+print(&amp;quot;Demonstration of permutations&amp;quot;)
+
+lst = [1,2,3]
+for perm in permutations(lst,2):
+  print(perm)
+
+
+# 6. Combinations 
+print(&amp;quot;Demonstration of combinations&amp;quot;)
+name = &amp;quot;ABCD&amp;quot;
+
+for comb in combinations(name,2):
+  print(comb)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;one-liner-if-else-if-else-condition&#34;&gt;One liner if else if else condition&lt;/h2&gt;
+
+&lt;p&gt;Python allows a cleaner and shorthand syntax for defining if-else statements.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a = 10
+print(&#39;Even&#39;) if a % 2 == 0 else print(&#39;False&#39;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;swapping-variables&#34;&gt;Swapping variables&lt;/h2&gt;
+
+&lt;p&gt;Variable swapping can be done without the need of a third temporary variable.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a,b = 1,2
+print(a,b)
+
+a,b = b,a
+print(a,b)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;chained-function-call&#34;&gt;Chained function call&lt;/h2&gt;
+
+&lt;p&gt;Python allows a cleaner and shorthand syntax for defining chained else-if statements.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+def add(x,y):
+  return x + y
+
+def sub(x,y):
+  return x - y
+
+def mul(x,y):
+  return x * y
+
+x = 1
+
+# Lengthy approach
+if x == 1:
+  print(add(10,20))
+elif x == 2:
+  print(sub(10,20))
+elif x == 3:
+  print(mul(10,20))
+  
+# Quick approach 
+print((add if x == 1 else sub if x == 2 else mul)(10,20))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;print-an-array-with-strings-as-one-comma-separated-string&#34;&gt;Print an array with strings as one comma-separated string&lt;/h2&gt;
+
+&lt;p&gt;The power of Python allows you to print a list to the standard I/O, with the choice of your own delimiter like a comma.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;row = [&amp;quot;1&amp;quot;, &amp;quot;bob&amp;quot;, &amp;quot;developer&amp;quot;, &amp;quot;python&amp;quot;]
+print(*row, sep=&#39;,&#39;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;enumerate&#34;&gt;Enumerate&lt;/h2&gt;
+
+&lt;p&gt;List enumeration can be done without the need of maintaining manual counter with the enumerate function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cities = [&amp;quot;London&amp;quot;, &amp;quot;Paris&amp;quot;, &amp;quot;New York&amp;quot;]
+
+# Lengthy approach
+count=0
+for city in cities:
+  print(count,city)
+  count+=1
+
+# Recommended approach
+for count,city in enumerate(cities):
+  print(count,city)
+  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;0 London
+1 Paris
+2 New York
+0 London
+1 Paris
+2 New York
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;zip&#34;&gt;Zip&lt;/h2&gt;
+
+&lt;p&gt;Two or more iterables can be iterated in parallel with the zip function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;roll_no = [101,102,103,104,105,106,107,108,109,110]
+marks = [45,32,23,15,44]
+
+# Lengthy approach
+&#39;&#39;&#39;for i in range(len(roll_no)):
+    r = roll_no[i]
+    m = marks[i]
+    #print(r,m)
+   &#39;&#39;&#39; 
+# Recommended approach
+for r,m in zip(roll_no,marks):
+    print(r,m)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;101 45
+102 32
+103 23
+104 15
+105 44
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;hiding-your-source-code&#34;&gt;Hiding Your Source Code&lt;/h2&gt;
+
+&lt;p&gt;Since Python is built on C, the Python interpreter has the benefits that a C compiler has. Python code can be translated to a runnable binary with the .pyc file. The Python interpreter converts the .py file to a runnable binary in order to prevent recompilation of the code and save time in future. If the same python script is called again, the interpreter simply exectutes the precompiled .pyc file to save time.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+chaitanya@meetups$ python3 -m py_compile foo.py
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;getpass-function&#34;&gt;GetPass Function&lt;/h2&gt;
+
+&lt;p&gt;Ever created a Python script that accepts passwords as input? The normal input() function in Python shows on the screen what you are typing. The GetPass function allows you to get passwords as input the UNIX style.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from getpass import getpass 
+
+username = input(&amp;quot;Enter your username: &amp;quot;)
+password  = getpass(&amp;quot;Enter your password: &amp;quot;)
+
+print(username,password,sep = &#39;\n&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;http-server&#34;&gt;HTTP Server&lt;/h2&gt;
+
+&lt;p&gt;Want to host your files or a static website? Python has a built in minimalistic HTTP Server useful for serving static content. It is fast and easy to use.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+anushka@meetups$ python3 -m http.server 8001 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;hiding-secrets-keys-with-enviroment-variables&#34;&gt;Hiding Secrets &amp;amp; Keys with Enviroment variables&lt;/h2&gt;
+
+&lt;p&gt;Exposing your private keys or passwords in Python scripts is not a good idea, especially if you are uploading the code on some online repository. Secrets and keys should be stored in environment variables, which then Python can access through the &lt;i&gt; os &lt;/i&gt; module.&lt;/p&gt;
+
+&lt;p&gt;On a Linux/Mac machine -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+chaitanya@meetups$ nano .bash_profile 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add a line to the .bash_profile file -&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;
+export password=&amp;quot;mypassword&amp;quot; 
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;import os 
+
+
+print(os.environ.get(&amp;quot;password&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;underscore-placeholders&#34;&gt;Underscore placeholders&lt;/h2&gt;
+
+&lt;h4 id=&#34;there-are-five-underscore-variable-naming-conventions-used-in-python&#34;&gt;There are five underscore variable naming conventions used in Python&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Single Leading Underscore: _var&lt;/li&gt;
+&lt;li&gt;Single Trailing Underscore: var_&lt;/li&gt;
+&lt;li&gt;Double Leading Underscore: __var&lt;/li&gt;
+&lt;li&gt;Double Leading and Trailing Underscore: _&lt;em&gt;var_&lt;/em&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Single Underscore: _&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;_x = 10 # 1. Variable is for internal use
+class_ = 14 # 2. To use keywords as variable names
+for_ = &amp;quot;Meetups&amp;quot; 
+
+# 3. Acts as a sort-of private variable (Name-mangling)
+
+class Base(object):
+def __init__(self): # Constructor 
+self.__foo = 7 
+
+class Derived(Base):
+def __init__(self):
+super().__init__() # Calling the base class constructor
+self.__foo = 10 
+
+
+s = Derived()
+print(&amp;quot;Value from derived class: &amp;quot;,s._Derived__foo)
+print(&amp;quot;Value from base class: &amp;quot;,s._Base__foo)
+
+# 4. __var__ is reserved for internal Python magic methods and variables. Not recommended to be used by programmer.
+
+# 5. Single underscore acts as useless variables by convention. It is also used as a temporary variable in Python REPL 
+
+for _ in range(2):
+# Code 
+None 
+
+
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;secrets-module&#34;&gt;Secrets Module&lt;/h2&gt;
+
+&lt;p&gt;Python has a module to generate secure random numbers. It uses the operating system&amp;rsquo;s random number generator.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import secrets 
+  
+token = secrets.token_hex(16) 
+  
+print(token)
+
+
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  # Why the random module in Python is insecure 
+  r1 = random.Random(31337)
+  outputs = [r1.getrandbits(32) for _ in range(625)]
+  
+  mtr = MT19937Recover() # Mersenne Twister Breaker 
+  r2 = mtr.go(outputs)
+  
+  print(r1.getrandbits(32) == r2.getrandbits(32))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;shallow-and-deep-copy&#34;&gt;Shallow and Deep Copy&lt;/h2&gt;
+
+&lt;p&gt;In Python, assignment statements do not copy objects, they create bindings between a target and an object. When we use = operator user thinks that this creates a new object; well, it doesn’t. It only creates a new variable that shares the reference of the original object.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Shallow copy 
+l = [1,2,3,4,5]
+
+p = l 
+
+l[0] = 100 
+
+print(p[0])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;100
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;# Deep copy 
+import copy 
+
+l = [1,2,3,4,5]
+
+p = copy.deepcopy(l) # Creates a deep copy
+q = list(l) # Creates a deep copy 
+
+l[0] = 100 
+print(p[0])
+print(q[0])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;1
+1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;a = [0 for i in range(5)]
+
+mat = list()
+
+for _ in range(5):
+  mat.append(a) # Creates a shallow copy 
+
+mat[1][1] = 10 
+
+print(mat)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;default-dictionary&#34;&gt;Default Dictionary&lt;/h2&gt;
+
+&lt;p&gt;Python allows us to preset dictionary values even if a given key does not exist in the dictionary. This can be done with defaultdict from collections module.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import collections
+
+data = {
+    &#39;Tom&#39;:33,
+    &#39;Jack&#39;:45,
+    &#39;Jill&#39;:32,
+    &#39;Mark&#39;:45,
+    &#39;Sam&#39;:38
+}
+
+# Lengthy way
+
+if &#39;John&#39; in data:
+  print(data[&#39;John&#39;])
+else:
+  print(&#39;Absent&#39;)
+  
+# Recommended way
+
+print(data.get(&#39;John&#39;,&#39;Absent&#39;))
+
+# Recommended way
+
+marks_data = collections.defaultdict(int)
+print(marks_data[&#39;Tom&#39;])
+
+pass_data = collections.defaultdict(str)
+print(pass_data[&#39;Tom&#39;])
+
+students_data = collections.defaultdict(lambda:&#39;Absent&#39;)
+students_data.update(data)
+
+print(students_data[&#39;Jim&#39;])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;type-hinting&#34;&gt;Type Hinting&lt;/h2&gt;
+
+&lt;p&gt;Type hinting is a Python programming convention that allows us to specify the return type &amp;amp; parameters of the function. This is a good coding practice that improves code readability.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def headline_without_type(text, align=True):
+    if align:
+        return f&amp;quot;{text.title()}\n{&#39;-&#39; * len(text)}&amp;quot;
+    else:
+        return f&amp;quot; {text.title()} &amp;quot;.center(50, &amp;quot;o&amp;quot;)
+
+
+def headline_with_type(text: str, align: bool = True) -&amp;gt; str:
+    if align:
+        return f&amp;quot;{text.title()}\n{&#39;-&#39; * len(text)}&amp;quot;
+    else:
+        return f&amp;quot; {text.title()} &amp;quot;.center(50, &amp;quot;o&amp;quot;)
+
+      
+print(headline_without_type(&amp;quot;python type checking&amp;quot;))
+print(headline_with_type(&amp;quot;python type checking&amp;quot;, False))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;vs-is&#34;&gt;== vs is&lt;/h2&gt;
+
+&lt;p&gt;There are two ways in Python to check the equivalence of two variables. However there is a big difference between their compiler level implementation.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;list1 = [1,2,3]
+list2 = list1
+list3 = list(list1)
+
+print(list1 == list2)
+print(list1 == list3)
+
+print(list1 is list2)
+print(list1 is list3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;True
+True
+True
+False
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;extended-iterable-unpacking&#34;&gt;Extended Iterable Unpacking&lt;/h2&gt;
+
+&lt;p&gt;Extended iterable unpacking allows us to use star operator to gather items from an iterable as a list.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;a,b,c = [1,2,3]
+print(a,b,c)
+
+cities = [&#39;London&#39;,&#39;Paris&#39;,&#39;New York&#39;,&#39;Boston&#39;,&#39;Jerusalem&#39;,&#39;California&#39;]
+start,*route,end = cities
+
+print(start)
+print(route)
+print(end)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;1 2 3
+London
+[&#39;Paris&#39;, &#39;New York&#39;, &#39;Boston&#39;, &#39;Jerusalem&#39;]
+California
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;antigravity&#34;&gt;Antigravity&lt;/h2&gt;
+
+&lt;p&gt;Python is not that boring! It is full of strange and interesting things that never stop surprising us. This is really one of them!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;import antigravity
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ethics for Platforms</title>
+      <link>https://rahalkar.dev/talk/ethics-privacy/</link>
+      <pubDate>Wed, 11 Jul 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/ethics-privacy/</guid>
+      <description>&lt;p&gt;How much does the Internet know about you? It is a question that most of us will struggle to answer today. This illiteracy and nescience about the internal working of products and services that we use daily can prove to be exceedingly dangerous. The blind trust and complete faith of consumers in dot-com companies is being exploited at unprecedented levels, without the knowledge of the said beneficiaries. The lack of transparency in how our messages and other private data moves through the Internet, and how these tech giants make use of it has forced leaders like Tim Berners-Lee, founder of the WWW to radically overhaul his own creation! Migrating to a “Decentralized Internet” may seem like a longshot at best, but it is a necessary transition that all of us will have to make when an eventual tipping point is reached and the people realize that the “Data belongs to me”.&lt;/p&gt;
+
+&lt;p&gt;Ask a 10-year-old Jack what Facebook is for, and he’ll tell you it is “to help me make friends”
+But, Facebook’s board is not working to help Jack make more friends. It is looking to make a hefty profit out of Jack’s social graph. The discernment that we are not the customers of Facebook, we are the product, Facebook is selling us to advertisers, is yet to kick-in.
+Looking back at the last year, there’s evidence that Internet has become more of a purveyor of lies than of truth because of the way the targeted advertising model encourages people to put things online which are likely to be clicked upon (Clickbait)
+With the Indian SC declaring privacy as a “fundamental” right, it is clear that the companies who treat data ethics as a social responsibility as important as environmental awareness are tomorrow’s winners. Digital trust is paramount for digital growth and welfare.&lt;/p&gt;
+
+&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Ethics-Privacy.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>MongoDB (NoSQL Databases)</title>
+      <link>https://rahalkar.dev/talk/no-sql/</link>
+      <pubDate>Sat, 21 Apr 2018 14:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/no-sql/</guid>
+      <description>&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://bit.ly/mongodbdemo&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Content Addressed Peer-to-Peer File System for the Web with Blockchain-Based Metadata Integrity</title>
+      <link>https://rahalkar.dev/talk/content-addressed-filesystem/</link>
+      <pubDate>Tue, 27 Mar 2018 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/content-addressed-filesystem/</guid>
+      <description>&lt;p&gt;With the exponentially scaled World Wide Web, the standard HTTP protocol has started showing its limitations. With an increased amount of data duplication &amp;amp; accidental deletion of files on the Internet, the P2P file system called IPFS completely changes the way files are stored. IPFS is a file storage protocol allowing files to be stored on decentralized systems. In the HTTP client-server protocol, files are downloaded  has from a single source. With files stored on a decentralized network, IPFS allows packet retrieval from multiple sources, simultaneously saving considerable bandwidth. IPFS uses a content-addressed block storage model with content-addressed hyperlinks. Large amounts of data can is addressable with IPFS with the immutable and permanent IPFS links with meta-data stored as Blockchain transactions. This timestamps and secures the data, instead of having to put it on the chain itself. Our paper proposes a model to use the decentralized file storage system of IPFS, and the integrity preservation properties of the Blockchain, to store and distribute data on the Web.&lt;/p&gt;
+
+&lt;p&gt;With the ever-expanding World Wide Web, the data generated on the web has grown vastly. The amount of data generated daily is at a staggering 2.5 quintillion bytes. This pace is gaining constant momentum due to the inclusion of new IoT devices every day. Sensory data produced by IoT devices get bulkier as modern devices are added to the Internet. To counter the problem of data handling, many distributed file systems were introduced. The popular ones being Napster, BitTorrent, KaZaA, supporting millions of distributed users. Among all of them, HTTP - one of the oldest protocols on the Internet is the biggest distributed file system, when coupled with browsers allowing users to share files globally. With the increase in the scalability of the World Wide Web, the reliability of  HTTP began to degrade. Keeping track of terabytes of data and moving these files over the Web is a difficult task. Several other protocols were introduced to tackle the problem of scalability and decentralization with an intention of replacing the well-established reign of HTTP.
+The other problem with HTTP is security and data integrity. As a countermeasure, the inclusion of Blockchain technology was introduced. Blockchain technology cannot be used to store the entire data due to its distributed ledger protocol. This protocol states that every node in the Blockchain must preserve a copy of the data, on the chain. Hence, storing petabytes of data on the Blockchain is infeasible. This model proposes to store only the file metadata, summarizing necessary information about data, on the Blockchain. This data, being in bytes for a single file, reduces the overall size of the ledger.&lt;/p&gt;
+
+&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Seminar.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Cryptocurrencies and Blockchain</title>
+      <link>https://rahalkar.dev/talk/crypto-blockchain/</link>
+      <pubDate>Fri, 25 Aug 2017 11:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/talk/crypto-blockchain/</guid>
+      <description>&lt;p&gt;Get a copy of the talk slides &lt;a href=&#34;https://github.com/chaitanyarahalkar/temporary-uploads/raw/master/Cryptocurrencies%20and%20Blockchain.pdf&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>administration | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/administration/</link>
+      <atom:link href="https://rahalkar.dev/tags/administration/index.xml" rel="self" type="application/rss+xml" />
+    <description>administration</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Thu, 16 May 2019 04:39:06 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>administration</title>
+      <link>https://rahalkar.dev/tags/administration/</link>
+    </image>
+    
+    <item>
+      <title>A Guide to Partitions &amp; Partitioning Drives in Linux</title>
+      <link>https://rahalkar.dev/post/a-guide-to-partitions-partitioning-drives-in-linux/</link>
+      <pubDate>Thu, 16 May 2019 04:39:06 +0000</pubDate>
+      <guid>https://rahalkar.dev/post/a-guide-to-partitions-partitioning-drives-in-linux/</guid>
+      <description>
+
+&lt;p&gt;Linux has completely different naming conventions while mounting drives as compared to Windows. /dev/sda,/dev/sdb,/dev/sdc etc. are the conventions in Linux.&lt;/p&gt;
+
+&lt;p&gt;Each drive has its own partition table that describes the layout of partitions of the drive. MBR,GPT etc. are the different partition table standards used.
+The MBR partition scheme is quite old and is rarely used due to limitations like-&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;It does not allow the configuration of more than four main partitions. Those partitions are called primary partitions.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Disk partitions are limited to 2TB&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Every disk can have three kinds of partitions as per the MBR scheme -&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Primary Partitions - Usually for storing OSes&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Logical Partitions - Every primary partition may have multiple logical partitions&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extended Partitions - A primary partition can be extended with this to overcome the limitation of maximum four primary partitions.
+These partitions can be found named with the conventions /dev/sda1,/dev/sda2 etc.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(Enter all the commands mentioned below in root or with a sudoers&amp;rsquo; user)&lt;/p&gt;
+
+&lt;h4 id=&#34;mounting-drives-in-linux&#34;&gt;Mounting drives in Linux&lt;/h4&gt;
+
+&lt;p&gt;Running &lt;code&gt;fdisk -l&lt;/code&gt; in root lists out the number of drives that are mounted on the system. &lt;code&gt;/dev/sda&lt;/code&gt; is usually the hard drive or SSD on which the OS is running. Other external drives can be found ususally at &lt;code&gt;/dev/sdb&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;df -h&lt;/code&gt; may also help locating external drives.&lt;/p&gt;
+
+&lt;p&gt;Whenever an external drive is inserted it is usually automatically mounted. To format a drive it must be unmounted first.&lt;/p&gt;
+
+&lt;p&gt;Drives can also be mounted with &lt;code&gt;mount /dev/sda /mnt&lt;/code&gt; if the drive to be mounted is &lt;code&gt;/dev/sda&lt;/code&gt; and the mount location is &lt;code&gt;/mnt&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;formatting-drives-in-linux&#34;&gt;Formatting drives in Linux&lt;/h4&gt;
+
+&lt;p&gt;There are two ways to format drives. One is with a graphical interface utility (GParted) or via the terminal.&lt;/p&gt;
+
+&lt;p&gt;GParted may be installed with the aptitude package manager supporting OSes by
+&lt;code&gt;apt-get install gparted&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Entering &lt;code&gt;umount /dev/sdc1&lt;/code&gt; in root if sdc1 is the drive mount point, will unmount the external drive.
+Format the drive with the mkfs utility provided with Linux&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    mkfs.ext4 /dev/sdc1 For ext4 file system
+    mkfs.vfat /dev/sdc1 For vFat file system
+    mkfs.ntfs /dev/sdc1 For NTFS file system
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;creating-a-bootable-drive-in-linux&#34;&gt;Creating a bootable drive in Linux&lt;/h4&gt;
+
+&lt;p&gt;The USB drive must be completely formatted before installing. Format the drive to any supported file system. Several GUI based utilities like etcher can be used to format and create bootable drives.
+Linux and Unix based systems provide the data duplicator(dd) utility to copy binary data to drives.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    dd if=/home/linus/file.iso of=/dev/sdc 
+    if - The location of the input file
+    of - Location of the mounted drive
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Status of dd can be monitored by&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    grep -l &#39;^dd$ - Returns the process Id of dd
+    kill -USR1 process_id - Shows the status 
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After dd has completed transferring the iso to the drive type &lt;code&gt;sync&lt;/code&gt;.
+This is a good practice, since it forces completition of pending disk writes. It flushes the cache.&lt;/p&gt;
+
+&lt;h4 id=&#34;partitioning-drives-in-linux&#34;&gt;Partitioning Drives In Linux&lt;/h4&gt;
+
+&lt;h5 id=&#34;creating-a-partition&#34;&gt;Creating a partition&lt;/h5&gt;
+
+&lt;p&gt;GParted is an excellent utility to partition drives. It can also be done with its command-line version invoked by &lt;code&gt;parted&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;1.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; (within the parted console invoked after typing &lt;code&gt;parted&lt;/code&gt;)if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2.Label the disk with &lt;code&gt;mklabel name&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;3.Create the partition&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;    mkpart logical - Creates a logical partition
+    
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Enter the start and end location in megabytes. This will indicate the size of the partition. Eg. Start can be 1 and End can be 1000 indicating a partition of 1 Gb&lt;/p&gt;
+
+&lt;p&gt;4.The partition can be formatted with any file system with the &lt;code&gt;mkfs&lt;/code&gt; command as explained above.&lt;/p&gt;
+
+&lt;h5 id=&#34;removing-a-partition&#34;&gt;Removing a partition&lt;/h5&gt;
+
+&lt;p&gt;1.Invoke the parted utility with &lt;code&gt;parted&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;2.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;3.&lt;code&gt;rm 1&lt;/code&gt; will remove the first partition from sdc if it has been selected&lt;/p&gt;
+
+&lt;h5 id=&#34;resizing-a-partition&#34;&gt;Resizing a partition&lt;/h5&gt;
+
+&lt;p&gt;1.Invoke the parted utility with &lt;code&gt;parted&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;2.Select the disk to be operated on with &lt;code&gt;select /dev/sdc&lt;/code&gt; if the disk to be parted is at &lt;code&gt;/dev/sdc&lt;/code&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;resizepart&lt;/code&gt; will ask for the new start and end to resize the partition.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&#34;recovering-a-partition&#34;&gt;Recovering a partition&lt;/h5&gt;
+
+&lt;p&gt;Lost partitions can be recovered by &lt;code&gt;rescue&lt;/code&gt;. It asks for the start and end point in Mbs. If any lost partition is found,parted will recover the lost partition.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
