@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>journal | Chaitanya Rahalkar</title>
+    <link>https://rahalkar.dev/tags/journal/</link>
+      <atom:link href="https://rahalkar.dev/tags/journal/index.xml" rel="self" type="application/rss+xml" />
+    <description>journal</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Chaitanya Rahalkar © 2024</copyright><lastBuildDate>Mon, 09 Sep 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://rahalkar.dev/img/icon-192.png</url>
+      <title>journal</title>
+      <link>https://rahalkar.dev/tags/journal/</link>
+    </image>
+    
+    <item>
+      <title>A Secure Password Manager</title>
+      <link>https://rahalkar.dev/publication/pwm-ijca/</link>
+      <pubDate>Mon, 09 Sep 2019 00:00:00 +0000</pubDate>
+      <guid>https://rahalkar.dev/publication/pwm-ijca/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
