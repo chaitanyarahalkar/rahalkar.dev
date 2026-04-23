@@ -37,40 +37,6 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Install here.now skill
-        if: ${{ secrets.HERENOW_API_KEY != '' }}
-        run: npx skills add heredotnow/skill --skill here-now -g -y
-
-      - name: Publish to here.now
-        if: ${{ secrets.HERENOW_API_KEY != '' }}
-        id: herenow
-        env:
-          HERENOW_API_KEY: ${{ secrets.HERENOW_API_KEY }}
-        run: |
-          mkdir -p ~/.herenow
-          printf "%s" "$HERENOW_API_KEY" > ~/.herenow/credentials
-          chmod 600 ~/.herenow/credentials
-
-          OUT=$("$HOME/.agents/skills/here-now/scripts/publish.sh" ./dist --client github-actions)
-          echo "$OUT"
-
-          SITE_URL=$(echo "$OUT" | grep 'publish_result.site_url=' | cut -d= -f2)
-          SLUG=$(echo "$SITE_URL" | sed -E 's#https://([^.]+)\.here\.now/.*#\1#')
-
-          echo "site_url=$SITE_URL" >> "$GITHUB_OUTPUT"
-          echo "slug=$SLUG" >> "$GITHUB_OUTPUT"
-
-      - name: Point cr.here.now to latest slug
-        if: ${{ secrets.HERENOW_API_KEY != '' }}
-        env:
-          HERENOW_API_KEY: ${{ secrets.HERENOW_API_KEY }}
-          HERENOW_SLUG: ${{ steps.herenow.outputs.slug }}
-        run: |
-          curl -sS -X PATCH "https://here.now/api/v1/links/__root__" \
-            -H "Authorization: Bearer $HERENOW_API_KEY" \
-            -H "Content-Type: application/json" \
-            -d "{\"slug\":\"$HERENOW_SLUG\"}"
-
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
