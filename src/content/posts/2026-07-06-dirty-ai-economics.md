@@ -1,10 +1,10 @@
 ---
-title: 'The Uncomfortable Economics Behind the AI Boom'
+title: "The Uncomfortable Economics Behind the AI Boom"
 published: 2026-07-06 10:00:00+00:00
 draft: false
-description: 'My perspective on the AI infrastructure arms race: why the technology can be real, useful, and transformative while the current economics still look fragile.'
-tags: ['AI', 'Economics', 'Infrastructure', 'Technology', 'Markets']
-series: ''
+description: "My perspective on the AI infrastructure arms race: why the technology can be real, useful, and transformative while the current economics still look fragile."
+tags: ["AI", "Economics", "Infrastructure", "Technology", "Markets"]
+series: ""
 toc: true
 ---
 
@@ -12,7 +12,7 @@ I use AI every day, and I still think we are living through one of the most impo
 
 That is the part of the current cycle that feels uncomfortable. The public conversation is mostly about model capability, benchmarks, agents, copilots, and automation. The quieter story is about power, chips, depreciation, data centers, financing, and the amount of revenue required to justify this buildout.
 
-My current view is not that AI is fake. It is that the market may be confusing _technical inevitability_ with _economic inevitability_.
+My current view is not that AI is fake. It is that the market may be confusing *technical inevitability* with *economic inevitability*.
 
 ---
 
