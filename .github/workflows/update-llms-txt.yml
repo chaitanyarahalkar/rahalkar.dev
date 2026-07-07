@@ -1,0 +1,85 @@
+name: Update llms.txt
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/update-llms-txt.yml'
+      - 'astro.config.mjs'
+      - 'package.json'
+      - 'public/**'
+      - 'scripts/generate-llms-txt.mjs'
+      - 'src/**'
+  pull_request:
+    paths:
+      - '.github/workflows/update-llms-txt.yml'
+      - 'astro.config.mjs'
+      - 'package.json'
+      - 'public/**'
+      - 'scripts/generate-llms-txt.mjs'
+      - 'src/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: llms-txt-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate llms.txt
+        run: npm run llms:generate
+
+      - name: Verify llms.txt is current
+        run: |
+          if ! git diff --exit-code -- public/llms.txt; then
+            echo "::error::public/llms.txt is stale. Run npm run llms:generate and commit the result."
+            exit 1
+          fi
+
+  update:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Generate llms.txt
+        run: npm run llms:generate
+
+      - name: Commit llms.txt update
+        run: |
+          if git diff --quiet -- public/llms.txt; then
+            echo "public/llms.txt is already current."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/llms.txt
+          git commit -m "Update llms.txt"
+          git push
