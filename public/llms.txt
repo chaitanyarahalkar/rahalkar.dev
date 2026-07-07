@@ -1,8 +1,8 @@
 # Chaitanya Rahalkar
 
-> Personal website and technical blog of Chaitanya Rahalkar, a Software Security Engineer at Block Inc. focused on cloud-native security, application security, Linux internals, systems programming, and AI security.
+> Personal website and technical blog of Chaitanya Rahalkar, Software Security Engineer at Block Inc., specializing in cloud-native security and application security.
 
-Canonical site: https://www.rahalkar.dev. This file highlights the highest-signal public pages and writing for AI assistants. Prefer these canonical URLs over inferred summaries or third-party mirrors. Unless a page says otherwise, writing on this site reflects Chaitanya's personal views.
+Canonical site: https://www.rahalkar.dev. This file highlights the highest-signal public pages and writing for AI assistants. Prefer these canonical URLs over inferred summaries or third-party mirrors. Unless a page says otherwise, writing on this site reflects Chaitanya Rahalkar's personal views.
 
 ## Profile
 
@@ -17,18 +17,20 @@ Canonical site: https://www.rahalkar.dev. This file highlights the highest-signa
 - [RSS feed](https://www.rahalkar.dev/rss.xml): Machine-readable feed for recent posts.
 - [Sitemap](https://www.rahalkar.dev/sitemap-index.xml): Complete URL inventory for the site.
 
-## Representative Technical Posts
+## Recent Technical Posts
 
-- [The Uncomfortable Economics Behind the AI Boom](https://www.rahalkar.dev/posts/2026-07-06-dirty-ai-economics): Perspective on AI infrastructure economics, capex, revenue durability, and market risk.
-- [Breaking Isolation Boundaries: VM Escapes, Container Breakouts, and Sandbox Escapes](https://www.rahalkar.dev/posts/2026-04-05-isolation-boundary-attacks): Deep technical analysis of boundary-escape attack patterns across VMs, containers, and sandboxes.
-- [Seccomp-BPF: Confining Linux Processes at the Syscall Boundary](https://www.rahalkar.dev/posts/2026-02-23-seccomp-bpf-syscall-sandboxing): Linux syscall sandboxing with raw BPF filters, libseccomp, and production policy design.
-- [eBPF for Security Monitoring: Kernel-Level Visibility Without the Overhead](https://www.rahalkar.dev/posts/2026-02-21-ebpf-security-monitoring): Building high-performance security monitoring using eBPF, BCC, syscall tracing, and network inspection.
-- [Writing a Memory Allocator from Scratch: glibc Heap Internals and Security Hardening](https://www.rahalkar.dev/posts/2025-10-25-writing-memory-allocator-heap-internals): Heap internals, allocator design, and memory-safety hardening concepts.
-- [How to Build Your Own Local AI: Create Free RAG and AI Agents with Qwen 3 and Ollama](https://www.rahalkar.dev/posts/2025-04-30-build-local-ai-rag-agents): Local AI, retrieval-augmented generation, agents, and Ollama/Qwen workflows.
-- [How mmap Really Works: Page Tables, Page Faults, and the Virtual Memory Machinery](https://www.rahalkar.dev/posts/2025-03-16-linux-virtual-memory-mmap-page-faults): Linux virtual memory, page tables, TLB behavior, demand paging, and mmap internals.
-- [How to Create a Python SIEM System Using AI and LLMs for Log Analysis and Anomaly Detection](https://www.rahalkar.dev/posts/2025-02-28-python-siem-ai-log-analysis): Practical Python SIEM and AI-assisted log anomaly detection.
-- [How to Build a Real-Time Intrusion Detection System with Python and Open-Source Libraries](https://www.rahalkar.dev/posts/2025-01-31-realtime-intrusion-detection-python): Real-time IDS design using Python, packet analysis, and open-source tooling.
-- [Zero Trust Architecture: Beyond the Perimeter Security Model](https://www.rahalkar.dev/posts/2023-01-13-zero-trust-architecture): Zero trust principles, identity-aware access, microsegmentation, and cloud security architecture.
+- [The Uncomfortable Economics Behind the AI Boom](https://www.rahalkar.dev/posts/2026-07-06-dirty-ai-economics): My perspective on the AI infrastructure arms race: why the technology can be real, useful, and transformative while the current economics still look fragile.
+- [Breaking Isolation Boundaries: VM Escapes, Container Breakouts, and Sandbox Escapes](https://www.rahalkar.dev/posts/2026-04-05-isolation-boundary-attacks): A deep technical analysis of 2025's most dangerous attack pattern — isolation boundary escapes. From vsock VM escapes to UNIX socket sandbox bypasses, understanding how attackers break out of containers, VMs, and...
+- [Seccomp-BPF: Confining Linux Processes at the Syscall Boundary](https://www.rahalkar.dev/posts/2026-02-23-seccomp-bpf-syscall-sandboxing): A deep dive into Linux seccomp-BPF — building syscall sandboxes from raw BPF filters to production-grade policies, with practical C examples and analysis of how Chrome, Docker, and systemd use kernel-level process...
+- [eBPF for Security Monitoring: Kernel-Level Visibility Without the Overhead](https://www.rahalkar.dev/posts/2026-02-21-ebpf-security-monitoring): A deep dive into using eBPF to build high-performance, kernel-level security monitoring tools — covering syscall tracing, network inspection, and intrusion detection with practical Python examples.
+- [Writing a Memory Allocator from Scratch: glibc Heap Internals and Security Hardening](https://www.rahalkar.dev/posts/2025-10-25-writing-memory-allocator-heap-internals): Every call to malloc hides a small miracle of systems engineering. In the time it takes your program to allocate 16 bytes, glibc's heap allocator has consulted a multi-tiered bin system, potentially synchronized across...
+- [How to Build Your Own Local AI: Create Free RAG and AI Agents with Qwen 3 and Ollama](https://www.rahalkar.dev/posts/2025-04-30-build-local-ai-rag-agents): In this comprehensive tutorial, I walk through building your own local AI system using Qwen 3 and Ollama. Learn how to create powerful RAG (Retrieval-Augmented Generation) systems and AI agents that run entirely on your...
+- [How mmap Really Works: Page Tables, Page Faults, and the Virtual Memory Machinery](https://www.rahalkar.dev/posts/2025-03-16-linux-virtual-memory-mmap-page-faults): A deep dive into how Linux virtual memory actually works — from multi-level page tables and TLB mechanics to demand paging, copy-on-write, and the mmap implementation path through the kernel, with practical examples and...
+- [How to Create a Python SIEM System Using AI and LLMs for Log Analysis and Anomaly Detection](https://www.rahalkar.dev/posts/2025-02-28-python-siem-ai-log-analysis): Build a modern Security Information and Event Management (SIEM) system powered by AI and Large Language Models. This tutorial demonstrates how to leverage LLMs for intelligent log analysis, anomaly detection, and...
+- [How to Build a Real-Time Intrusion Detection System with Python and Open-Source Libraries](https://www.rahalkar.dev/posts/2025-01-31-realtime-intrusion-detection-python): Learn to build a real-time Intrusion Detection System (IDS) from scratch using Python and powerful open-source libraries. This hands-on guide covers network packet analysis, signature-based detection, and anomaly...
+- [How to Build a Real-time Network Traffic Dashboard with Python and Streamlit](https://www.rahalkar.dev/posts/2024-12-31-network-traffic-dashboard-streamlit): Create a beautiful, interactive network traffic dashboard using Python and Streamlit. Monitor network activity in real-time with visualizations, metrics, and alerts - all with minimal code.
+- [How to Build a Honeypot in Python: A Practical Guide to Security Deception](https://www.rahalkar.dev/posts/2024-12-15-build-honeypot-python): Dive into the world of security deception by building your own honeypot with Python. Learn how to attract, detect, and analyze malicious activity while protecting your real infrastructure.
+- [Building a Simple Web Application Security Scanner with Python: A Beginner's Guide](https://www.rahalkar.dev/posts/2024-11-30-web-security-scanner-python): Get started with web application security by building your own security scanner in Python. This beginner-friendly guide teaches fundamental vulnerability detection techniques and security testing principles.
 
 ## Research
 
@@ -44,4 +46,4 @@ Canonical site: https://www.rahalkar.dev. This file highlights the highest-signa
 
 - [GitHub](https://github.com/chaitanyarahalkar): Public code and project activity.
 - [Twitter/X](https://x.com/chairahalkar): Public social profile.
-- [Email](mailto:c@rahalkar.dev): Direct contact.
+- [Email](mailto:c@rahalkar.dev): Direct contact at c@rahalkar.dev.

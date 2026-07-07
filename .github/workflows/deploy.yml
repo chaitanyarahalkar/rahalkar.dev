@@ -34,6 +34,9 @@ jobs:
       - name: Ensure Sharp is available
         run: npm install --no-save sharp --include=optional
 
+      - name: Generate llms.txt
+        run: npm run llms:generate
+
       - name: Build site
         run: npm run build
 
