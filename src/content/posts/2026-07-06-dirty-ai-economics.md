@@ -57,6 +57,36 @@ AI may rhyme with that history. The technology can win while many investments ar
 
 ---
 
+## The numbers that changed my mind
+
+Here are the metrics I keep coming back to. They are imperfect because every company reports AI infrastructure differently, but the direction is hard to miss: the physical layer of AI is scaling faster than the proven revenue layer.
+
+| Signal                                               |                                           Metric | Why it matters                                                                                                                                                    | Source                                                                                                                                    |
+| ---------------------------------------------------- | -----------------------------------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Microsoft FY2025 additions to property and equipment |         **$64.6B**, up from **$44.5B** in FY2024 | The cash-flow statement shows a $20B step-up in physical infrastructure spend, and management explicitly ties future capex to cloud growth and AI infrastructure. | [Microsoft 2025 Annual Report](https://www.microsoft.com/investor/reports/ar25/index.html)                                                |
+| Alphabet 2026 capex guide                            |                                  **$175B–$185B** | Alphabet says 2026 capex is being lifted to meet AI and cloud demand; that is an infrastructure budget on the scale of a large industrial economy.                | [Alphabet Q4 2025 results, SEC Exhibit 99.1](https://www.sec.gov/Archives/edgar/data/1652044/000165204426000012/googexhibit991q42025.htm) |
+| Amazon 2026 capex plan                               |                                  about **$200B** | Amazon says it is willing to accept short-term free-cash-flow pressure because it believes AI can become a major AWS growth pillar.                               | [Amazon 2025 Annual Report](https://s2.q4cdn.com/299287126/files/doc_financials/2026/ar/Amazon-2025-Annual-Report.pdf)                    |
+| Meta property and equipment, net                     | **$176.4B** in 2025, up from **$121.3B** in 2024 | Meta's balance sheet shows how quickly servers, network assets, buildings, and construction-in-progress are becoming core to the AI strategy.                     | [Meta 2025 Form 10-K](https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm)                               |
+| Global data-center electricity demand                |     projected to reach about **945 TWh by 2030** | The AI story is no longer just software; the International Energy Agency expects data-center electricity consumption to roughly double by 2030.                   | [IEA: Energy demand from AI](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai)                                             |
+
+<div class="ai-economics-chart" aria-label="Selected AI infrastructure metrics, in billions of US dollars except electricity demand in terawatt-hours">
+  <style>
+    .ai-economics-chart { margin: 1.5rem 0; padding: 1rem; border: 1px solid var(--color-border, #333); border-radius: 12px; }
+    .ai-economics-chart h3 { margin-top: 0; }
+    .ai-economics-chart .row { display: grid; grid-template-columns: 8rem 1fr 5rem; gap: .75rem; align-items: center; margin: .65rem 0; }
+    .ai-economics-chart .bar { height: 1.1rem; border-radius: 999px; background: linear-gradient(90deg, #7c3aed, #06b6d4); min-width: 2px; }
+    .ai-economics-chart .note { font-size: .85rem; opacity: .8; margin-bottom: 0; }
+  </style>
+  <h3>Selected AI infrastructure scale markers</h3>
+  <div class="row"><strong>Microsoft</strong><div class="bar" style="width: 32.3%"></div><span>$64.6B</span></div>
+  <div class="row"><strong>Alphabet</strong><div class="bar" style="width: 90%"></div><span>$180B*</span></div>
+  <div class="row"><strong>Amazon</strong><div class="bar" style="width: 100%"></div><span>$200B*</span></div>
+  <div class="row"><strong>Meta PPE</strong><div class="bar" style="width: 88.2%"></div><span>$176.4B</span></div>
+  <p class="note">*Alphabet and Amazon are 2026 capex guidance/plans. Microsoft is FY2025 additions to property and equipment. Meta is 2025 net property and equipment, not annual capex, so it is shown as a balance-sheet scale marker rather than a directly comparable spend figure.</p>
+</div>
+
+The chart is intentionally simple. It is not trying to compare identical accounting categories; it is trying to show the magnitude of the bet. Once annual infrastructure plans are measured in the tens or hundreds of billions, AI stops looking like a normal SaaS upgrade cycle and starts looking like a capital-intensive platform transition.
+
 ## The supplier-builder split worries me
 
 One thing I keep watching is the difference between the companies selling the picks and shovels and the companies buying them.
@@ -158,6 +188,16 @@ AI is now tied to energy infrastructure. If power availability, grid connections
 ### 5. Real application revenue
 
 The most important signal is not how many people try AI. It is how many workflows become valuable enough that customers pay without subsidies.
+
+---
+
+## Sources I used for the data
+
+- [Microsoft 2025 Annual Report](https://www.microsoft.com/investor/reports/ar25/index.html)
+- [Alphabet Q4 2025 results filed with the SEC](https://www.sec.gov/Archives/edgar/data/1652044/000165204426000012/googexhibit991q42025.htm)
+- [Amazon 2025 Annual Report](https://s2.q4cdn.com/299287126/files/doc_financials/2026/ar/Amazon-2025-Annual-Report.pdf)
+- [Meta 2025 Form 10-K filed with the SEC](https://www.sec.gov/Archives/edgar/data/1326801/000162828026003942/meta-20251231.htm)
+- [International Energy Agency: Energy demand from AI](https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai)
 
 ---
 
