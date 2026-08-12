@@ -1,5 +1,6 @@
 ---
 import Layout from '~/layouts/Layout.astro'
+import CommandLine from '~/components/CommandLine.astro'
 import type { MarkdownLayoutProps } from 'astro'
 
 type Props = MarkdownLayoutProps<{
@@ -11,14 +12,21 @@ type Props = MarkdownLayoutProps<{
 // Now, `frontmatter`, `url`, and other Markdown layout properties
 // are accessible with type safety
 const { frontmatter } = Astro.props
+const path = Astro.url.pathname.replace(/\/$/, '')
 ---
 
 <Layout title={frontmatter.title} description={frontmatter.description}>
   <div class="max-w-full py-7.5">
-    <h1 class="md:mx-2 mb-3 text-[1.75rem] text-heading1 font-semibold">
-      # {frontmatter.title}
-    </h1>
-    <div class="mb-5 prose">
+    <div class="md:mx-2">
+      <CommandLine command={`cat ~${path}.md`} class="text-sm" />
+      <h1
+        class="text-heading1 mt-4 w-fit text-[1.9rem] leading-tight font-bold tracking-tight"
+      >
+        {frontmatter.title}
+      </h1>
+      <div class="gradient-rule mt-3 w-full max-w-40"></div>
+    </div>
+    <div class="prose mt-6 mb-5">
       <slot />
     </div>
   </div>

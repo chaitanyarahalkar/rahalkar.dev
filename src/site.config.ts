@@ -11,7 +11,14 @@ const config: SiteConfig = {
   // The author of the site, used in the footer, SEO, and RSS feed.
   author: 'Chaitanya Rahalkar',
   // Keywords for SEO, used in the meta tags.
-  tags: ['Security', 'Cloud', 'Software Engineering', 'Cybersecurity', 'Application Security', 'Cloud-Native'],
+  tags: [
+    'Security',
+    'Cloud',
+    'Software Engineering',
+    'Cybersecurity',
+    'Application Security',
+    'Cloud-Native',
+  ],
   // Path to the image used for generating social media previews.
   // Needs to be a square JPEG file due to limitations of the social card generator.
   // Try https://squoosh.app/ to easily convert images to JPEG.
@@ -60,7 +67,8 @@ const config: SiteConfig = {
     mode: 'select',
     // The default theme identifier, used when themeMode is "select" or "light-dark-auto".
     // Make sure this is one of the themes listed in `themes` or "auto" for "light-dark-auto" mode.
-    default: 'ayu-dark',
+    // "vitesse-black" is repainted into the Block palette below (see `overrides`).
+    default: 'vitesse-black',
     // Shiki themes to bundle with the site.
     // https://expressive-code.com/guides/themes/#using-bundled-themes
     // These will be used to theme the entire site along with syntax highlighting.
@@ -135,6 +143,37 @@ const config: SiteConfig = {
     // Their values can be either a literal color (hex, rgb, hsl) or another theme key.
     // See themeKeys list in src/types.ts for available keys to override and reference.
     overrides: {
+      // "Block Terminal" — the palette from Block's engineering blog
+      // (engineering.block.xyz/blog), painted over the vitesse-black base so
+      // code blocks keep a pure-black background. Pure black page, #1a1a1a
+      // surfaces, #333 hairlines, dim #888 metadata, and the Block brand
+      // accents: green prompt, blue links, purple list markers.
+      'vitesse-black': {
+        background: '#000000', // --block-black
+        foreground: '#e0e0e0', // --term-text
+        accent: '#00c244', // --block-green, the terminal prompt colour
+        link: '#0284c7', // --block-blue
+        heading1: '#ffffff', // --block-white
+        heading2: '#ffffff',
+        heading3: '#ffffff',
+        heading4: '#e0e0e0',
+        heading5: '#999999', // --block-gray-light
+        heading6: '#999999',
+        list: '#8b46ff', // --block-purple
+        separator: '#333333', // --term-border
+        italic: '#999999',
+        note: '#0284c7',
+        tip: '#00c244',
+        important: '#8b46ff',
+        caution: '#ff3b30', // --block-red
+        warning: '#ffbb00', // --block-yellow
+        blue: '#0284c7',
+        green: '#00c244',
+        red: '#ff3b30',
+        yellow: '#ffbb00',
+        magenta: '#ff4e98', // --block-pink
+        cyan: '#22d3ee',
+      },
       // Improve readability for aurora-x theme
       // 'aurora-x': {
       //   background: '#292929FF',
@@ -155,6 +194,11 @@ const config: SiteConfig = {
       //   separator: 'magenta',
       //   link: 'list',
       // },
+    },
+    // Optional display names for the theme picker. Themes without an entry
+    // fall back to a title-cased version of their identifier.
+    labels: {
+      'vitesse-black': 'Block Terminal',
     },
   },
   // Social links to display in the footer.

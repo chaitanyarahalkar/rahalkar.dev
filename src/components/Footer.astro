@@ -6,27 +6,28 @@ const currentYear = new Date().getFullYear()
 ---
 
 <footer
-  class="mt-auto pt-9 md:pt-11 grow-0 flex flex-col gap-6 items-center justify-between max-w-full text-foreground/80"
+  class="border-(--term-line) mt-auto flex max-w-full grow-0 flex-col items-center justify-between gap-6 border-t pt-8 md:pt-10"
 >
   {siteConfig.socialLinks && <SocialLinks socialLinks={siteConfig.socialLinks} />}
-  <div class="flex flex-col md:flex-row flex-wrap flex-1 items-center justify-center">
-    <span class="my-1">
-      {siteConfig.author} © {currentYear}
-    </span>
-    <span class="mx-5 hidden md:block"> :: </span>
-    <span class="my-1">
+  <div class="text-(--term-dim) flex flex-col items-center gap-1 text-sm">
+    <p class="command-line max-w-full">
+      <span class="prompt" aria-hidden="true">$</span>
+      <span class="command truncate">echo "&copy; {currentYear} {siteConfig.author}"</span
+      >
+    </p>
+    <p class="text-center">
       Powered by <a
-        class="underline"
+        class="link-sweep"
         target="_blank"
         rel="noopener noreferrer"
         href="https://astro.build">Astro</a
       >
-      & <a
-        class="underline"
+      &amp; <a
+        class="link-sweep"
         target="_blank"
         rel="noopener noreferrer"
         href="https://github.com/stelcodes/multiterm-astro">MultiTerm</a
       >
-    </span>
+    </p>
   </div>
 </footer>

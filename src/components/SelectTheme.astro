@@ -10,6 +10,10 @@ function kebabToTitleCase(str: string): string {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize each word
     .join(' ') // Join the words with a space
 }
+
+function themeLabel(theme: string): string {
+  return siteConfig.themes.labels?.[theme as never] ?? kebabToTitleCase(theme)
+}
 ---
 
 <select-theme class="ms-auto" id="search">
@@ -24,7 +28,7 @@ function kebabToTitleCase(str: string): string {
   </button>
   <dialog
     aria-label="select-theme"
-    class="text-foreground! bg-background max-h-5/6 max-w-5/6 border-double! border-4 border-accent/30 shadow-sm backdrop:backdrop-blur-sm open:flex mx-auto mt-16 mb-auto rounded-xl"
+    class="text-foreground! bg-background max-h-5/6 max-w-5/6 border border-(--term-line) shadow-sm backdrop:backdrop-blur-sm open:flex mx-auto mt-16 mb-auto rounded-xl"
   >
     <div class="dialog-frame flex grow flex-col gap-4 px-10 py-1 max-w-full">
       <button
@@ -42,7 +46,7 @@ function kebabToTitleCase(str: string): string {
           siteConfig.themes.include.map((theme) => (
             <li>
               <button class="w-full rounded-lg py-1 px-2" data-theme={theme}>
-                {kebabToTitleCase(theme)}
+                {themeLabel(theme)}
               </button>
             </li>
           ))

@@ -1,11 +1,9 @@
 ---
-import IconChevronsRight from '~/icons/chevrons-right.svg'
 import type { CollectionEntry } from 'astro:content'
 import { render } from 'astro:content'
 import Tags from '~/components/Tags.astro'
-import PostInfo from '~/components/PostInfo.astro'
 import type { Collation } from '~/types'
-import { TagsGroup } from '~/utils'
+import { TagsGroup, dateString } from '~/utils'
 
 interface Props {
   post: CollectionEntry<'posts'>
@@ -15,30 +13,65 @@ const { post } = Astro.props
 
 const { remarkPluginFrontmatter } = await render(post)
 const description = remarkPluginFrontmatter.description || post.data.description
+const { minutesRead } = remarkPluginFrontmatter
 let tags: Collation<'posts'>[] | undefined
 if (post.data.tags && post.data.tags.length > 0) {
   const tagsGroup = await TagsGroup.build()
   tags = tagsGroup.matchMany(post.data.tags)
 }
+const category = post.data.series || undefined
 ---
 
-<article class="w-full py-5 my-1 md:my-4 border-accent/10">
-  <h1 class="mb-3 text-2xl text-heading1 font-semibold">
-    <a href={`/posts/${post.id}`}># {post.data.title}</a>
-  </h1>
-  <PostInfo post={post} class="mb-3 mt-4" />
-  {description && <p class="pl-0.5 my-4 text-base/7 text-foreground">{description}</p>}
+<article class="post-row border-(--term-line) border-b py-6 last:border-b-0">
+  <a href={`/posts/${post.id}`} class="block no-underline">
+    <div
+      class="text-(--term-dim) mb-2 flex flex-col gap-1 text-sm sm:flex-row sm:items-center sm:gap-4"
+    >
+      <time class="shrink-0 sm:min-w-25" datetime={post.data.published.toISOString()}>
+        {dateString(post.data.published)}
+      </time>
+      {
+        category && (
+          <span class="border-(--term-line) text-foreground w-fit shrink-0 rounded border px-2 py-0.5 text-xs">
+            {category}
+          </span>
+        )
+      }
+    </div>
+    <h2
+      class="post-row-title link-sweep text-heading1 w-fit text-2xl leading-snug font-bold"
+    >
+      {post.data.title}
+    </h2>
+    {
+      description && (
+        <p class="text-(--term-dim) mt-2 text-base/relaxed italic">{description}</p>
+      )
+    }
+    <div class="text-(--term-dim) mt-4 flex flex-wrap items-center gap-x-4 text-sm">
+      {post.data.author && <span>{post.data.author}</span>}
+      {minutesRead && <span>{minutesRead}</span>}
+    </div>
+  </a>
   {
     tags && (
-      <div class="mb-6">
+      <div class="mt-3">
         <Tags tags={tags} />
       </div>
     )
   }
-  <div>
-    <a class="button flex items-center !pl-3.5" href={`/posts/${post.id}`}>
-      Read
-      <IconChevronsRight class="size-5 ml-2" />
-    </a>
-  </div>
 </article>
+
+<style>
+  /* The title picks up the link colour and grows its underline when anywhere
+     in the row is hovered, the way Block's post list behaves. */
+  .post-row:hover .post-row-title,
+  .post-row:focus-within .post-row-title {
+    color: var(--theme-link);
+  }
+
+  .post-row:hover .post-row-title::after,
+  .post-row:focus-within .post-row-title::after {
+    width: 100%;
+  }
+</style>

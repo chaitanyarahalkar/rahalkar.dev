@@ -1,6 +1,31 @@
-<>
-  <h1 class="text-accent text-[1.6rem] pb-2.5 pl-1 mt-4 md:mt-7 font-semibold">
-    <slot />
-  </h1>
-  <div class="border-1 border-accent/30 rounded-xl h-1 w-full"></div>
-</>
+---
+import CommandLine from '~/components/CommandLine.astro'
+
+/**
+ * A section header rendered as the shell command that would produce it,
+ * e.g. `$ ls -l ~/posts`. Falls back to the slot text when no command is given.
+ */
+interface Props {
+  command?: string
+}
+
+const { command } = Astro.props
+---
+
+<div class="mt-8 mb-1 md:mt-10">
+  {
+    command ? (
+      <CommandLine command={command} class="text-base" />
+    ) : (
+      <h2 class="command-line text-base">
+        <span class="prompt" aria-hidden="true">
+          $
+        </span>
+        <span class="command">
+          <slot />
+        </span>
+      </h2>
+    )
+  }
+  <div class="bg-(--term-line) mt-3 h-px w-full"></div>
+</div>

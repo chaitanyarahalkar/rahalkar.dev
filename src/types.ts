@@ -139,11 +139,14 @@ export type ColorStyles = {
 export type ThemesWithColorStyles = Partial<Record<BundledShikiTheme, ColorStyles>>
 export type ThemeOverrides = Partial<Record<BundledShikiTheme, Partial<ColorStyles>>>
 
+export type ThemeLabels = Partial<Record<BundledShikiTheme, string>>
+
 export interface ThemesConfig {
   default: BundledShikiTheme | 'auto'
   mode: 'single' | 'light-dark-auto' | 'select'
   include: BundledShikiTheme[]
   overrides?: ThemeOverrides
+  labels?: ThemeLabels
 }
 
 export type SocialLinks = {

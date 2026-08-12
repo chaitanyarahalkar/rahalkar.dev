@@ -92,7 +92,7 @@ button {
 }
 
 a.button {
-  @apply inline-flex text-accent border-3 border-accent/30 border-double py-1.5 px-3 whitespace-nowrap hover:bg-accent/8 rounded-xl transition-colors;
+  @apply text-accent border-accent/50 hover:bg-accent hover:text-background hover:border-accent inline-flex rounded-md border px-3.5 py-1.5 text-sm whitespace-nowrap no-underline transition-colors;
 }
 
 header button,
@@ -102,6 +102,171 @@ header input {
 
 button {
   @apply cursor-pointer;
+}
+
+/* ---------------------------------------------------------------------------
+ * Block terminal motifs
+ *
+ * The visual language borrowed from Block's engineering blog: chrome-framed
+ * terminal windows, `$ command` section headers, hairline surfaces and a
+ * gradient rule under the page title. Everything derives from the active
+ * theme's --theme-* variables, so the motifs travel across all themes rather
+ * than hardcoding the Block palette.
+ * ------------------------------------------------------------------------ */
+
+/* The three greys sit at the perceptual distances Block uses between #000 and
+   #e0e0e0: #1a1a1a surfaces, #333 hairlines and #888 metadata. Layout.astro
+   emits a per-theme --term-surface on top of this, since the panel lift has to
+   be gentler on light themes; this stays as the fallback. */
+:root {
+  --term-surface: color-mix(
+    in oklab,
+    var(--theme-foreground) 22%,
+    var(--theme-background)
+  );
+  --term-line: color-mix(in oklab, var(--theme-foreground) 20%, transparent);
+  --term-dim: color-mix(in oklab, var(--theme-foreground) 68%, var(--theme-background));
+}
+
+.terminal-window {
+  background: var(--term-surface);
+  border: 1px solid var(--term-line);
+  @apply rounded-xl overflow-hidden;
+}
+
+.terminal-titlebar {
+  background: color-mix(in oklab, var(--theme-background) 55%, transparent);
+  border-bottom: 1px solid var(--term-line);
+  @apply flex items-center gap-2 px-3 py-2;
+}
+
+.terminal-dots {
+  @apply flex shrink-0 gap-1.5;
+}
+
+.terminal-dot {
+  @apply size-3 rounded-full;
+}
+
+.terminal-dot-close {
+  background: var(--theme-red);
+}
+
+.terminal-dot-minimize {
+  background: var(--theme-yellow);
+}
+
+.terminal-dot-maximize {
+  background: var(--theme-green);
+}
+
+.terminal-path {
+  color: var(--term-dim);
+  @apply mx-auto truncate text-xs;
+}
+
+.terminal-body {
+  @apply px-4 py-4 sm:px-5;
+}
+
+/* `$ ls -l ~/posts` section headers */
+.command-line {
+  @apply flex items-center gap-2 whitespace-nowrap;
+}
+
+.command-line .prompt {
+  @apply text-accent shrink-0 select-none;
+}
+
+.command-line .command {
+  @apply text-foreground truncate;
+}
+
+.cursor {
+  background: var(--theme-accent);
+  @apply inline-block h-[1.05em] w-[0.55em] shrink-0 translate-y-[0.12em];
+  animation: terminal-blink 1.1s step-end infinite;
+}
+
+@keyframes terminal-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* The green-to-blue bar Block puts under its page titles */
+.gradient-rule {
+  background: linear-gradient(90deg, var(--theme-accent) 0%, var(--theme-link) 100%);
+  @apply h-[3px] rounded-sm;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--theme-accent) 0%, var(--theme-link) 100%);
+  @apply inline-block bg-clip-text text-transparent;
+}
+
+/* Links that grow an underline from the left on hover */
+.link-sweep {
+  @apply relative no-underline;
+}
+
+.link-sweep::after {
+  background-color: currentColor;
+  @apply absolute -bottom-0.5 left-0 block h-0.5 w-0 rounded-sm transition-[width] duration-300 content-[''];
+}
+
+.link-sweep:hover::after,
+.link-sweep:focus-visible::after,
+a:hover .link-sweep::after,
+a:focus-visible .link-sweep::after {
+  @apply w-full;
+}
+
+/* `[tag]` links */
+.bracket-link::before {
+  color: var(--term-dim);
+  @apply content-['['];
+}
+
+.bracket-link::after {
+  color: var(--term-dim);
+  @apply content-[']'];
+}
+
+/* Cards that lift and pick up an accent glow on hover */
+.card-lift {
+  background: var(--term-surface);
+  border: 1px solid var(--term-line);
+  @apply rounded-lg transition-all duration-200;
+}
+
+.card-lift:hover {
+  border-color: var(--theme-accent);
+  background: color-mix(in oklab, var(--theme-accent) 10%, var(--term-surface));
+  box-shadow: 0 4px 12px color-mix(in oklab, var(--theme-accent) 20%, transparent);
+  @apply -translate-y-0.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor {
+    animation: none;
+  }
+
+  .link-sweep::after {
+    @apply transition-none;
+  }
+
+  .card-lift {
+    @apply transition-none;
+  }
+
+  .card-lift:hover {
+    @apply translate-y-0;
+  }
 }
 
 article img {
@@ -322,7 +487,7 @@ article img {
   }
 
   button {
-    @apply font-bold text-center text-accent py-1 px-4.5 border-4 border-accent rounded-xl cursor-pointer hover:bg-accent/15 transition-colors;
+    @apply text-accent border-accent/50 hover:bg-accent hover:text-background cursor-pointer rounded-md border px-4 py-1 text-center text-sm transition-colors;
   }
 
   figure:not(.expressive-code figure) {
