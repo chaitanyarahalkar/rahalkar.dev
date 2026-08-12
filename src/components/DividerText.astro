@@ -5,8 +5,10 @@ interface Props {
 const { text } = Astro.props
 ---
 
-<div class="flex gap-3 items-center my-4">
-  <hr class="flex-1 bg-accent h-0.5 border-none" />
-  <span class="shrink-0 whitespace-nowrap">{text}</span>
-  <hr class="flex-1 bg-accent h-0.5 border-none" />
+<div class="mt-10 mb-1">
+  <p class="command-line text-base">
+    <span class="prompt" aria-hidden="true">$</span>
+    <span class="command">{text}</span>
+  </p>
+  <div class="bg-(--term-line) mt-3 h-px w-full"></div>
 </div>

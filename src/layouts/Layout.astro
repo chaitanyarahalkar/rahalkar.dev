@@ -6,6 +6,7 @@ import LightDarkAutoThemeLoader from '~/components/LightDarkAutoThemeLoader.astr
 import SelectThemeLoader from '~/components/SelectThemeLoader.astro'
 import siteConfig from '~/site.config'
 import { pick, resolveThemeColorStyles } from '~/utils'
+import Color from 'color'
 import crypto from 'crypto'
 
 interface Props {
@@ -107,6 +108,17 @@ for (const [themeId, themeStyles] of Object.entries(resolvedThemes)) {
   cssLines.push(`:root[data-theme="${themeId}"] {`)
   for (const [key, value] of Object.entries(relevantStyles)) {
     cssLines.push(`--theme-${key}: ${value};`)
+  }
+  // Terminal panels sit slightly above the page, the way Block lifts its
+  // surfaces to #1a1a1a over a black canvas. That step has to be gentler on
+  // light themes, where the same lift reads as a heavy grey block.
+  try {
+    const background = new Color(themeStyles.background)
+    const foreground = new Color(themeStyles.foreground)
+    const lift = background.isDark() ? 0.11 : 0.05
+    cssLines.push(`--term-surface: ${background.mix(foreground, lift).hex()};`)
+  } catch {
+    // Leave the global.css fallback in place if a theme colour won't parse.
   }
   cssLines.push(`}`)
 }

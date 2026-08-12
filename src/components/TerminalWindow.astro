@@ -1,0 +1,27 @@
+---
+/**
+ * A framed terminal window: traffic-light controls, a dim centred path in the
+ * title bar, and the page content as the "output" below it.
+ */
+interface Props {
+  path?: string
+  class?: string
+  bodyClass?: string
+}
+
+const { path, class: className, bodyClass } = Astro.props
+---
+
+<div class:list={['terminal-window', className]}>
+  <div class="terminal-titlebar">
+    <div class="terminal-dots" aria-hidden="true">
+      <span class="terminal-dot terminal-dot-close"></span>
+      <span class="terminal-dot terminal-dot-minimize"></span>
+      <span class="terminal-dot terminal-dot-maximize"></span>
+    </div>
+    {path && <span class="terminal-path">{path}</span>}
+  </div>
+  <div class:list={['terminal-body', bodyClass]}>
+    <slot />
+  </div>
+</div>

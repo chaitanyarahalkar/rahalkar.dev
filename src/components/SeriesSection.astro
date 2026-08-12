@@ -11,20 +11,54 @@ const { posts } = Astro.props
 const seriesGroup = await SeriesGroup.build(posts)
 ---
 
-<ul class="flex flex-wrap gap-x-3 gap-y-4 my-5">
+<ul class="collation-grid my-5">
   {
     seriesGroup.sortCollationsMostRecent().map((series) => (
       <li>
         <a
           href={series.url}
-          class="flex items-start gap-2.5 py-2 pl-4 pr-3 bg-accent/7 rounded-3xl border-transparent hover:border-accent/20 border-1 text-foreground/90"
+          class="card-lift collation-card flex items-center justify-between gap-3 px-4 py-3 no-underline"
         >
-          {series.title}
-          <span class="rounded-full bg-foreground/7 text-foreground/90 px-2 py-1 text-xs font-semibold">
-            {series.entries.length}
+          <span class="flex min-w-0 flex-col gap-0.5">
+            <span class="text-foreground truncate font-semibold">{series.title}</span>
+            <span class="text-(--term-dim) text-sm">
+              {series.entries.length} {series.entries.length === 1 ? 'post' : 'posts'}
+            </span>
+          </span>
+          <span class="collation-arrow text-(--term-dim) shrink-0" aria-hidden="true">
+            →
           </span>
         </a>
       </li>
     ))
   }
 </ul>
+
+<style>
+  .collation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+    gap: 0.75rem;
+  }
+
+  .collation-arrow {
+    transition:
+      transform 0.2s ease,
+      color 0.2s ease;
+  }
+
+  .collation-card:hover .collation-arrow {
+    color: var(--theme-accent);
+    transform: translateX(4px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .collation-arrow {
+      transition: none;
+    }
+
+    .collation-card:hover .collation-arrow {
+      transform: none;
+    }
+  }
+</style>

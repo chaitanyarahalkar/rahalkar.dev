@@ -13,6 +13,7 @@ import siteConfig from '~/site.config'
 import Tags from '~/components/Tags.astro'
 import PostInfo from '~/components/PostInfo.astro'
 import ScrollUpButton from '~/components/ScrollUpButton.astro'
+import CommandLine from '~/components/CommandLine.astro'
 import type { Collation } from '~/types'
 import ChevronsRight from '~/icons/chevrons-right.svg'
 
@@ -88,14 +89,16 @@ if (postData.tags && postData.tags.length > 0) {
       )
     }
     <div class="md:mx-2">
-      <h1 class="mb-4 text-[1.75rem] text-heading1 font-semibold">
-        # {postData.title}
+      <CommandLine command={`cat ~/posts/${post.id}.md`} class="text-sm" />
+      <h1 class="text-heading1 mt-4 text-[1.9rem] leading-tight font-bold tracking-tight">
+        {postData.title}
       </h1>
-      <div class="my-2 border-l-2 border-accent/80 pl-4 py-2">
-        <PostInfo post={post} class="mb-1" />
+      <div class="gradient-rule mt-3 w-full max-w-40"></div>
+      <div class="mt-4">
+        <PostInfo post={post} />
         {
           tags && (
-            <div class="mt-4">
+            <div class="mt-3">
               <Tags tags={tags} />
             </div>
           )
@@ -131,7 +134,7 @@ if (postData.tags && postData.tags.length > 0) {
   {
     showSeries && series ? (
       <section>
-        <DividerText text={`${series.title} Series`} />
+        <DividerText text={`ls ~/series/${series.key}`} />
         {series.entries
           .filter((p) => p.id !== post.id) // Exclude the current post
           .map((seriesPost) => (
@@ -140,7 +143,7 @@ if (postData.tags && postData.tags.length > 0) {
       </section>
     ) : prev || next ? (
       <section>
-        <DividerText text="More Posts" />
+        <DividerText text="ls ~/posts" />
         {prev && <PostPreview post={prev} />}
         {next && <PostPreview post={next} />}
       </section>
@@ -149,7 +152,7 @@ if (postData.tags && postData.tags.length > 0) {
   {
     siteConfig.giscus && (
       <section>
-        <DividerText text="Comments" />
+        <DividerText text="cat ~/comments.log" />
         <GiscusLoader />
       </section>
     )

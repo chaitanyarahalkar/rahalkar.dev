@@ -1,6 +1,9 @@
 ---
 import { Image } from 'astro:assets'
 import GitHubActivityCalendar from '~/components/GitHubActivityCalendar.astro'
+import TerminalWindow from '~/components/TerminalWindow.astro'
+import CommandLine from '~/components/CommandLine.astro'
+import siteConfig from '~/site.config'
 import type { FrontmatterImage } from '~/types'
 
 interface Props {
@@ -10,27 +13,50 @@ interface Props {
 const { avatarImage, githubCalendar } = Astro.props
 ---
 
-<div class="my-6 md:mx-2">
-  <div
-    class="flex flex-col sm:flex-row items-center justify-around sm:gap-5 max-w-full mb-6"
-  >
-    {
-      avatarImage && (
-        <Image
-          priority
-          src={avatarImage.src}
-          alt={avatarImage.alt}
-          class="rounded-full border-8 border-accent/15 size-40 aspect-square"
-          height={160}
-          width={160}
-        />
-      )
-    }
-    <div>
-      <div class:list={['m-4 max-w-full prose']}>
-        <slot />
+<div class="my-6">
+  <TerminalWindow path="~/" bodyClass="pt-3 pb-6">
+    <CommandLine command="cat welcome.txt" cursor class="text-sm" />
+    <div class="mt-5 flex flex-col items-center gap-5 sm:flex-row sm:items-start">
+      {
+        avatarImage && (
+          <Image
+            priority
+            src={avatarImage.src}
+            alt={avatarImage.alt}
+            class="border-(--term-line) size-28 shrink-0 aspect-square rounded-full border-2"
+            height={160}
+            width={160}
+          />
+        )
+      }
+      <div class="min-w-0">
+        <div class="w-fit">
+          <h1 class="text-heading1 text-3xl leading-tight font-bold tracking-tight">
+            {siteConfig.title}
+          </h1>
+          <div class="gradient-rule mt-2"></div>
+        </div>
+        <div class="prose banner-prose mt-4 max-w-full">
+          <slot />
+        </div>
       </div>
     </div>
-  </div>
+  </TerminalWindow>
   {githubCalendar && <GitHubActivityCalendar username={githubCalendar} />}
 </div>
+
+<style is:global>
+  /* Keep the bio flush with the heading above it — the prose defaults add a
+     horizontal nudge and generous top margin that break the alignment here. */
+  .banner-prose > * {
+    margin-inline: 0 !important;
+  }
+
+  .banner-prose > *:first-child {
+    margin-top: 0;
+  }
+
+  .banner-prose > *:last-child {
+    margin-bottom: 0;
+  }
+</style>

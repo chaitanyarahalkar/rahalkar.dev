@@ -1,0 +1,19 @@
+---
+/**
+ * A shell prompt used as a section header, e.g. `$ ls -l ~/posts`.
+ * Pass `cursor` to trail the command with a blinking block cursor.
+ */
+interface Props {
+  command: string
+  cursor?: boolean
+  class?: string
+}
+
+const { command, cursor = false, class: className } = Astro.props
+---
+
+<p class:list={['command-line', className]}>
+  <span class="prompt" aria-hidden="true">$</span>
+  <span class="command">{command}</span>
+  {cursor && <span class="cursor" aria-hidden="true" />}
+</p>

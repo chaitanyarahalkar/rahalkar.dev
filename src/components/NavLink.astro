@@ -9,10 +9,10 @@ const { link } = Astro.props
 ---
 
 <a
-  class="underline"
+  class="text-accent bracket-link hover:text-foreground no-underline transition-colors"
   rel={link.external ? 'noopener noreferrer' : undefined}
   target={link.external ? '_blank' : undefined}
   href={link.url}
 >
-  {link.name}
+  {link.name}{link.external && <span aria-hidden="true">↗</span>}
 </a>
