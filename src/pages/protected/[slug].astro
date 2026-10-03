@@ -1,0 +1,146 @@
+---
+import type { GetStaticPaths } from 'astro'
+import { getCollection } from 'astro:content'
+import Layout from '~/layouts/Layout.astro'
+import CommandLine from '~/components/CommandLine.astro'
+import { format } from 'date-fns'
+
+// Password-protected posts are unlisted: they are kept out of post listings,
+// RSS, search, llms.txt and the sitemap, and are reachable only by direct link.
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('protected')
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }))
+}) satisfies GetStaticPaths
+
+const { post } = Astro.props
+const { title, published, hint, kdf, iv, ciphertext } = post.data
+---
+
+<Layout title={title} description="This post is password protected." noindex>
+  <article class="max-w-full py-7.5">
+    <div class="md:mx-2">
+      <CommandLine command={`gpg --decrypt ~/posts/${post.id}.md.gpg`} class="text-sm" />
+      <h1 class="text-heading1 mt-4 text-[1.9rem] leading-tight font-bold tracking-tight">
+        {title}
+      </h1>
+      <div class="gradient-rule mt-3 w-full max-w-40"></div>
+      <p class="mt-4 text-sm opacity-70">
+        <time datetime={published.toISOString()}>{format(published, 'MMM d, yyyy')}</time>
+      </p>
+    </div>
+
+    <form id="unlock-form" class="md:mx-2 mt-8 flex flex-col gap-3 max-w-md">
+      <label for="unlock-password" class="text-sm">This post is password protected.</label>
+      {hint && <p class="text-sm opacity-70">Hint: {hint}</p>}
+      <div class="flex gap-2">
+        <input
+          id="unlock-password"
+          type="password"
+          autocomplete="current-password"
+          required
+          class="flex-1 min-w-0 rounded-md border border-accent/30 bg-transparent px-3 py-2 outline-none focus:border-accent"
+          placeholder="password"
+        />
+        <button type="submit" class="button">Unlock</button>
+      </div>
+      <p id="unlock-error" class="text-sm text-red-500" hidden>Wrong password.</p>
+    </form>
+
+    <div
+      id="protected-content"
+      class="md:mx-2 mt-8 mb-5 prose"
+      hidden
+      data-slug={post.id}
+      data-salt={kdf.salt}
+      data-iterations={kdf.iterations}
+      data-iv={iv}
+      data-ciphertext={ciphertext}
+    >
+    </div>
+  </article>
+</Layout>
+
+<script>
+  const fromB64 = (s: string) => Uint8Array.from(atob(s), (c) => c.charCodeAt(0))
+
+  async function deriveKey(password: string, salt: Uint8Array, iterations: number) {
+    const base = await crypto.subtle.importKey(
+      'raw',
+      new TextEncoder().encode(password),
+      'PBKDF2',
+      false,
+      ['deriveKey'],
+    )
+    return crypto.subtle.deriveKey(
+      { name: 'PBKDF2', hash: 'SHA-256', salt, iterations },
+      base,
+      { name: 'AES-GCM', length: 256 },
+      true,
+      ['decrypt'],
+    )
+  }
+
+  function init() {
+    const form = document.getElementById('unlock-form') as HTMLFormElement | null
+    const content = document.getElementById('protected-content') as HTMLElement | null
+    if (!form || !content) return
+    const input = document.getElementById('unlock-password') as HTMLInputElement
+    const error = document.getElementById('unlock-error') as HTMLElement
+    const { slug, salt, iterations, iv, ciphertext } = content.dataset
+    const storageKey = `protected-key:${slug}`
+
+    // Throws on a wrong key: AES-GCM authenticates the ciphertext.
+    async function unlock(key: CryptoKey) {
+      const plain = await crypto.subtle.decrypt(
+        { name: 'AES-GCM', iv: fromB64(iv!) },
+        key,
+        fromB64(ciphertext!),
+      )
+      content!.innerHTML = new TextDecoder().decode(plain)
+      content!.hidden = false
+      form!.hidden = true
+    }
+
+    // Remember the derived key for this tab so reloads don't re-prompt.
+    try {
+      const saved = sessionStorage.getItem(storageKey)
+      if (saved) {
+        crypto.subtle
+          .importKey('raw', fromB64(saved), 'AES-GCM', true, ['decrypt'])
+          .then(unlock)
+          .catch(() => sessionStorage.removeItem(storageKey))
+      }
+    } catch {}
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault()
+      error.hidden = true
+      const button = form.querySelector('button')!
+      button.disabled = true
+      try {
+        const key = await deriveKey(input.value, fromB64(salt!), Number(iterations))
+        await unlock(key)
+        try {
+          const raw = new Uint8Array(await crypto.subtle.exportKey('raw', key))
+          sessionStorage.setItem(storageKey, btoa(String.fromCharCode(...raw)))
+        } catch {}
+      } catch {
+        error.hidden = false
+        input.select()
+      } finally {
+        button.disabled = false
+      }
+    })
+  }
+
+  init()
+</script>
+
+<style>
+  /* Shiki output from scripts/encrypt-post.mjs (injected after decryption) */
+  #protected-content :global(pre.astro-code) {
+    padding: 1rem;
+    border-radius: 10px;
+    overflow-x: auto;
+  }
+</style>

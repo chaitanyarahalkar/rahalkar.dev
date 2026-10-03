@@ -1,0 +1,12 @@
+{
+  "title": "Test Protected Post",
+  "published": "2026-10-03",
+  "kdf": {
+    "name": "PBKDF2",
+    "hash": "SHA-256",
+    "iterations": 600000,
+    "salt": "ZpLP9tYXI3TqEu0vRI9Fcg=="
+  },
+  "iv": "vi+XAYWWj84qediL",
+  "ciphertext": "iZOxUgKFAJTnqFn/dwfIDC6lyoLO4ytbuTfrDtYcWYbN97zSsVMvtwqv73LhqlM200w7HJJyqMQXHuZcmf+gYwvzcM4teQ+ODolx/9DqKtC6a4mh9VpfZ+HXakSPcQ6Mg1wNn6IZItuE3v1g8HNFoZMqxfc9LRIYTYzxY14ScJQcuzHIpXBpxoR/Ro55hHFdAfIKgrDnS1+Muks0tssRCEhE7pb/PURR9KxA0I0aT+TPO1uf7WCcNL/G8eJDZw2YAXXft1umU1ORLCHpebrELOixLbROsSn08f3+hGDlMKgQZOUIRQTlDz4HP0S4tGiRq/zAhnAabeGlVSmKtieNN6g3lt2KNESmoU4MVCkQQ7oAI4cK2GaVrSW3SY44jqcf7WI1eo4yVDwKRp+TsN+gt4t0bBaIcfXrDvoxzdTqXykNwBfkcnEvFqsD3ncOpf08m+mOENQGtEvtSJ7D6oK3BNeKsSSTxee0u7mMyQ4OtQlpiJ9mrHSwvwAVjVolXwaAxWZ5flWEyky/qXfWicJpaSWtW+9ADZ64uxbw5buLMj0liaOtu0+pBSBtDTqCHoff1gQ2ky39nObtXz1D8e6WyXT8ZfSHaby6zkMYrujAJIxy6DhHsYQfDSo/76I5NlVT20FCkK+TthIgRD+M4fc4pLDMMjq2S1Q5IprMR/8FPwuVHhb0fdfCjyqmyHxdJQK68G7RrRh/nfBZNbz1U4K6AR5DMYeUXt8R0xFzIOv6ht8BI50mnA2hzfnDDA2nxQXlR8bqLWaUWmK/uE/I7j/ylyi9CavjqmdU9G7xI0iL00zccF5e/Sg971vrlrjbySOf1uvTeqF9vZS1voKTiAcUIfQWCj8i3PWzd773EYora5VedLSUIIQWBR4anlxo9sGkVv9MtEbQAwkqW85Ydct3AG8BNGXHLFXm8C60BbNbXIqNFxKnUiLZsm8gcls1xptTRQpUhvn86TQYz8sxgWyp6lqFFKL7IPpO5MaTok53UxprgWRR4eR7Je7mbuCDX3kcjns0SdusFmGdWeigVYes2/ytby7ZKwvNCQod4UD+Y/7qrYiltskTcB6GRWmpVwuf1WZQRfmFlLYYGPKNOaJxMJ1FQk4MrgB0T9RSglCgAsoqyHT5vHV8r25gOa+zhpMV9K/caDdpWlyEr5Ool41ievMng4LMXkO2B/uxYtj8oWp+seCb4qKcQZeklL641BXwdkNoCXV91mFJtw03Kx8YNAv0VgMvdbTOVtUqq+t+CFe576zgbEJLM1MpE50fzTE6PTMZbIk+axh4/Gb9tOTuG8E1OteU6rrWYYSxcJE3OmJG"
+}

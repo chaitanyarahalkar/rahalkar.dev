@@ -72,7 +72,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   integrations: [
-    sitemap(),
+    sitemap({ filter: (page) => !page.includes('/protected/') }),
     expressiveCode({
       themes: siteConfig.themes.include,
       useDarkModeMediaQuery: false,

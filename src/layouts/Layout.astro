@@ -14,9 +14,10 @@ interface Props {
   description?: string
   tags?: string[]
   author?: string
+  noindex?: boolean
 }
 
-const { title, description, tags, author } = Astro.props
+const { title, description, tags, author, noindex } = Astro.props
 const pageUrl = new URL(Astro.url.pathname, Astro.site).href.replace(/\/$/, '') // Remove trailing slash for consistency
 const pageType = Astro.url.pathname.startsWith('/posts') ? 'article' : 'website'
 const pageTitle = title ? `${title} - ${siteConfig.title}` : siteConfig.title
@@ -141,6 +142,7 @@ let generatedCss: string = cssLines.join('\n')
     <meta name="title" content={pageTitle} />
     <meta name="description" content={pageDescription} />
     <meta name="author" content={pageAuthor} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={pageDescription} />
     <meta property="og:url" content={pageUrl} />

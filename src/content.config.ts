@@ -50,8 +50,28 @@ const addendumCollection = defineCollection({
     }),
 })
 
+// Password-protected posts: JSON files produced by scripts/encrypt-post.mjs.
+// Only ciphertext is committed; the plaintext lives in the gitignored protected/ folder.
+const protectedCollection = defineCollection({
+  loader: glob({ pattern: '*.json', base: './src/content/protected' }),
+  schema: z.object({
+    title: z.string(),
+    published: z.coerce.date(),
+    hint: z.string().optional(),
+    kdf: z.object({
+      name: z.literal('PBKDF2'),
+      hash: z.literal('SHA-256'),
+      iterations: z.number().int().positive(),
+      salt: z.string(),
+    }),
+    iv: z.string(),
+    ciphertext: z.string(),
+  }),
+})
+
 export const collections = {
   posts: postsCollection,
   home: homeCollection,
   addendum: addendumCollection,
+  protected: protectedCollection,
 }
