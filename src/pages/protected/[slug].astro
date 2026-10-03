@@ -30,8 +30,13 @@ const { title, published, hint, kdf, iv, ciphertext } = post.data
     </div>
 
     <form id="unlock-form" class="md:mx-2 mt-8 flex flex-col gap-3 max-w-md">
-      <label for="unlock-password" class="text-sm">This post is password protected.</label>
+      <label for="unlock-password" class="text-sm">This post is password protected.</label
+      >
       {hint && <p class="text-sm opacity-70">Hint: {hint}</p>}
+      <p class="text-sm opacity-70">
+        If you know me and would like to read this post, email me at
+        <a href="mailto:c@rahalkar.dev" class="underline">c@rahalkar.dev</a>.
+      </p>
       <div class="flex gap-2">
         <input
           id="unlock-password"
